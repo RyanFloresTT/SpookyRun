@@ -21,6 +21,9 @@ add_executable(solojam
         src/cell.h
         src/player.cpp
         src/player.h
+        src/scenes/scene.h
+        src/scenes/opening_scene.h
+        src/scenes/levelscene.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 

@@ -8,8 +8,8 @@ public:
         for (auto& row : cells) row.fill(fill);
     }
 
-    CellState Get(const int x, const int y) const        { return cells[y][x]; }
-    void Set(int x, int y, CellState s)                  { cells[y][x] = s; }
+    CellState Get(const int x, const int y) const                          { return cells[y][x]; }
+    void Set(const int x, const int y, const CellState s)                  { cells[y][x] = s; }
 
     void Draw() const {
         for (int y = 0; y < BoardSize; ++y)

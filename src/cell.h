@@ -19,6 +19,6 @@ inline void DrawCell(const CellState state, const int x, const int y) {
     switch (state) {
         case CellState::Empty: DrawRectangle(px, py, TileSize, TileSize, GetBoardColor(x, y)); break;
         case CellState::Pawn:  DrawRectangle(px, py, TileSize, TileSize, PINK); break;
-        case CellState::Rook:  DrawRectangle(px, py, TileSize, TileSize, RED);  break;
+        case CellState::Rook:  DrawRectangle(px, py, TileSize, TileSize, PURPLE);  break;
     }
 }

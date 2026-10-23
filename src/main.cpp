@@ -15,6 +15,7 @@ int main() {
 
     bool started = false;
     bool playerInitialized = false;
+    float rookTimer = 0.f;
 
     while (!WindowShouldClose()) {
         if (!started && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) started = true;
@@ -41,7 +42,15 @@ int main() {
             }
         }
 
+        if (rookTimer > 5.f) {
+            PlayableGrid->Set(3, 3, CellState::Rook);
+        } else {
+            rookTimer += GetFrameTime();
+        }
 
+        if (PlayerPawn->PlayerWon()) {
+            DrawText("Click to start", TotalBoardWidth/2 - 64, TotalBoardWidth/2, 48, DARKGRAY);
+        }
 
         EndDrawing();
     }

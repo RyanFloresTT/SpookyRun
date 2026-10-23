@@ -25,3 +25,7 @@ void Player::Move(const int dx, const int dy) {
 void Player::Init() const {
     PlayableGrid.Set(x, y, CellState::Pawn);
 }
+
+bool Player::PlayerWon() const {
+    return y == 0;
+}
