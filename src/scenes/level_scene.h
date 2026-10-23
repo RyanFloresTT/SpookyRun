@@ -8,15 +8,17 @@
 
 class LevelScene : public Scene {
 public:
-    void Enter() override { player.Init(); }
+    void Enter() override {
+        player.Init();
+        ROOK_TXT = LoadTextureFromImage( LoadImage("assets/rook.png"));
+    }
 
     void Update(float dt) override {
-        if (IsKeyPressed(KEY_ONE)) playable.Set(3, 3, CellState::Pawn);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             player.Move(GetMouseX() / TileSize, GetMouseY() / TileSize);
 
         rookTimer += dt;
-        if (rookTimer > 5.f) playable.Set(3, 3, CellState::Rook);
+        if (rookTimer > 1.f) playable.Set(4, 4, CellState::Rook);
 
         if (player.PlayerWon()) done = true;
     }

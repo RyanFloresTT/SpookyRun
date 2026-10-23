@@ -23,7 +23,10 @@ add_executable(solojam
         src/player.h
         src/scenes/scene.h
         src/scenes/opening_scene.h
-        src/scenes/levelscene.h
+        src/scenes/level_scene.h
+        src/scenes/scene_manager.h
+        src/raii/window.h
+        src/raii/assets.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 
