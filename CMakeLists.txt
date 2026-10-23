@@ -16,8 +16,8 @@ FetchContent_MakeAvailable(raylib)
 
 add_executable(solojam
         src/main.cpp
-        src/Grid.cpp
         src/grid.h
+        src/config.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 

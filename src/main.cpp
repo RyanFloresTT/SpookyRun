@@ -1,10 +1,14 @@
+#include <memory>
+
+#include "config.h"
 #include "grid.h"
 #include "raylib.h"
 
 int main() {
-    Grid grid;
+    const auto BackgroundGrid = std::make_shared<Grid<CellState>>(BoardSize, BoardSize, CellState::Empty);
+    auto PlayableGrid = std::make_shared<Grid<CellState>>(BoardSize, BoardSize, CellState::Empty);
 
-    InitWindow(grid.BoardSize, grid.BoardSize, "Pawn Run");
+    InitWindow(TotalBoardWidth, TotalBoardWidth, "Pawn Run");
     SetTargetFPS(60);
 
     bool started = false;
@@ -15,9 +19,10 @@ int main() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         if (!started) {
-            DrawText("Click to start", 310, 215, 24, DARKGRAY);
+            DrawText("Click to start", TotalBoardWidth/2 - 64, TotalBoardWidth/2, 48, DARKGRAY);
         } else {
-            grid.Draw();
+            BackgroundGrid->Draw();
+            // PlayableGrid->Draw();
         }
         EndDrawing();
     }
