@@ -10,11 +10,6 @@ public:
 
     CellState Get(const int x, const int y) const        { return cells[y][x]; }
     void Set(int x, int y, CellState s)                  { cells[y][x] = s; }
-    void SetPlayer(int x, int y) {
-        cells[PlayerY][PlayerX] = CellState::Empty;
-        PlayerX = x; PlayerY = y;
-        cells[PlayerY][PlayerX] = CellState::Pawn;
-    }
 
     void Draw() const {
         for (int y = 0; y < BoardSize; ++y)
@@ -22,7 +17,8 @@ public:
                 DrawCell(cells[y][x], x, y);
     }
 
+    static bool InBounds(const int x, const int y) { return x >= 0 && x < BoardSize && y >= 0 && y < BoardSize; }
+
 private:
     std::array<std::array<CellState, BoardSize>, BoardSize> cells;
-    int PlayerX, PlayerY;
 };

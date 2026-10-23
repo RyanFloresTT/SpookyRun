@@ -3,10 +3,12 @@
 #include "config.h"
 #include "grid.h"
 #include "raylib.h"
+#include "player.h"
 
 int main() {
     const auto BackgroundGrid = std::make_shared<Grid>(CellState::Empty);
     auto PlayableGrid = std::make_shared<Grid>(CellState::Empty);
+    auto PlayerPawn = std::make_shared<Player>(BoardSize/2, BoardSize - 1, *PlayableGrid);
 
     InitWindow(TotalBoardWidth, TotalBoardWidth, "Pawn Run");
     SetTargetFPS(60);
@@ -22,7 +24,7 @@ int main() {
         if (!started) {
             DrawText("Click to start", TotalBoardWidth/2 - 64, TotalBoardWidth/2, 48, DARKGRAY);
         } else {
-            //BackgroundGrid->Draw();
+            BackgroundGrid->Draw();
             PlayableGrid->Draw();
 
             if (IsKeyPressed(KEY_ONE)) {
@@ -30,12 +32,12 @@ int main() {
             }
 
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-                PlayableGrid->SetPlayer(GetMouseX() / TileSize, GetMouseY() / TileSize);
+                PlayerPawn->Move(GetMouseX() / TileSize, GetMouseY() / TileSize);
             }
 
             if (!playerInitialized) {
                 playerInitialized = true;
-                PlayableGrid->SetPlayer(BoardSize/2, BoardSize - 1);
+                PlayerPawn->Init();
             }
         }
 
