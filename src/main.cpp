@@ -22,8 +22,13 @@ int main() {
             DrawText("Click to start", TotalBoardWidth/2 - 64, TotalBoardWidth/2, 48, DARKGRAY);
         } else {
             BackgroundGrid->Draw();
-            // PlayableGrid->Draw();
+            PlayableGrid->Draw();
         }
+
+        if (IsKeyPressed(KEY_ONE)) {
+            PlayableGrid->SetCell(3, 3, CellState::Pawn);
+        }
+
         EndDrawing();
     }
 
