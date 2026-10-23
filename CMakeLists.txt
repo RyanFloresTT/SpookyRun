@@ -18,6 +18,7 @@ add_executable(solojam
         src/main.cpp
         src/grid.h
         src/config.h
+        src/cell.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 
