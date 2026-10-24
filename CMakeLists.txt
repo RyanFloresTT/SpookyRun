@@ -44,11 +44,11 @@ if (EMSCRIPTEN)
     target_link_options(solojam PRIVATE
             -sUSE_GLFW=3
             -sASYNCIFY
-            -sFORCE_FILESYSTEM=1
-            "-sTOTAL_MEMORY=67108864"
+            -sALLOW_MEMORY_GROWTH=1
+            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/assets@/assets"
     )
+else()
+    add_custom_command(TARGET solojam POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:solojam>/assets)
 endif()
-
-add_custom_command(TARGET solojam POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:solojam>/assets)
