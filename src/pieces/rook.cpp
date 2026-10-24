@@ -14,5 +14,3 @@ void Rook::SetHitSquares() {
             game_board.Set(x, y, CellState::Attack);}
     }
 }
-
-void Rook::Update(float dt) {}
