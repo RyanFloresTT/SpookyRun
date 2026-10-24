@@ -7,10 +7,10 @@ public:
     Window(const int height, const char* title, const int fps) {
         InitWindow(height, height, title);
         SetTargetFPS(fps);
-        AssetManager::LoadTextures();
+        AssetManager::load_assets();
     }
     ~Window() {
-        AssetManager::UnloadTextures();
+        AssetManager::unload_assets();
         CloseWindow();
     }
 };

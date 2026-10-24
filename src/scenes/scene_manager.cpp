@@ -11,6 +11,12 @@
 #include "lost_scene.h"
 #include "win_scene.h"
 
+void SceneManager::display_cursor() {
+    HideCursor();
+    const auto [x, y] = GetMousePosition();
+    DrawTexture(AssetManager::GetCursor(), static_cast<int>(x), static_cast<int>(y), WHITE);
+}
+
 void SceneManager::Run() {
     while (!WindowShouldClose()) {
         if (pending) {
@@ -25,6 +31,9 @@ void SceneManager::Run() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         current->Draw();
+
+        display_cursor();
+
         EndDrawing();
     }
 }

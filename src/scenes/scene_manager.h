@@ -12,6 +12,7 @@ public:
         return instance;
     }
 
+    static void display_cursor();
     void Run();
     void GoTo(const SceneType type) { pending = type; }
 
