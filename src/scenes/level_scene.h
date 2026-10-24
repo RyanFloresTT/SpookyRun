@@ -1,25 +1,24 @@
 ﻿#pragma once
-#include "raylib.h"
+#include <vector>
+
 #include "scene.h"
 #include "../config.h"
 #include "../cell.h"
-#include "../player.h"
-#include "../grid.h"
+#include <memory>
+#include "../board.h"
+#include "../pieces/piece.h"
+#include "../pieces/piece_factory.h"
 
 class LevelScene : public Scene {
 public:
     void Enter() override {
-        player.Init();
-        playable.Set(2, 4, CellState::Rook);
+        player = playable.AddPiece(PieceType::Pawn, BoardSize / 2, BoardSize - 1);
+        playable.AddPiece(PieceType::Rook, 2, 4);
+        playable.AddPiece(PieceType::Rook, 6, 0);
     }
 
     void Update(float dt) override {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            player.Move(GetMouseX() / TileSize, GetMouseY() / TileSize);
-
-        if (player.PlayerWon()) {
-            SceneManager::Get().GoTo(SceneType::Win);
-        }
+        playable.Update(dt);
     }
 
     void Draw() override {
@@ -28,7 +27,8 @@ public:
     }
 
 private:
-    Grid background{CellState::Empty};
-    Grid playable{CellState::Empty};
-    Player player{BoardSize / 2, BoardSize - 1, playable};
+    Board background{CellState::Empty};
+    Board playable{CellState::Empty};
+    Piece* player;
+    std::vector<std::unique_ptr<Piece>> pieces;
 };

@@ -16,11 +16,11 @@ FetchContent_MakeAvailable(raylib)
 
 add_executable(solojam
         src/main.cpp
-        src/grid.h
+        src/board.h
         src/config.h
         src/cell.h
-        src/player.cpp
-        src/player.h
+        src/pieces/pawn.cpp
+        src/pieces/pawn.h
         src/scenes/scene.h
         src/scenes/opening_scene.h
         src/scenes/level_scene.h
@@ -30,6 +30,12 @@ add_executable(solojam
         src/scenes/win_scene.h
         src/scenes/scene_manager.cpp
         src/scenes/lost_scene.h
+        src/pieces/rook.cpp
+        src/pieces/piece.h
+        src/pieces/piece_factory.cpp
+        src/pieces/piece_factory.h
+        src/pieces/rook.h
+        src/pieces/piece_type.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 

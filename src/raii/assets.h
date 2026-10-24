@@ -3,11 +3,7 @@
 #include <string>
 
 #include "raylib.h"
-
-enum class Asset {
-    Rook,
-    Pawn,
-};
+#include "../pieces/piece_type.h"
 
 struct TextureInfo {
     Texture2D texture;
@@ -28,11 +24,11 @@ public:
         }
     }
 
-    static Texture2D& GetTexture(const Asset name) { return textures.at(name).texture; }
+    static Texture2D& GetTexture(const PieceType name) { return textures.at(name).texture; }
 
 private:
-    static inline std::map<Asset, TextureInfo> textures = {
-        {Asset::Rook, {{}, "assets/rook.png"}},
-        {Asset::Pawn, {{}, "assets/pawn.png"}},
+    static inline std::map<PieceType, TextureInfo> textures = {
+        {PieceType::Rook, {{}, "assets/rook.png"}},
+        {PieceType::Pawn, {{}, "assets/pawn.png"}},
     };
 };
