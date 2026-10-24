@@ -31,5 +31,9 @@ private:
     static inline std::map<PieceType, TextureInfo> textures = {
         {PieceType::Rook, {{}, "assets/rook.png"}},
         {PieceType::Pawn, {{}, "assets/pawn.png"}},
+        {PieceType::Bishop, {{}, "assets/bishop.png"}},
+        {PieceType::Queen, {{}, "assets/queen.png"}},
+        {PieceType::King, {{}, "assets/king.png"}},
+        {PieceType::Knight, {{}, "assets/knight.png"}},
     };
 };
