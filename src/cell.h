@@ -3,10 +3,18 @@
 #include "config.h"
 #include "raii/assets.h"
 
+constexpr auto RedAttack = Color{255, 0, 0, 65};
+
 enum class CellState {
     Empty,
     Pawn,
-    Rook
+    Rook,
+    Attack
+};
+
+struct CellInfo {
+    CellState state;
+    int x, y;
 };
 
 // todo: fix these static casts :)))))
@@ -27,7 +35,8 @@ inline void DrawCell(const CellState state, const int x, const int y) {
 
     switch (state) {
         case CellState::Empty: DrawRectangle(px, py, TileSize, TileSize, GetBoardColor(x, y)); break;
-        case CellState::Pawn:  DrawRectangle(px, py, TileSize, TileSize, PINK); break;
+        case CellState::Pawn:  DrawAsset(Asset::Pawn, px, py);  break;
         case CellState::Rook:  DrawAsset(Asset::Rook, px, py);  break;
+        case CellState::Attack: DrawRectangle(px, py, TileSize, TileSize, RedAttack); break;
     }
 }
