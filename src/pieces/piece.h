@@ -8,14 +8,14 @@ class Board;
 
 class Piece {
 public:
-    Piece(Board& Grid, int x, int y, PieceType type)
+    Piece(Board& Grid, const int x, const int y, const PieceType type)
         : game_board(Grid), info{CellState::Occupied, x, y}, type(type), from_x(x), from_y(y) {}
 
     virtual ~Piece() = default;
     virtual void SetHitSquares() = 0;
 
     // Logical position changes instantly, the visual catches up over move_duration.
-    void MoveTo(int new_x, int new_y) {
+    void MoveTo(const int new_x, const int new_y) {
         from_x = info.x;
         from_y = info.y;
         info.x = new_x;
@@ -24,7 +24,7 @@ public:
         is_moving = true;
     }
 
-    virtual void Update(float dt) {
+    virtual void Update(const float dt) {
         if (!is_moving) return;
         animation_timer += dt;
         if (animation_timer >= move_duration) {

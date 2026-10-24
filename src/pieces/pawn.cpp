@@ -11,7 +11,7 @@
 
 void Pawn::SetHitSquares() { /* no op */ }
 
-bool Pawn::validate_pawn_move(const int target_x, const int target_y, int dx, int dy, CellState destination_state) const {
+bool Pawn::validate_pawn_move(const int target_x, const int target_y, const int dx, const int dy, const CellState destination_state) const {
     const int xMag = std::abs(dx);
 
     if (xMag > 1 || std::abs(dy) > 1) return true;     // can't move more than one spot
@@ -30,22 +30,15 @@ void Pawn::Move(const int target_x, const int target_y) {
     if (is_moving) return;
     if (!Board::InBounds(target_x, target_y)) return;
 
-    int dx, dy;
-
-    dx = target_x - info.x;
-    dy = target_y - info.y;
+    const int dx = target_x - info.x;
+    const int dy = target_y - info.y;
 
     const CellState destinationState = game_board.Get(target_x, target_y);
 
     if (validate_pawn_move(target_x, target_y, dx, dy, destinationState)) return;
 
-    // TODO: Clean this up
     if (destinationState == CellState::Occupied) {
         game_board.RemovePieceAt(target_x, target_y);
-    }
-
-    if (destinationState == CellState::Attack) {
-        SceneManager::Get().GoTo(SceneType::Lose);
     }
 
     game_board.Set(target_x, target_y, CellState::Occupied);

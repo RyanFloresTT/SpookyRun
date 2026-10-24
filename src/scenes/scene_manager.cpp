@@ -32,7 +32,7 @@ void SceneManager::Apply(const SceneType type) {
         case SceneType::Opening: current = std::make_unique<OpeningScene>(); break;
         case SceneType::Level:   current = std::make_unique<LevelScene>();   break;
         case SceneType::Win:     current = std::make_unique<WinScene>();     break;
-        case SceneType::Lose:     current = std::make_unique<LostScene>();     break;
+        case SceneType::Lose:    current = std::make_unique<LostScene>();    break;
     }
     current->Enter();
 }

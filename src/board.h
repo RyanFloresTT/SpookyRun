@@ -13,12 +13,12 @@ public:
     }
 
     CellState Get(const int x, const int y) const { return cells[y][x]; }
-    
+
     void Set(const int x, const int y, const CellState s) {
         cells[y][x] = s;
     }
 
-    Piece* AddPiece(PieceType type, int x, int y) {
+    Piece* AddPiece(const PieceType type, const int x, const int y) {
         auto p = MakePiece(type, *this, x, y);
         if (!p) return nullptr;
 

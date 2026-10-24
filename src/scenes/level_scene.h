@@ -16,7 +16,7 @@ public:
         playable.AddPiece(PieceType::Rook, 2, BoardSize - 3);
     }
 
-    void Update(float dt) override {
+    void Update(const float dt) override {
         playable.Update(dt);
     }
 

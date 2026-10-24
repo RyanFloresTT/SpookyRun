@@ -5,6 +5,6 @@ class Board;
 
 class Rook : public Piece {
 public:
-    Rook(Board& grid, int x, int y) : Piece(grid, x, y, PieceType::Rook) {}
+    Rook(Board& grid, const int x, const int y) : Piece(grid, x, y, PieceType::Rook) {}
     void SetHitSquares() override;
 };

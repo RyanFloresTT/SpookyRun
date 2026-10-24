@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <map>
+#include <ranges>
 #include <string>
 
 #include "raylib.h"
@@ -13,14 +14,14 @@ struct TextureInfo {
 class AssetManager {
 public:
     static void LoadTextures() {
-        for (auto& [name, info] : textures) {
-            info.texture = LoadTexture(info.path.c_str());
+        for (auto& [texture, path] : textures | std::views::values) {
+            texture = LoadTexture(path.c_str());
         }
     }
 
     static void UnloadTextures() {
-        for (auto& [name, info] : textures) {
-            UnloadTexture(info.texture);
+        for (auto& [texture, path] : textures | std::views::values) {
+            UnloadTexture(texture);
         }
     }
 
