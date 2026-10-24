@@ -1,0 +1,23 @@
+﻿{
+  "levels": {
+    "1": {
+      "size": 8,
+      "pieces": [
+        { "type": "Pawn",   "x": 0, "y": 7 },
+        { "type": "Rook",   "x": 1, "y": 5 },
+        { "type": "Rook",   "x": 2, "y": 3 },
+        { "type": "Knight", "x": 1, "y": 2 },
+        { "type": "Knight", "x": 3, "y": 2 },
+        { "type": "Rook",   "x": 7, "y": 2 },
+        { "type": "Knight", "x": 0, "y": 1 }
+      ]
+    },
+    "2": {
+      "size": 6,
+      "pieces": [
+        { "type": "Pawn", "x": 3, "y": 5 },
+        { "type": "King", "x": 3, "y": 1 }
+      ]
+    }
+  }
+}

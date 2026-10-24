@@ -49,6 +49,8 @@ add_executable(solojam
         src/pieces/piece.cpp
         src/scenes/lost_scene.cpp
         src/scenes/level_menu.cpp
+        src/levels/level_manager.cpp
+        src/levels/level_manager.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 
