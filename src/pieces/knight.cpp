@@ -20,5 +20,3 @@ void Knight::SetHitSquares() {
         game_board.Set(x, y, CellState::Attack);
     }
 }
-
-void Knight::DetectPlayer() {}

@@ -14,12 +14,3 @@ void Rook::SetHitSquares() {
         }
     }
 }
-
-void Rook::DetectPlayer() {
-    for (const auto [x, y] : hit_squares) {
-        if (game_board.PieceTypeAt(PieceType::Pawn, x, y)) {
-            MoveTo(x, y);
-            return;
-        }
-    }
-}

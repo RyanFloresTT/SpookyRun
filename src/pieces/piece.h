@@ -16,7 +16,8 @@ public:
 
     virtual ~Piece() = default;
     virtual void SetHitSquares() = 0;
-    virtual void DetectPlayer() = 0;
+
+    void DetectPlayer();
 
     void MoveTo(const int new_x, const int new_y) {
         from_x = info.x;
@@ -33,12 +34,15 @@ public:
         is_moving       = true;
     }
 
+    void OnMovementFinished();
+
     bool handle_movement_animation(const float dt) {
         if (!is_moving) return true;
         animation_timer += dt;
         if (animation_timer >= move_duration) {
             animation_timer = move_duration;
             is_moving       = false;
+            OnMovementFinished();
         }
         return false;
     }
@@ -67,8 +71,10 @@ public:
         DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
     }
 
-    bool     IsAnimating() const { return is_moving; }
-    CellInfo GetCellInfo() const { return info; }
+
+    bool      IsAnimating() const { return is_moving; }
+    CellInfo  GetCellInfo() const { return info; }
+    bool      HasHitPlayer() const { return has_hit_player; }
     PieceType type;
 
 protected:
@@ -82,4 +88,7 @@ protected:
     float seconds_per_tile = 0.15f;
 
     std::vector<Vector2> hit_squares;
+
+private:
+    bool has_hit_player = false;
 };

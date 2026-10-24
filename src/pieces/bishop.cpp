@@ -16,5 +16,3 @@ void Bishop::SetHitSquares() {
         }
     }
 }
-
-void Bishop::DetectPlayer() {}

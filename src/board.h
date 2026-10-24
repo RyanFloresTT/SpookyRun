@@ -41,6 +41,12 @@ public:
         for (auto& p : pieces) p->Update(dt);
         for (Piece* target : pendingRemovals) RemovePiece(target);
         pendingRemovals.clear();
+
+        for (auto& p : pieces) {
+            if (p->HasHitPlayer()) {
+                playerCaptured = true;
+            }
+        }
     }
 
     void RemovePieceAt(int x, int y) {
@@ -64,6 +70,7 @@ public:
         return false;
     }
 
+    bool        PlayerCaptured() const;
     static bool InBounds(const int x, const int y) { return x >= 0 && x < BoardSize && y >= 0 && y < BoardSize; }
 
 private:
@@ -88,4 +95,7 @@ private:
     std::array<std::array<CellState, BoardSize>, BoardSize> cells;
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*> pendingRemovals;
+    bool playerCaptured = false;
 };
+
+inline bool Board::PlayerCaptured() const { return playerCaptured; }

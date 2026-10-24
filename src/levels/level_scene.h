@@ -6,6 +6,7 @@
 #include <memory>
 #include "../board.h"
 #include "../pieces/piece.h"
+#include "../scenes/lost_scene.h"
 
 class Level : public Scene {
 public:
@@ -23,6 +24,10 @@ public:
     }
     void Update(const float dt) override {
         playable.Update(dt);
+
+        if (playable.PlayerCaptured()) {
+            SceneManager::Get().GoTo<LostScene>();
+        }
     }
 
     void Draw() override {

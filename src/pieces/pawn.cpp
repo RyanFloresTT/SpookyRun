@@ -66,7 +66,3 @@ void Pawn::Init() const {
 bool Pawn::PlayerWon() const {
     return info.y == 0;
 }
-
-void Pawn::DetectPlayer() { /* no op */ }
-
-//TODO: Assets aren't loading on web
