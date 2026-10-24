@@ -17,10 +17,12 @@ public:
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             player.Move(GetMouseX() / TileSize, GetMouseY() / TileSize);
 
-        if (player.PlayerWon()) done = true;
+        if (player.PlayerWon()) {
+            SceneManager::Get().GoTo(SceneType::Win);
+        }
     }
 
-    void Draw() const override {
+    void Draw() override {
         background.Draw();
         playable.Draw();
     }

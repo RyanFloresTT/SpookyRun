@@ -3,6 +3,7 @@
 #include "config.h"
 #include "raii/assets.h"
 
+// Maybe player can configure this to help them out
 constexpr auto RedAttack = Color{255, 0, 0, 65};
 
 enum class CellState {

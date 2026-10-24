@@ -2,13 +2,16 @@
 #include "raylib.h"
 #include "scene.h"
 #include "../config.h"
+#include "scene_manager.h"
 
 class OpeningScene : public Scene {
 public:
     void Update(float) override {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) done = true;
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            SceneManager::Get().GoTo(SceneType::Level);
+        }
     }
-    void Draw() const override {
+    void Draw() override {
         DrawText("Click to start", TotalBoardWidth/2 - 64, TotalBoardWidth/2, 48, DARKGRAY);
     }
 };

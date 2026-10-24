@@ -13,25 +13,25 @@ public:
         cells[y][x] = s;
     }
 
-    static void DrawRookAttack(CellInfo info) {
+    void DrawRookAttack(const CellInfo info) {
         // Top to Bottom
         for (int x = info.x + 1; x < BoardSize; ++x) {
-            DrawCell(CellState::Attack, x, info.y);
+            Set(x, info.y, CellState::Attack);
         }
         for (int x = info.x - 1; x >= 0; --x) {
-            DrawCell(CellState::Attack, x, info.y);
+            Set(x, info.y, CellState::Attack);
         }
 
         // Left to Right
         for (int y = info.y + 1; y < BoardSize; ++y) {
-            DrawCell(CellState::Attack, info.x, y);
+            Set(info.x, y, CellState::Attack);
         }
         for (int y = info.y - 1; y >= 0; --y) {
-            DrawCell(CellState::Attack, info.x, y);
+            Set(info.x, y, CellState::Attack);
         }
     }
 
-    void DrawHitMarkers() const {
+    void DrawHitMarkers() {
         for (int y = 0; y < BoardSize; ++y)
             for (int x = 0; x < BoardSize; ++x)
                 if (cells[y][x] == CellState::Rook)
@@ -44,7 +44,7 @@ public:
                 DrawCell(cells[y][x], x, y);
     }
 
-    void Draw() const {
+    void Draw() {
         DrawObjects();
         DrawHitMarkers();
     }
