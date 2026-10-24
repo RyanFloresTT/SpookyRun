@@ -8,6 +8,7 @@
 
 #include "../board.h"
 #include "../scenes/scene_manager.h"
+#include "../scenes/win_scene.h"
 
 void Pawn::SetHitSquares() { /* no op */ }
 
@@ -54,7 +55,7 @@ void Pawn::Update(const float dt) {
         Move(GetMouseX() / TileSize, GetMouseY() / TileSize);
 
     if (PlayerWon()) {
-        SceneManager::Get().GoTo(SceneType::Win);
+        SceneManager::Get().GoTo<WinScene>();
     }
 }
 

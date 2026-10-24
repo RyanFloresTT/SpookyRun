@@ -1,9 +1,7 @@
 ﻿#pragma once
+#include <functional>
 #include <memory>
-#include <optional>
 #include "scene.h"
-
-enum class SceneType { Opening, Level, Win, Lose, LevelMenu };
 
 class SceneManager {
 public:
@@ -13,12 +11,14 @@ public:
     }
 
     static void display_cursor();
-    void Run();
-    void GoTo(const SceneType type) { pending = type; }
+    void        Run();
+
+    template <typename T, typename... Args>
+    void GoTo(Args... args) {
+        pending = [=] { return std::make_unique<T>(args...); };
+    }
 
 private:
-    void Apply(SceneType type);
-
-    std::unique_ptr<Scene> current;
-    std::optional<SceneType> pending;
+    std::unique_ptr<Scene>                  current;
+    std::function<std::unique_ptr<Scene>()> pending;
 };

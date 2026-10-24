@@ -7,9 +7,7 @@
 #include "level_menu.h"
 #include "raylib.h"
 #include "opening_scene.h"
-#include "level_scene.h"
-#include "lost_scene.h"
-#include "win_scene.h"
+#include "../levels/level_scene.h"
 
 void SceneManager::display_cursor() {
     HideCursor();
@@ -20,9 +18,9 @@ void SceneManager::display_cursor() {
 void SceneManager::Run() {
     while (!WindowShouldClose()) {
         if (pending) {
-            // TODO: maybe I can do a transition here if I have some time :)
-            Apply(*pending);
-            pending.reset();
+            current = pending();
+            pending = nullptr;
+            current->Enter();
         }
         if (!current) break;
 
@@ -31,20 +29,7 @@ void SceneManager::Run() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         current->Draw();
-
         display_cursor();
-
         EndDrawing();
     }
-}
-
-void SceneManager::Apply(const SceneType type) {
-    switch (type) {
-        case SceneType::Opening: current = std::make_unique<OpeningScene>(); break;
-        case SceneType::Level:   current = std::make_unique<LevelScene>();   break;
-        case SceneType::LevelMenu:   current = std::make_unique<LevelMenu>();   break;
-        case SceneType::Win:     current = std::make_unique<WinScene>();     break;
-        case SceneType::Lose:    current = std::make_unique<LostScene>();    break;
-    }
-    current->Enter();
 }

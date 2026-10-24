@@ -1,16 +1,16 @@
 ﻿#pragma once
 #include <vector>
 
-#include "scene.h"
-#include "../config.h"
+#include "../scenes/scene.h"
 #include "../cell.h"
 #include <memory>
 #include "../board.h"
 #include "../pieces/piece.h"
-#include "../pieces/piece_factory.h"
 
-class LevelScene : public Scene {
+class Level : public Scene {
 public:
+    explicit Level(const int level) {this->level = level;}
+
     void Enter() override {
         playable.AddPiece(PieceType::Pawn,   0, 7);   // player
 
@@ -34,4 +34,5 @@ private:
     Board background{CellState::Empty};
     Board playable{CellState::Empty};
     std::vector<std::unique_ptr<Piece>> pieces;
+    int level;
 };

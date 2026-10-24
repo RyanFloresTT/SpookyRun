@@ -23,7 +23,7 @@ add_executable(solojam
         src/pieces/pawn.h
         src/scenes/scene.h
         src/scenes/opening_scene.h
-        src/scenes/level_scene.h
+        src/levels/level_scene.h
         src/scenes/scene_manager.h
         src/raii/window.h
         src/raii/assets.h

@@ -7,7 +7,7 @@ class LostScene : public Scene {
 public:
     void Update(float) override {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            SceneManager::Get().GoTo(SceneType::Level);
+            SceneManager::Get().GoTo<LevelMenu>();
         }
     }
     void Draw() override {
