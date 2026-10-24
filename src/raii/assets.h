@@ -33,6 +33,9 @@ public:
         for (auto& [texture, path] : textures | std::views::values) {
             UnloadTexture(texture);
         }
+
+        UnloadFont(font.asset);
+        UnloadTexture(cursor.asset);
     }
 
     static Texture2D& GetTexture(const PieceType name) { return textures.at(name).asset; }
