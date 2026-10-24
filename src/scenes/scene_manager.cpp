@@ -17,6 +17,8 @@ void SceneManager::display_cursor() {
 
 void SceneManager::Run() {
     while (!WindowShouldClose() && running) {
+        AssetManager::UpdateMusic();
+
         if (pending) {
             current = pending();
             pending = nullptr;

@@ -8,6 +8,7 @@ public:
         InitWindow(height, height, title);
         SetTargetFPS(fps);
         AssetManager::load_assets();
+        AssetManager::PlayMusic();
     }
     ~Window() {
         AssetManager::unload_assets();

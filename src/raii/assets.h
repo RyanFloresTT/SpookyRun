@@ -12,6 +12,8 @@ struct asset_info {
     std::string path;
 };
 
+// could prob gather each by type somehow, load them, and unload them all at once
+
 class AssetManager {
 public:
     static void load_assets() {
@@ -29,6 +31,8 @@ public:
         // SFX
         InitAudioDevice();
         button_click_sound.asset = LoadSound(button_click_sound.path.c_str());
+        music.asset = LoadMusicStream(music.path.c_str());
+        SetMusicVolume(music.asset, 0.2f);
     }
 
     static void unload_assets() {
@@ -39,6 +43,7 @@ public:
         UnloadFont(font.asset);
         UnloadTexture(cursor.asset);
         UnloadSound(button_click_sound.asset);
+        UnloadMusicStream(music.asset);
         CloseAudioDevice();
     }
 
@@ -49,6 +54,8 @@ public:
     static Sound& GetSound() {
         return button_click_sound.asset;
     }
+    static void PlayMusic()   { PlayMusicStream(music.asset); }
+    static void UpdateMusic() { UpdateMusicStream(music.asset); }
 
 private:
     static inline std::map<PieceType, asset_info<Texture2D>> textures = {
@@ -63,4 +70,6 @@ private:
     static inline asset_info<Font> font = {{}, "assets/font/supply-center.regular.ttf"};
     static inline asset_info<Texture2D> cursor = {{}, "assets/cursor/hand_small_point.png"};
     static inline asset_info<Sound> button_click_sound = {{}, "assets/sfx/button_click.wav"};
+
+    static inline asset_info<Music> music = {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"};
 };
