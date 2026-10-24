@@ -12,9 +12,8 @@
 class LevelScene : public Scene {
 public:
     void Enter() override {
-        player = playable.AddPiece(PieceType::Pawn, BoardSize / 2, BoardSize - 1);
-        playable.AddPiece(PieceType::Rook, 2, 4);
-        playable.AddPiece(PieceType::Rook, 6, 0);
+        playable.AddPiece(PieceType::Pawn, 3, BoardSize - 1);
+        playable.AddPiece(PieceType::Rook, 2, BoardSize - 3);
     }
 
     void Update(float dt) override {
@@ -29,6 +28,5 @@ public:
 private:
     Board background{CellState::Empty};
     Board playable{CellState::Empty};
-    Piece* player;
     std::vector<std::unique_ptr<Piece>> pieces;
 };

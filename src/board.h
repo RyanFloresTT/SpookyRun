@@ -13,6 +13,7 @@ public:
     }
 
     CellState Get(const int x, const int y) const { return cells[y][x]; }
+    
     void Set(const int x, const int y, const CellState s) {
         cells[y][x] = s;
     }

@@ -10,8 +10,8 @@ void Rook::SetHitSquares() {
         for (int x = info.x + dx, y = info.y + dy;
              Board::InBounds(x, y);
              x += dx, y += dy) {
-            if (PlayableGrid.Get(x, y) == CellState::Occupied) break;
-            PlayableGrid.Set(x, y, CellState::Attack);}
+            if (game_board.Get(x, y) == CellState::Occupied) break;
+            game_board.Set(x, y, CellState::Attack);}
     }
 }
 
