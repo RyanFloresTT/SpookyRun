@@ -3,7 +3,7 @@
 #include "config.h"
 
 // Maybe player can configure this to help them out
-constexpr auto RedAttack = Color{255, 0, 0, 65};
+constexpr auto RedAttack = Color{255, 0, 0, 0};
 
 enum class CellState {
     Empty,

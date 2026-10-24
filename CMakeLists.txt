@@ -45,6 +45,7 @@ add_executable(solojam
         src/pieces/queen.cpp
         src/pieces/queen.h
         src/scenes/level_menu.h
+        src/ui/button.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 

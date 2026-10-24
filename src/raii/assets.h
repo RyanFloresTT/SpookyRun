@@ -27,6 +27,8 @@ public:
         cursor.asset = LoadTexture(cursor.path.c_str());
 
         // SFX
+        InitAudioDevice();
+        button_click_sound.asset = LoadSound(button_click_sound.path.c_str());
     }
 
     static void unload_assets() {
@@ -36,11 +38,17 @@ public:
 
         UnloadFont(font.asset);
         UnloadTexture(cursor.asset);
+        UnloadSound(button_click_sound.asset);
+        CloseAudioDevice();
     }
 
     static Texture2D& GetTexture(const PieceType name) { return textures.at(name).asset; }
     static Font& GetFont() { return font.asset; }
     static Texture2D& GetCursor() { return cursor.asset; }
+    // will want to return more than just the button click
+    static Sound& GetSound() {
+        return button_click_sound.asset;
+    }
 
 private:
     static inline std::map<PieceType, asset_info<Texture2D>> textures = {
@@ -54,4 +62,5 @@ private:
 
     static inline asset_info<Font> font = {{}, "assets/font/supply-center.regular.ttf"};
     static inline asset_info<Texture2D> cursor = {{}, "assets/cursor/hand_small_point.png"};
+    static inline asset_info<Sound> button_click_sound = {{}, "assets/sfx/button_click.wav"};
 };

@@ -16,7 +16,7 @@ void SceneManager::display_cursor() {
 }
 
 void SceneManager::Run() {
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && running) {
         if (pending) {
             current = pending();
             pending = nullptr;
