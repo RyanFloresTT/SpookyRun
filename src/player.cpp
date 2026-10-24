@@ -16,15 +16,16 @@ void Player::Move(const int dx, const int dy) {
 
     const CellState destinationState = PlayableGrid.Get(dx, dy);
 
-    if (destinationState == CellState::Attack) {
-        SceneManager::Get().GoTo(SceneType::Lose);
-    }
+
+    if (std::abs(dx - x) > 1 || std::abs(dy - y) > 1) return;
 
     if (destinationState != CellState::Empty) {
         PlayableGrid.Set(x, y, CellState::Empty);
     }
 
-    if (std::abs(dx - x) > 1 || std::abs(dy - y) > 1) return;
+    if (destinationState == CellState::Attack) {
+        SceneManager::Get().GoTo(SceneType::Lose);
+    }
 
     PlayableGrid.Set(dx, dy, CellState::Pawn);
     PlayableGrid.Set(x, y, CellState::Empty);
