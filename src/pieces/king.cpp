@@ -17,3 +17,5 @@ void King::SetHitSquares() {
         }
     }
 }
+
+void King::DetectPlayer() {}

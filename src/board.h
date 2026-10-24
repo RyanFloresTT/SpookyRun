@@ -54,6 +54,16 @@ public:
 
         pendingRemovals.push_back(it->get());   // just queue it; don't move or erase yet
     }
+
+    bool PieceTypeAt(PieceType type, float x, float y) const {
+        for (auto& p : pieces) {
+            if (p.get()->type != type) continue;
+            const auto info = p->GetCellInfo();
+            if (info.x == x && info.y == y) return true;
+        }
+        return false;
+    }
+
     static bool InBounds(const int x, const int y) { return x >= 0 && x < BoardSize && y >= 0 && y < BoardSize; }
 
 private:

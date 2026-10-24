@@ -12,8 +12,8 @@
 class LevelScene : public Scene {
 public:
     void Enter() override {
-        playable.AddPiece(PieceType::Pawn, 3, BoardSize - 1);
-        playable.AddPiece(PieceType::Rook, 2, BoardSize - 3);
+        playable.AddPiece(PieceType::Pawn, 0, BoardSize - 1);
+        playable.AddPiece(PieceType::Rook, BoardSize - 1, BoardSize - 3);
     }
 
     void Update(const float dt) override {

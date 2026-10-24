@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include <cmath>
+#include <vector>
+
 #include "piece_type.h"
 #include "../cell.h"
 #include "../raii/assets.h"
@@ -13,24 +16,39 @@ public:
 
     virtual ~Piece() = default;
     virtual void SetHitSquares() = 0;
+    virtual void DetectPlayer() = 0;
 
-    // Logical position changes instantly, the visual catches up over move_duration.
     void MoveTo(const int new_x, const int new_y) {
         from_x = info.x;
         from_y = info.y;
         info.x = new_x;
         info.y = new_y;
+
+        const auto dx = static_cast<float>(new_x - from_x);
+        const auto dy = static_cast<float>(new_y - from_y);
+        const float distance = std::sqrt(dx * dx + dy * dy);   // in tiles
+
+        move_duration   = distance * seconds_per_tile;
         animation_timer = 0.0f;
-        is_moving = true;
+        is_moving       = true;
     }
 
-    virtual void Update(const float dt) {
-        if (!is_moving) return;
+    bool handle_movement_animation(const float dt) {
+        if (!is_moving) return true;
         animation_timer += dt;
         if (animation_timer >= move_duration) {
             animation_timer = move_duration;
-            is_moving = false;
+            is_moving       = false;
         }
+        return false;
+    }
+
+    virtual void Update(const float dt) {
+        if (is_moving) {
+            handle_movement_animation(dt);
+            return;
+        }
+        DetectPlayer();
     }
 
     void Draw() const {
@@ -51,14 +69,17 @@ public:
 
     bool     IsAnimating() const { return is_moving; }
     CellInfo GetCellInfo() const { return info; }
+    PieceType type;
 
 protected:
     Board&    game_board;
     CellInfo  info;
-    PieceType type;
 
     int   from_x = 0, from_y = 0;
     bool  is_moving = false;
     float animation_timer = 0.0f;
     float move_duration = 0.15f; // seconds
+    float seconds_per_tile = 0.15f;
+
+    std::vector<Vector2> hit_squares;
 };

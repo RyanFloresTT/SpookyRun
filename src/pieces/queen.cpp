@@ -21,3 +21,5 @@ void Queen::SetHitSquares() {
              }
     }
 }
+
+void Queen::DetectPlayer() {}

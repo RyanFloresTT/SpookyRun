@@ -14,4 +14,5 @@ public:
     void Update(float dt) override;
     void Init() const;
     bool PlayerWon() const;
+    void DetectPlayer() override;
 };
