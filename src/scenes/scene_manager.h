@@ -3,7 +3,7 @@
 #include <optional>
 #include "scene.h"
 
-enum class SceneType { Opening, Level, Win, Lose };
+enum class SceneType { Opening, Level, Win, Lose, LevelMenu };
 
 class SceneManager {
 public:

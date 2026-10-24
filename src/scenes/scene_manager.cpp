@@ -3,6 +3,8 @@
 //
 
 #include "scene_manager.h"
+
+#include "level_menu.h"
 #include "raylib.h"
 #include "opening_scene.h"
 #include "level_scene.h"
@@ -31,6 +33,7 @@ void SceneManager::Apply(const SceneType type) {
     switch (type) {
         case SceneType::Opening: current = std::make_unique<OpeningScene>(); break;
         case SceneType::Level:   current = std::make_unique<LevelScene>();   break;
+        case SceneType::LevelMenu:   current = std::make_unique<LevelMenu>();   break;
         case SceneType::Win:     current = std::make_unique<WinScene>();     break;
         case SceneType::Lose:    current = std::make_unique<LostScene>();    break;
     }

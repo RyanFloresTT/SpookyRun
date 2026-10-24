@@ -12,7 +12,7 @@ class Board;
 class Piece {
 public:
     Piece(Board& Grid, const int x, const int y, const PieceType type)
-        : game_board(Grid), info{CellState::Occupied, x, y}, type(type), from_x(x), from_y(y) {}
+        : type(type), game_board(Grid), info{CellState::Occupied, x, y}, from_x(x), from_y(y) {}
 
     virtual ~Piece() = default;
     virtual void SetHitSquares() = 0;
