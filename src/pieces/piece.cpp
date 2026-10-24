@@ -17,6 +17,7 @@ void Piece::DetectPlayer() {
 }
 
 void Piece::OnMovementFinished() {
+    PlaySound(AssetManager::GetSound());
     if (type == PieceType::Pawn) return;
     has_hit_player = true;
 }
