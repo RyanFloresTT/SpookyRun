@@ -36,6 +36,14 @@ add_executable(solojam
         src/pieces/piece_factory.h
         src/pieces/rook.h
         src/pieces/piece_type.h
+        src/pieces/bishop.cpp
+        src/pieces/bishop.h
+        src/pieces/knight.cpp
+        src/pieces/knight.h
+        src/pieces/king.cpp
+        src/pieces/king.h
+        src/pieces/queen.cpp
+        src/pieces/queen.h
 )
 target_link_libraries(solojam PRIVATE raylib)
 
