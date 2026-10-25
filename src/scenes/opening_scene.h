@@ -19,7 +19,6 @@ public:
 
         UI::CenteredText(TotalBoardWidth / 2.0f, TotalBoardWidth / 2.0f - 500 / 2.0f, "Spooky Run", 96, BLACK);
         UI::CenteredText(TotalBoardWidth / 2.0f, TotalBoardWidth / 2.0f + 100 / 2.0f, "Click to start!", 48, WHITE);
-
     }
 
 private:

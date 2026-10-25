@@ -31,6 +31,7 @@ enum class MusicAssets {
 
 // could prob gather each by type somehow, load them, and unload them all at once
 // the more I add to this, the more I want to refactor this...
+// THIS CLASS IS AN ABSOLUTE DISASTER
 class AssetManager {
 public:
     static void load_assets() {
@@ -47,6 +48,8 @@ public:
         for (auto& texture : black_floor_textures) {
             texture.asset = LoadTexture(texture.path.c_str());
         }
+
+        button_background.asset = LoadTexture(button_background.path.c_str());
 
         // Font
         font.asset = LoadFont(font.path.c_str());
@@ -74,6 +77,8 @@ public:
             UnloadTexture(texture.asset);
         }
 
+        UnloadTexture(button_background.asset);
+
         UnloadTexture(star.asset);
         UnloadFont(font.asset);
         UnloadTexture(cursor.asset);
@@ -85,6 +90,7 @@ public:
     static Texture2D& GetTexture(const PieceType name) { return textures.at(name).asset; }
     static Font& GetFont() { return font.asset; }
     static Texture2D& GetCursor() { return cursor.asset; }
+    static Texture2D& GetButtonBackground() { return button_background.asset; }
     // will want to return more than just the button click
     static Sound& GetSound() {
         return button_click_sound.asset;
@@ -125,4 +131,6 @@ private:
     static inline std::vector<asset_info<Texture2D>> black_floor_textures = {
         {{}, "assets/images/black_floors/floor1.png"},
     };
+
+    static inline asset_info<Texture2D> button_background = {{}, "assets/ui/button_bg.png"};
 };
