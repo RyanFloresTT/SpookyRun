@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "../board.h"
 #include "../cell.h"
+#include "../save/save_manager.h"
 
 class LevelMenu : public Scene {
 public:
@@ -19,4 +20,7 @@ private:
 
     int levelCount = 0;
     int firstRow   = 0;
+    int unlocked_count = 0;
+
+    std::unique_ptr<SaveManager> save_manager;
 };

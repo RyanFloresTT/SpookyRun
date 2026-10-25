@@ -3,6 +3,7 @@
 
 class DesktopSaveManager : public SaveManager{
 public:
+    DesktopSaveManager();
     void SaveProgress(int unlocked) override;
     int LoadProgress() override;
 };

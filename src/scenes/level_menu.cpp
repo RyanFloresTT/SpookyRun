@@ -1,10 +1,19 @@
 ﻿#include "level_menu.h"
 #include "scene_manager.h"
 #include "../levels/level_scene.h"
+#include "../save/desktop_save_manager.h"
+#include "../save/web_save_manager.h"
 #include "../ui/button.h"
 
 void LevelMenu::Enter() {
+# ifndef  __EMSCRIPTEN__
+    save_manager = std::make_unique<DesktopSaveManager>();
+#else
+    save_manager = std::make_unique<WebSaveManager>();
+#endif
+
     levelCount = LevelManager::GetLevelCount();
+    unlocked_count = save_manager->LoadProgress();
     firstRow   = 0;
 }
 
@@ -25,8 +34,7 @@ void LevelMenu::Draw() {
         const float       x     = Padding + (index % Columns) * (ButtonSize + Spacing);
         const float       y     = Padding + (index / Columns) * (ButtonSize + Spacing);
         const std::string label = std::to_string(level);
-        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32,
-                       AssetManager::GetButtonBackground())) {
+        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32, AssetManager::GetButtonBackground()), level <= unlocked_count) {
             SceneManager::Get().GoTo<Level>(level);
         }
     }

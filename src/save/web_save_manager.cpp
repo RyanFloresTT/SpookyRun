@@ -7,8 +7,12 @@
 #include "raylib.h"
 
 
+WebSaveManager::WebSaveManager() {
+    TraceLog(LOG_INFO, "USING WEB SAVE MANAGER");
+}
+
 void WebSaveManager::SaveProgress(int unlocked) {
-    TraceLog(LOG_INFO, "USING WEB SAVE MANAGER");}
+}
 
 int WebSaveManager::LoadProgress() {
     return 1;
