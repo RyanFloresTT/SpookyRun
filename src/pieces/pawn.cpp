@@ -23,6 +23,11 @@ bool Pawn::validate_pawn_move(const int target_x, const int target_y, const int 
         if (destination_state != CellState::Occupied) return false;
     }
 
+    if (xMag > 0 && dy >= 1) {
+        if (destination_state == CellState::Occupied) return true;
+        return false;
+    }
+
     return true;
 }
 
