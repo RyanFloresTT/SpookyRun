@@ -2,12 +2,14 @@
 // Created by rryan on 10/25/2026.
 //
 
-#include "save_manager.h"
+#include "web_save_manager.h"
 
-class WebSaveManager : public SaveManager {
-public:
-    virtual ~WebSaveManager() = default;
+#include "raylib.h"
 
-    void Save() override {}
-    void Load() override {}
-};
+
+void WebSaveManager::SaveProgress(int unlocked) {
+    TraceLog(LOG_INFO, "USING WEB SAVE MANAGER");}
+
+int WebSaveManager::LoadProgress() {
+    return 1;
+}

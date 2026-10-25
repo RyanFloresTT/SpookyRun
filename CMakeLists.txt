@@ -57,6 +57,8 @@ add_executable(solojam
         src/save/save_manager.h
         src/save/desktop_save_manager.cpp
         src/save/web_save_manager.cpp
+        src/save/web_save_manager.h
+        src/save/desktop_save_manager.h
 )
 target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json)
 

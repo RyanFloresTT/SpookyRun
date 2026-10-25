@@ -1,10 +1,8 @@
 ﻿#pragma once
 
 class SaveManager {
-protected:
-    ~SaveManager() = default;
-
 public:
-    virtual void Save() = 0;
-    virtual void Load() = 0;
+        virtual ~SaveManager() = default;
+        virtual void SaveProgress(int unlocked) = 0;
+        virtual int LoadProgress() = 0;
 };
