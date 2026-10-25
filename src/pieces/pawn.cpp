@@ -7,7 +7,6 @@
 #include <cmath>
 
 #include "../board.h"
-#include "../scenes/scene_manager.h"
 #include "../scenes/win_scene.h"
 
 void Pawn::SetHitSquares() {

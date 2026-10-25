@@ -12,7 +12,7 @@ void Piece::Draw() const {
     const float tile_size = game_board.GetTileSize();
     const float px        = (from_x + (info.x - from_x) * progress) * tile_size;
     const float py        = (from_y + (info.y - from_y) * progress) * tile_size;
-    DrawAsset(type, px, py, tile_size);
+    DrawAsset(ToTextureAsset(type), px, py, tile_size);
 }
 
 void Piece::DetectPlayer() {
@@ -60,7 +60,7 @@ void Piece::MoveTo(const int new_x, const int new_y) {
 }
 
 void Piece::OnMovementFinished() {
-    PlaySound(AssetManager::GetSound());
+    PlaySound(AssetManager::Get(SFXAssets::ButtonClick));
     if (type == PieceType::Pawn) return;
 
     if (game_board.PieceTypeAt(PieceType::Pawn, info.x, info.y)) {

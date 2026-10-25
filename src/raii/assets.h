@@ -2,10 +2,8 @@
 #include <map>
 #include <ranges>
 #include <string>
-#include <vector>
 
 #include "raylib.h"
-#include "../pieces/piece_type.h"
 
 template <typename T>
 struct asset_info {
@@ -14,7 +12,10 @@ struct asset_info {
 };
 
 enum class TextureAssets {
-    Rook, Pawn, Bishop, Queen, King, Knight
+    Rook, Pawn, Bishop, Queen, King, Knight,
+    ButtonBackground, RepeatIcon,
+    Cursor, Star,
+    WhiteFloor2, BlackFloor1,
 };
 
 enum class FontAssets {
@@ -29,9 +30,7 @@ enum class MusicAssets {
     Seaside
 };
 
-// could prob gather each by type somehow, load them, and unload them all at once
-// the more I add to this, the more I want to refactor this...
-// THIS CLASS IS AN ABSOLUTE DISASTER
+// Class is a little cleaner, but still can be worked on, will do for now
 class AssetManager {
 public:
     static void load_assets() {
@@ -39,103 +38,83 @@ public:
         for (auto& [texture, path] : textures | std::views::values) {
             texture = LoadTexture(path.c_str());
         }
-        star.asset = LoadTexture("assets/images/star.png");
-
-        for (auto& texture : white_floor_textures) {
-            texture.asset = LoadTexture(texture.path.c_str());
-        }
-
-        for (auto& texture : black_floor_textures) {
-            texture.asset = LoadTexture(texture.path.c_str());
-        }
-
-        button_background.asset = LoadTexture(button_background.path.c_str());
-        repeat_icon.asset = LoadTexture(repeat_icon.path.c_str());
 
         // Font
-        font.asset = LoadFont(font.path.c_str());
-
-        // Cursor
-        cursor.asset = LoadTexture(cursor.path.c_str());
+        for (auto& [font, path] : fonts | std::views::values) {
+            font = LoadFont(path.c_str());
+        }
 
         // SFX
-        InitAudioDevice();
-        button_click_sound.asset = LoadSound(button_click_sound.path.c_str());
-        music.asset              = LoadMusicStream(music.path.c_str());
-        SetMusicVolume(music.asset, 0.2f);
+        for (auto& [sfx, path] : sounds | std::views::values) {
+            sfx = LoadSound(path.c_str());
+        }
+
+        // Music
+        for (auto& [music, path] : music_tracks | std::views::values) {
+            music = LoadMusicStream(path.c_str());
+        }
     }
 
     static void unload_assets() {
+        // Textures
         for (auto& [texture, path] : textures | std::views::values) {
             UnloadTexture(texture);
         }
 
-        for (auto& texture : white_floor_textures) {
-            UnloadTexture(texture.asset);
+        // Font
+        for (auto& [font, path] : fonts | std::views::values) {
+            UnloadFont(font);
         }
 
-        for (auto& texture : black_floor_textures) {
-            UnloadTexture(texture.asset);
+        // SFX
+        for (auto& [sfx, path] : sounds | std::views::values) {
+            UnloadSound(sfx);
         }
 
-        UnloadTexture(button_background.asset);
-        UnloadTexture(repeat_icon.asset);
+        // Music
+        for (auto& [music, path] : music_tracks | std::views::values) {
+            UnloadMusicStream(music);
+        }
 
-        UnloadTexture(star.asset);
-        UnloadFont(font.asset);
-        UnloadTexture(cursor.asset);
-        UnloadSound(button_click_sound.asset);
-        UnloadMusicStream(music.asset);
+        // Move out
         CloseAudioDevice();
     }
 
-    static Texture2D& GetTexture(const PieceType name) { return textures.at(name).asset; }
-    static Font&      GetFont() { return font.asset; }
-    static Texture2D& GetCursor() { return cursor.asset; }
-    static Texture2D& GetButtonBackground() { return button_background.asset; }
-    static Texture2D& GetRepeatIcon() { return repeat_icon.asset; }
-    // will want to return more than just the button click
-    static Sound& GetSound() {
-        return button_click_sound.asset;
-    }
-
-    static void PlayMusic() {
-        if (IsMusicStreamPlaying(music.asset)) return;
-        PlayMusicStream(music.asset);
-    };
-
-    static void       UpdateMusic() { UpdateMusicStream(music.asset); }
-    static Texture2D& GetStar() { return star.asset; }
-
-    static Texture GetFloor(const int x, const int y) {
-        const auto& set = ((x + y) % 2 == 0) ? white_floor_textures : black_floor_textures;
-        return set[0].asset;
-    }
+    static Texture2D& Get(const TextureAssets key) { return textures.at(key).asset; }
+    static Font&      Get(const FontAssets key)    { return fonts.at(key).asset; }
+    static Sound&     Get(const SFXAssets key)     { return sounds.at(key).asset; }
+    static Music&     Get(const MusicAssets key)   { return music_tracks.at(key).asset; }
 
 private:
-    static inline std::map<PieceType, asset_info<Texture2D>> textures = {
-        {PieceType::Rook, {{}, "assets/images/rook.png"}},
-        {PieceType::Pawn, {{}, "assets/images/player1.png"}},
-        {PieceType::Bishop, {{}, "assets/images/bishop.png"}},
-        {PieceType::Queen, {{}, "assets/images/queen.png"}},
-        {PieceType::King, {{}, "assets/images/king.png"}},
-        {PieceType::Knight, {{}, "assets/images/knight.png"}},
+    static inline std::map<TextureAssets, asset_info<Texture2D>> textures = {
+        {TextureAssets::Rook, {{}, "assets/images/rook.png"}},
+        {TextureAssets::Pawn, {{}, "assets/images/player1.png"}},
+        {TextureAssets::Bishop, {{}, "assets/images/bishop.png"}},
+        {TextureAssets::Queen, {{}, "assets/images/queen.png"}},
+        {TextureAssets::King, {{}, "assets/images/king.png"}},
+        {TextureAssets::Knight, {{}, "assets/images/knight.png"}},
+
+
+        {TextureAssets::Star, {{}, "assets/images/star.png"}},
+
+        {TextureAssets::ButtonBackground, {{}, "assets/ui/button_bg.png"}},
+        {TextureAssets::RepeatIcon, {{}, "assets/ui/icon_repeat_outline.png"}},
+        {TextureAssets::Star, {{}, "assets/images/star.png"}},
+
+        {TextureAssets::WhiteFloor2, {{}, "assets/images/white_floors/floor2.png"}},
+        {TextureAssets::BlackFloor1, {{}, "assets/images/black_floors/floor1.png"}},
+
+        {TextureAssets::Cursor, {{}, "assets/cursor/hand_small_point.png"}},
+
     };
 
-    static inline asset_info<Font>      font               = {{}, "assets/font/supply-center.regular.ttf"};
-    static inline asset_info<Texture2D> cursor             = {{}, "assets/cursor/hand_small_point.png"};
-    static inline asset_info<Sound>     button_click_sound = {{}, "assets/sfx/button_click.wav"};
-    static inline asset_info<Music>     music              = {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"};
-    static inline asset_info<Texture2D> star               = {{}, "assets/images/star.png"};
-
-    static inline std::vector<asset_info<Texture2D>> white_floor_textures = {
-        {{}, "assets/images/white_floors/floor2.png"},
+    static inline std::map<FontAssets, asset_info<Font>> fonts = {
+        {FontAssets::SupplyCenter, {{}, "assets/font/supply-center.regular.ttf"}}
     };
-
-    static inline std::vector<asset_info<Texture2D>> black_floor_textures = {
-        {{}, "assets/images/black_floors/floor1.png"},
+    static inline std::map<SFXAssets, asset_info<Sound>> sounds = {
+        {SFXAssets::ButtonClick, {{}, "assets/sfx/button_click.wav"}}
     };
-
-    static inline asset_info<Texture2D> button_background = {{}, "assets/ui/button_bg.png"};
-    static inline asset_info<Texture2D> repeat_icon = {{}, "assets/ui/icon_repeat_outline.png"};
+    static inline std::map<MusicAssets, asset_info<Music>> music_tracks = {
+        {MusicAssets::Seaside, {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"}}
+    };
 };

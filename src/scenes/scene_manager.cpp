@@ -11,23 +11,12 @@
 
 void SceneManager::display_cursor() {
     const auto [x, y] = GetMousePosition();
-    DrawTexture(AssetManager::GetCursor(), static_cast<int>(x - 15), static_cast<int>(y - 10), WHITE);
+    DrawTexture(AssetManager::Get(TextureAssets::Cursor), static_cast<int>(x - 15), static_cast<int>(y - 10), WHITE);
 }
 
 void SceneManager::Run() {
     while (!WindowShouldClose() && running) {
-        AssetManager::UpdateMusic();
-
-        /*
-         * Things needed for transitions
-         *  1. Current scene loaded
-         *  2. Play "animation", doesn't have to be a scene, just drawing an object
-         *  3. Swap current to pending by the time animation ends
-         *
-         *  I'll start by loading something between, maybe giving a delay between loads too
-         *
-         *  Might need a flag that triggers when to load next scene, this is all in one if statement
-         */
+        UpdateMusicStream(AssetManager::Get(MusicAssets::Seaside));
 
         if (transitioning&& transition_progress<transition_duration) {
             transition_progress += GetFrameTime();

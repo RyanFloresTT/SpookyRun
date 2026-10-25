@@ -25,7 +25,7 @@ inline void DrawBGCell(const Texture2D& tex, const float px, const float py, con
 
 inline void DrawCell(const CellState state, const int x, const int y, const float tile_size) {
     const Rectangle bounds{x * tile_size, y * tile_size, tile_size, tile_size};
-    DrawBGCell(AssetManager::GetFloor(x, y), bounds.x, bounds.y, tile_size);
+    DrawBGCell(AssetManager::Get(TextureAssets::WhiteFloor2), bounds.x, bounds.y, tile_size);
     if (state == CellState::Attack) {
         DrawRectangleRec(bounds, RedAttack);
     }

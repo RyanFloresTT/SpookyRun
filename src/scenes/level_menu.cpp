@@ -26,11 +26,11 @@ void LevelMenu::Draw() {
         const float       x     = Padding + (index % Columns) * (ButtonSize + Spacing);
         const float       y     = Padding + (index / Columns) * (ButtonSize + Spacing);
         const std::string label = std::to_string(level);
-        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32, AssetManager::GetButtonBackground(), level > unlocked_count)) {
+        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32, AssetManager::Get(TextureAssets::ButtonBackground), level > unlocked_count)) {
             SceneManager::Get().GoTo<Level>(level);
         }
     }
 
     constexpr Rectangle r{TotalBoardWidth - 120, TotalBoardWidth - 120, 100.f, 100.f};
-    UI::Button(r, AssetManager::GetTexture(PieceType::Pawn), AssetManager::GetButtonBackground());
+    UI::Button(r, AssetManager::Get(TextureAssets::Pawn), AssetManager::Get(TextureAssets::ButtonBackground));
 }

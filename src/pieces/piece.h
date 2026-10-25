@@ -48,8 +48,8 @@ public:
 
     void Draw() const;
 
-    static void DrawAsset(const PieceType asset, const float px, const float py, const float tile_size) {
-        const Texture2D& tex = AssetManager::GetTexture(asset);
+    static void DrawAsset(const TextureAssets asset, const float px, const float py, const float tile_size) {
+        const Texture2D& tex = AssetManager::Get(asset);
         const Rectangle  source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
         const Rectangle  dest{px, py, tile_size, tile_size};
         DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
