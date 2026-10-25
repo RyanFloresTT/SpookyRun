@@ -14,7 +14,7 @@ enum class CellState {
 
 struct CellInfo {
     CellState state;
-    int x, y;
+    int       x, y;
 };
 
 inline void DrawBGCell(const Texture2D& tex, const float px, const float py, const float tile_size) {

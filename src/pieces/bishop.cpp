@@ -8,7 +8,9 @@
 void Bishop::SetHitSquares() {
     hit_squares.clear();
 
-    struct Dir { int dx, dy; };
+    struct Dir {
+        int dx, dy;
+    };
     constexpr Dir dirs[] = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
     for (const auto& [dx, dy] : dirs) {

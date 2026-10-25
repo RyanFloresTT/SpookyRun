@@ -62,8 +62,8 @@ public:
 
         for (const auto& p : lvl["pieces"]) {
             const std::string type = p.value("type", "");
-            const int x = p.value("x", 0);
-            const int y = p.value("y", 0);
+            const int         x    = p.value("x", 0);
+            const int         y    = p.value("y", 0);
 
             const auto it = pieceNames.find(type);
             if (it == pieceNames.end()) {
@@ -79,9 +79,10 @@ public:
             if (p.contains("patrol_sequence")) {
                 if (!p["patrol_sequence"].is_array()) {
                     TraceLog(LOG_WARNING, "Level %d: patrol_sequence on '%s' must be an array", level, type.c_str());
-                } else {
+                }
+                else {
                     for (const auto& step : p["patrol_sequence"]) {
-                        patrol.push_back(Vector2(step.value("x", 0), step.value("y", 0) ));
+                        patrol.push_back(Vector2(step.value("x", 0), step.value("y", 0)));
                     }
                 }
             }
@@ -89,11 +90,12 @@ public:
             board.AddPiece(it->second, x, y, patrol);
         }
     }
+
 private:
     static inline std::unordered_map<std::string, PieceType> pieceNames = {
-        {"Pawn", PieceType::Pawn},     {"Rook", PieceType::Rook},
+        {"Pawn", PieceType::Pawn}, {"Rook", PieceType::Rook},
         {"Bishop", PieceType::Bishop}, {"Knight", PieceType::Knight},
-        {"Queen", PieceType::Queen},   {"King", PieceType::King},
+        {"Queen", PieceType::Queen}, {"King", PieceType::King},
     };
 };
 

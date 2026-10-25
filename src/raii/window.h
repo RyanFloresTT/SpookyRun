@@ -13,6 +13,7 @@ public:
         HideCursor();
 #endif
     }
+
     ~Window() {
         AssetManager::unload_assets();
         CloseWindow();

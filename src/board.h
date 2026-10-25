@@ -22,12 +22,13 @@ public:
         playerCaptured = false;
     }
 
-    int GetSize() const { return static_cast<int>(cells.size()); }
+    int   GetSize() const { return static_cast<int>(cells.size()); }
     float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
-    bool        PlayerCaptured() const;
-    bool InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize(); }
+    bool  PlayerCaptured() const;
+    bool  InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize(); }
 
     CellState get_cell_state(const int x, const int y) const { return cells[y][x]; }
+
     void set_cell_state(const int x, const int y, const CellState s) {
         cells[y][x] = s;
     }
@@ -90,7 +91,10 @@ public:
         for (Piece* target : pendingRemovals) RemovePiece(target);
         pendingRemovals.clear();
 
-        if (dirty) { RefreshAttacks(); dirty = false; }
+        if (dirty) {
+            RefreshAttacks();
+            dirty = false;
+        }
 
         for (auto& p : pieces)
             if (p->HasHitPlayer()) playerCaptured = true;
@@ -112,9 +116,9 @@ private:
 
     std::vector<std::vector<CellState>> cells;
     std::vector<std::unique_ptr<Piece>> pieces;
-    std::vector<Piece*> pendingRemovals;
-    bool playerCaptured = false;
-    bool dirty = false;
+    std::vector<Piece*>                 pendingRemovals;
+    bool                                playerCaptured = false;
+    bool                                dirty          = false;
 };
 
 inline bool Board::PlayerCaptured() const { return playerCaptured; }

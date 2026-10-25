@@ -29,10 +29,11 @@ void SceneManager::Run() {
          *  Might need a flag that triggers when to load next scene, this is all in one if statement
          */
 
-        if (transitioning && transition_progress < transition_duration) {
+        if (transitioning&& transition_progress<transition_duration) {
             transition_progress += GetFrameTime();
-        } else {
-            transitioning = false;
+        }
+        else {
+            transitioning       = false;
             transition_progress = 0;
         }
 
@@ -50,8 +51,8 @@ void SceneManager::Run() {
         ClearBackground(RAYWHITE);
         current->Draw();
 
-        if (transitioning)
-            {const float t     = transition_progress / transition_duration;   // 0 -> 1
+        if (transitioning) {
+            const float t     = transition_progress / transition_duration; // 0 -> 1
             const float alpha = 1.0f - std::abs(t * 2.0f - 1.0f);
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, alpha));
         }

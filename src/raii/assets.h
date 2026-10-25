@@ -9,7 +9,7 @@
 
 template <typename T>
 struct asset_info {
-    T asset;
+    T           asset;
     std::string path;
 };
 
@@ -60,7 +60,7 @@ public:
         // SFX
         InitAudioDevice();
         button_click_sound.asset = LoadSound(button_click_sound.path.c_str());
-        music.asset = LoadMusicStream(music.path.c_str());
+        music.asset              = LoadMusicStream(music.path.c_str());
         SetMusicVolume(music.asset, 0.2f);
     }
 
@@ -88,19 +88,20 @@ public:
     }
 
     static Texture2D& GetTexture(const PieceType name) { return textures.at(name).asset; }
-    static Font& GetFont() { return font.asset; }
+    static Font&      GetFont() { return font.asset; }
     static Texture2D& GetCursor() { return cursor.asset; }
     static Texture2D& GetButtonBackground() { return button_background.asset; }
     // will want to return more than just the button click
     static Sound& GetSound() {
         return button_click_sound.asset;
     }
+
     static void PlayMusic() {
         if (IsMusicStreamPlaying(music.asset)) return;
         PlayMusicStream(music.asset);
     };
 
-    static void UpdateMusic() { UpdateMusicStream(music.asset); }
+    static void       UpdateMusic() { UpdateMusicStream(music.asset); }
     static Texture2D& GetStar() { return star.asset; }
 
     static Texture GetFloor(const int x, const int y) {
@@ -110,19 +111,19 @@ public:
 
 private:
     static inline std::map<PieceType, asset_info<Texture2D>> textures = {
-        {PieceType::Rook,   {{}, "assets/images/rook.png"}},
-        {PieceType::Pawn,   {{}, "assets/images/player1.png"}},
+        {PieceType::Rook, {{}, "assets/images/rook.png"}},
+        {PieceType::Pawn, {{}, "assets/images/player1.png"}},
         {PieceType::Bishop, {{}, "assets/images/bishop.png"}},
-        {PieceType::Queen,  {{}, "assets/images/queen.png"}},
-        {PieceType::King,   {{}, "assets/images/king.png"}},
+        {PieceType::Queen, {{}, "assets/images/queen.png"}},
+        {PieceType::King, {{}, "assets/images/king.png"}},
         {PieceType::Knight, {{}, "assets/images/knight.png"}},
     };
 
-    static inline asset_info<Font> font = {{}, "assets/font/supply-center.regular.ttf"};
-    static inline asset_info<Texture2D> cursor = {{}, "assets/cursor/hand_small_point.png"};
-    static inline asset_info<Sound> button_click_sound = {{}, "assets/sfx/button_click.wav"};
-    static inline asset_info<Music> music = {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"};
-    static inline asset_info<Texture2D> star = {{}, "assets/images/star.png"};
+    static inline asset_info<Font>      font               = {{}, "assets/font/supply-center.regular.ttf"};
+    static inline asset_info<Texture2D> cursor             = {{}, "assets/cursor/hand_small_point.png"};
+    static inline asset_info<Sound>     button_click_sound = {{}, "assets/sfx/button_click.wav"};
+    static inline asset_info<Music>     music              = {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"};
+    static inline asset_info<Texture2D> star               = {{}, "assets/images/star.png"};
 
     static inline std::vector<asset_info<Texture2D>> white_floor_textures = {
         {{}, "assets/images/white_floors/floor2.png"},

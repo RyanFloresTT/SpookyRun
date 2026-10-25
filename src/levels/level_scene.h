@@ -9,11 +9,12 @@
 
 class Level : public Scene {
 public:
-    explicit Level(const int level) {this->level = level;}
+    explicit Level(const int level) { this->level = level; }
 
     void Enter() override {
         LevelManager::LoadLevel(level, playable);
     }
+
     void Update(const float dt) override {
         playable.Update(dt);
 
@@ -32,5 +33,5 @@ public:
 
 private:
     Board playable{CellState::Empty};
-    int level;
+    int   level;
 };

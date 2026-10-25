@@ -3,7 +3,9 @@
 #include "../board.h"
 
 void Rook::SetHitSquares() {
-    struct Dir { int dx, dy; };
+    struct Dir {
+        int dx, dy;
+    };
     constexpr Dir dirs[] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     hit_squares.clear();

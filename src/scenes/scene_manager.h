@@ -12,7 +12,7 @@ public:
 
     static void display_cursor();
     void        Run();
-    void Quit() { running = false; }
+    void        Quit() { running = false; }
 
     template <typename T, typename... Args>
     void GoTo(Args... args) {
@@ -23,9 +23,9 @@ public:
 private:
     std::unique_ptr<Scene>                  current;
     std::function<std::unique_ptr<Scene>()> pending;
-    bool running = true;
-    bool transitioning = false;
-    float transition_progress = 0.0f;
-    float transition_duration = 1.0f;
-    float swap_time = transition_duration / 2;
+    bool                                    running             = true;
+    bool                                    transitioning       = false;
+    float                                   transition_progress = 0.0f;
+    float                                   transition_duration = 1.0f;
+    float                                   swap_time           = transition_duration / 2;
 };

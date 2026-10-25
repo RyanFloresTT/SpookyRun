@@ -14,6 +14,7 @@ public:
             SceneManager::Get().GoTo<LevelMenu>();
         }
     }
+
     void Draw() override {
         background.Draw();
 

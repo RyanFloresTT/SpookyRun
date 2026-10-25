@@ -3,7 +3,6 @@
 #include "../raii/assets.h"
 
 namespace UI {
-
     inline bool Button(const Rectangle r, const char* label, const int fontSize) {
         const bool hover   = CheckCollisionPointRec(GetMousePosition(), r);
         const bool pressed = hover && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
@@ -73,12 +72,12 @@ namespace UI {
 
     inline bool CenteredButton(const float centerX, const float y, const char* label,
                                const float w = 240, const float h = 56) {
-        return Button(Rectangle{ centerX - w / 2, y, w, h }, label, 32);
+        return Button(Rectangle{centerX - w / 2, y, w, h}, label, 32);
     }
 
     inline void CenteredText(const float centerX, const float y, const char* text,
-                                const int size, const Color color) {
-        const Font& font = AssetManager::GetFont();
+                             const int   size, const Color    color) {
+        const Font&     font    = AssetManager::GetFont();
         constexpr float spacing = 0.0f;
 
         const Vector2 measured = MeasureTextEx(font, text, static_cast<float>(size), spacing);
@@ -89,5 +88,4 @@ namespace UI {
 
         DrawTextEx(font, text, pos, static_cast<float>(size), spacing, color);
     }
-
 }

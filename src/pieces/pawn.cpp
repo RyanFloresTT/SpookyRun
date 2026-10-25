@@ -10,20 +10,25 @@
 #include "../scenes/scene_manager.h"
 #include "../scenes/win_scene.h"
 
-void Pawn::SetHitSquares() { /* no op */ }
+void Pawn::SetHitSquares() {
+    /* no op */
+}
 
-bool Pawn::validate_pawn_move(const int target_x, const int target_y, const int dx, const int dy, const CellState destination_state) const {
+bool Pawn::validate_pawn_move(const int       target_x, const int target_y, const int dx, const int dy,
+                              const CellState destination_state) const {
     const int xMag = std::abs(dx);
 
-    if (xMag > 1 || std::abs(dy) > 1) return false;     // can't move more than one spot
+    if (xMag > 1 || std::abs(dy) > 1) return false;             // can't move more than one spot
     if (target_x == info.x && target_y == info.y) return false; // can't move to its current spot
-    if (xMag >= 1 && dy == 0) return false; // can't move left to right
+    if (xMag >= 1 && dy == 0) return false;                     // can't move left to right
 
-    if (xMag > 0 && dy < 0) {  // can only go diagonal to attack
+    if (xMag > 0 && dy < 0) {
+        // can only go diagonal to attack
         if (destination_state != CellState::Occupied) return false;
     }
 
     if (xMag > 0 && dy >= 1) {
+        // can only go backwards diagonally if there is something there
         if (destination_state == CellState::Occupied) return true;
         return false;
     }

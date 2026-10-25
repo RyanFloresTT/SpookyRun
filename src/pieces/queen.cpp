@@ -6,7 +6,9 @@
 #include "../board.h"
 
 void Queen::SetHitSquares() {
-    struct Dir { int dx, dy; };
+    struct Dir {
+        int dx, dy;
+    };
     constexpr Dir dirs[] = {
         {1, 0}, {-1, 0}, {0, 1}, {0, -1},
         {1, 1}, {1, -1}, {-1, 1}, {-1, -1}
