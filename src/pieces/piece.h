@@ -55,19 +55,12 @@ public:
         DetectPlayer();
     }
 
-    void Draw() const {
-        float t = is_moving ? animation_timer / move_duration : 1.0f;
-        t = 1.0f - (1.0f - t) * (1.0f - t) * (1.0f - t); // ease-out cubic
+    void Draw() const;
 
-        const float px = (from_x + (info.x - from_x) * t) * TileSize;
-        const float py = (from_y + (info.y - from_y) * t) * TileSize;
-        DrawAsset(type, px, py);
-    }
-
-    static void DrawAsset(const PieceType asset, const float px, const float py) {
+    static void DrawAsset(const PieceType asset, const float px, const float py, const float tile_size) {
         const Texture2D& tex = AssetManager::GetTexture(asset);
         const Rectangle source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
-        const Rectangle dest{px, py, static_cast<float>(TileSize), static_cast<float>(TileSize)};
+        const Rectangle dest{px, py, tile_size, tile_size};
         DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
     }
 

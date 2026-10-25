@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <algorithm>
-#include <array>
+#include <stdexcept>
 #include <vector>
 
 #include "cell.h"
@@ -8,9 +8,22 @@
 
 class Board {
 public:
-    explicit Board(const CellState fill = CellState::Empty) : cells() {
-        for (auto& row : cells) row.fill(fill);
+    explicit Board(const CellState fill = CellState::Empty) {
+        Reset(DefaultBoardSize, fill);
     }
+
+    void Reset(const int size, const CellState fill = CellState::Empty) {
+        if (size < 1 || size > TotalBoardWidth) {
+            throw std::invalid_argument("Board size must fit the board viewport");
+        }
+        pendingRemovals.clear();
+        pieces.clear();
+        cells.assign(size, std::vector<CellState>(size, fill));
+        playerCaptured = false;
+    }
+
+    int GetSize() const { return static_cast<int>(cells.size()); }
+    float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
 
     CellState Get(const int x, const int y) const { return cells[y][x]; }
 
@@ -19,6 +32,7 @@ public:
     }
 
     Piece* AddPiece(const PieceType type, const int x, const int y) {
+        if (!InBounds(x, y)) return nullptr;
         auto p = MakePiece(type, *this, x, y);
         if (!p) return nullptr;
 
@@ -30,9 +44,9 @@ public:
     }
 
     void Draw() const {
-        for (int y = 0; y < BoardSize; ++y)
-            for (int x = 0; x < BoardSize; ++x)
-                DrawCell(cells[y][x], x, y);
+        for (int y = 0; y < GetSize(); ++y)
+            for (int x = 0; x < GetSize(); ++x)
+                DrawCell(cells[y][x], x, y, GetTileSize());
 
         for (auto& p : pieces) p->Draw();
     }
@@ -71,7 +85,7 @@ public:
     }
 
     bool        PlayerCaptured() const;
-    static bool InBounds(const int x, const int y) { return x >= 0 && x < BoardSize && y >= 0 && y < BoardSize; }
+    bool InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize(); }
 
 private:
     void RemovePiece(Piece* target) {
@@ -92,7 +106,7 @@ private:
                 if (cell == CellState::Attack) cell = CellState::Empty;
     }
 
-    std::array<std::array<CellState, BoardSize>, BoardSize> cells;
+    std::vector<std::vector<CellState>> cells;
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*> pendingRemovals;
     bool playerCaptured = false;

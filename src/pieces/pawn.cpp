@@ -29,7 +29,7 @@ bool Pawn::validate_pawn_move(const int target_x, const int target_y, const int 
 
 void Pawn::Move(const int target_x, const int target_y) {
     if (is_moving) return;
-    if (!Board::InBounds(target_x, target_y)) return;
+    if (!game_board.InBounds(target_x, target_y)) return;
 
     const int dx = target_x - info.x;
     const int dy = target_y - info.y;
@@ -51,8 +51,11 @@ void Pawn::Move(const int target_x, const int target_y) {
 void Pawn::Update(const float dt) {
     Piece::Update(dt);
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-        Move(GetMouseX() / TileSize, GetMouseY() / TileSize);
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        const float tile_size = game_board.GetTileSize();
+        Move(static_cast<int>(std::floor(GetMouseX() / tile_size)),
+             static_cast<int>(std::floor(GetMouseY() / tile_size)));
+    }
 
     if (PlayerWon()) {
         SceneManager::Get().GoTo<WinScene>();

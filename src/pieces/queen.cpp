@@ -14,7 +14,7 @@ void Queen::SetHitSquares() {
 
     for (const auto& [dx, dy] : dirs) {
         for (int x = info.x + dx, y = info.y + dy;
-             Board::InBounds(x, y);
+             game_board.InBounds(x, y);
              x += dx, y += dy) {
             if (game_board.Get(x, y) == CellState::Occupied) break;
             game_board.Set(x, y, CellState::Attack);

@@ -5,6 +5,16 @@
 #include "piece.h"
 #include "../board.h"
 
+void Piece::Draw() const {
+    float progress = is_moving ? animation_timer / move_duration : 1.0f;
+    progress = 1.0f - (1.0f - progress) * (1.0f - progress) * (1.0f - progress);
+
+    const float tile_size = game_board.GetTileSize();
+    const float px = (from_x + (info.x - from_x) * progress) * tile_size;
+    const float py = (from_y + (info.y - from_y) * progress) * tile_size;
+    DrawAsset(type, px, py, tile_size);
+}
+
 void Piece::DetectPlayer() {
     if (type == PieceType::Pawn) return;
 

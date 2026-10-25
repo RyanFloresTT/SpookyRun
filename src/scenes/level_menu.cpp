@@ -3,9 +3,29 @@
 #include "../levels/level_scene.h"
 #include "../ui/button.h"
 
+void LevelMenu::Enter() {
+    levelCount = LevelManager::GetLevelCount();
+    firstRow = 0;
+}
+
+void LevelMenu::Update(float) {
+    const int rowCount = (levelCount + Columns - 1) / Columns;
+    const float wheel = GetMouseWheelMove();
+    const int direction = wheel > 0 ? -1 : wheel < 0 ? 1 : 0;
+    firstRow = std::clamp(firstRow + direction, 0, std::max(0, rowCount - VisibleRows));
+}
+
 void LevelMenu::Draw() {
     background.Draw();
-    if (UI::Button(Rectangle{ 20, 20, 120, 120 }, "1")) {
-        SceneManager::Get().GoTo<Level>(1);
+    const int firstLevel = firstRow * Columns + 1;
+    const int lastLevel = std::min(levelCount, (firstRow + VisibleRows) * Columns);
+    for (int level = firstLevel; level <= lastLevel; ++level) {
+        const int index = level - firstLevel;
+        const float x = Padding + (index % Columns) * (ButtonSize + Spacing);
+        const float y = Padding + (index / Columns) * (ButtonSize + Spacing);
+        const std::string label = std::to_string(level);
+        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str())) {
+            SceneManager::Get().GoTo<Level>(level);
+        }
     }
 }

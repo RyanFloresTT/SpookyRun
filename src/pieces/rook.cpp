@@ -7,7 +7,7 @@ void Rook::SetHitSquares() {
     constexpr Dir dirs[] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     for (const auto& [dx, dy] : dirs) {
-        for (int x = info.x + dx, y = info.y + dy; Board::InBounds(x, y); x += dx, y += dy) {
+        for (int x = info.x + dx, y = info.y + dy; game_board.InBounds(x, y); x += dx, y += dy) {
             if (game_board.Get(x, y) == CellState::Occupied) break;
             game_board.Set(x, y, CellState::Attack);
             hit_squares.push_back(Vector2(x, y));

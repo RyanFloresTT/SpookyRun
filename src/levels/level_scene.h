@@ -26,12 +26,10 @@ public:
     }
 
     void Draw() override {
-        background.Draw();
         playable.Draw();
     }
 
 private:
-    Board background{CellState::Empty};
     Board playable{CellState::Empty};
     std::vector<std::unique_ptr<Piece>> pieces;
     int level;

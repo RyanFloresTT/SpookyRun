@@ -15,6 +15,23 @@ using json = nlohmann::json;
 
 class LevelManager {
 public:
+    static int GetLevelCount() {
+        std::ifstream file("assets/levels/levels.json");
+        if (!file) {
+            TraceLog(LOG_ERROR, "Could not open levels.json");
+            return 0;
+        }
+
+        const json data = json::parse(file, nullptr, false);
+        if (data.is_discarded() || !data.is_object() ||
+            !data.contains("levels") || !data["levels"].is_object()) {
+            TraceLog(LOG_ERROR, "levels.json must contain a levels object");
+            return 0;
+        }
+
+        return static_cast<int>(data["levels"].size());
+    }
+
     static void LoadLevel(const int level, Board& board) {
         std::ifstream file("assets/levels/levels.json");
         if (!file) {
@@ -36,6 +53,13 @@ public:
 
         const json& lvl = data["levels"][key];
 
+        const json size = lvl.value("size", json(DefaultBoardSize));
+        if (!size.is_number_integer() || size < 1 || size > TotalBoardWidth) {
+            TraceLog(LOG_ERROR, "Level %d size must be an integer between 1 and %d", level, TotalBoardWidth);
+            return;
+        }
+        board.Reset(size.get<int>());
+
         for (const auto& p : lvl["pieces"]) {
             const std::string type = p.value("type", "");
             const int x = p.value("x", 0);
@@ -46,7 +70,7 @@ public:
                 TraceLog(LOG_WARNING, "Unknown piece type '%s'", type.c_str());
                 continue;
             }
-            if (!Board::InBounds(x, y)) {
+            if (!board.InBounds(x, y)) {
                 TraceLog(LOG_WARNING, "Piece '%s' out of bounds (%d, %d)", type.c_str(), x, y);
                 continue;
             }

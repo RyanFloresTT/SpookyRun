@@ -15,7 +15,7 @@ void Knight::SetHitSquares() {
     for (const auto& [dx, dy] : offsets) {
         const int x = info.x + dx;
         const int y = info.y + dy;
-        if (!Board::InBounds(x, y)) continue;
+        if (!game_board.InBounds(x, y)) continue;
         if (game_board.Get(x, y) == CellState::Occupied) continue; // knights jump, so only skip this square
         game_board.Set(x, y, CellState::Attack);
     }

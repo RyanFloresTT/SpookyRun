@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-inline constexpr int BoardSize = 8;
-inline constexpr int TileSize  = 128;
-inline constexpr int TotalBoardWidth = BoardSize * TileSize;
+inline constexpr int DefaultBoardSize = 8;
+inline constexpr int WindowSize = 1024;
+inline constexpr int TotalBoardWidth = WindowSize;
