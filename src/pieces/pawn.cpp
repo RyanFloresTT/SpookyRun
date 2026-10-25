@@ -34,7 +34,7 @@ void Pawn::Move(const int target_x, const int target_y) {
     const int dx = target_x - info.x;
     const int dy = target_y - info.y;
 
-    const CellState destinationState = game_board.Get(target_x, target_y);
+    const CellState destinationState = game_board.get_cell_state(target_x, target_y);
 
     if (validate_pawn_move(target_x, target_y, dx, dy, destinationState)) return;
 
@@ -42,8 +42,8 @@ void Pawn::Move(const int target_x, const int target_y) {
         game_board.RemovePieceAt(target_x, target_y);
     }
 
-    game_board.Set(target_x, target_y, CellState::Occupied);
-    game_board.Set(info.x, info.y, CellState::Empty);
+    game_board.set_cell_state(target_x, target_y, CellState::Occupied);
+    game_board.set_cell_state(info.x, info.y, CellState::Empty);
 
     MoveTo(target_x, target_y);
 }
@@ -63,7 +63,7 @@ void Pawn::Update(const float dt) {
 }
 
 void Pawn::Init() const {
-    game_board.Set(info.x, info.y, CellState::Occupied);
+    game_board.set_cell_state(info.x, info.y, CellState::Occupied);
 }
 
 bool Pawn::PlayerWon() const {

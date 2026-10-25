@@ -6,13 +6,15 @@
 #include "../board.h"
 
 void Bishop::SetHitSquares() {
+    hit_squares.clear();
+
     struct Dir { int dx, dy; };
     constexpr Dir dirs[] = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
     for (const auto& [dx, dy] : dirs) {
         for (int x = info.x + dx, y = info.y + dy; game_board.InBounds(x, y); x += dx, y += dy) {
-            if (game_board.Get(x, y) == CellState::Occupied) break;
-            game_board.Set(x, y, CellState::Attack);
+            if (game_board.get_cell_state(x, y) == CellState::Occupied) break;
+            game_board.set_cell_state(x, y, CellState::Attack);
         }
     }
 }
