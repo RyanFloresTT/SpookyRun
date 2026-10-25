@@ -13,7 +13,7 @@ struct asset_info {
 };
 
 // could prob gather each by type somehow, load them, and unload them all at once
-
+// the more I add to this, the more I want to refactor this...
 class AssetManager {
 public:
     static void load_assets() {
@@ -21,6 +21,7 @@ public:
         for (auto& [texture, path] : textures | std::views::values) {
             texture = LoadTexture(path.c_str());
         }
+        star.asset = LoadTexture("assets/images/star.png");
 
         // Font
         font.asset = LoadFont(font.path.c_str());
@@ -40,6 +41,7 @@ public:
             UnloadTexture(texture);
         }
 
+        UnloadTexture(star.asset);
         UnloadFont(font.asset);
         UnloadTexture(cursor.asset);
         UnloadSound(button_click_sound.asset);
@@ -60,6 +62,7 @@ public:
     };
 
     static void UpdateMusic() { UpdateMusicStream(music.asset); }
+    static Texture2D& GetStar() { return star.asset; }
 
 private:
     static inline std::map<PieceType, asset_info<Texture2D>> textures = {
@@ -74,6 +77,6 @@ private:
     static inline asset_info<Font> font = {{}, "assets/font/supply-center.regular.ttf"};
     static inline asset_info<Texture2D> cursor = {{}, "assets/cursor/hand_small_point.png"};
     static inline asset_info<Sound> button_click_sound = {{}, "assets/sfx/button_click.wav"};
-
     static inline asset_info<Music> music = {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"};
+    static inline asset_info<Texture2D> star = {{}, "assets/images/star.png"};
 };
