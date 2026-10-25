@@ -15,15 +15,15 @@ void Pawn::SetHitSquares() { /* no op */ }
 bool Pawn::validate_pawn_move(const int target_x, const int target_y, const int dx, const int dy, const CellState destination_state) const {
     const int xMag = std::abs(dx);
 
-    if (xMag > 1 || std::abs(dy) > 1) return true;     // can't move more than one spot
-    if (target_x == info.x && target_y == info.y) return true; // can't move to its current spot
-    if (xMag >= 1 && dy == 0) return true;
+    if (xMag > 1 || std::abs(dy) > 1) return false;     // can't move more than one spot
+    if (target_x == info.x && target_y == info.y) return false; // can't move to its current spot
+    if (xMag >= 1 && dy == 0) return false; // can't move left to right
 
     if (xMag > 0 && dy < 0) {  // can only go diagonal to attack
-        if (destination_state != CellState::Occupied) return true;
+        if (destination_state != CellState::Occupied) return false;
     }
 
-    return false;
+    return true;
 }
 
 void Pawn::Move(const int target_x, const int target_y) {
@@ -35,7 +35,7 @@ void Pawn::Move(const int target_x, const int target_y) {
 
     const CellState destinationState = game_board.get_cell_state(target_x, target_y);
 
-    if (validate_pawn_move(target_x, target_y, dx, dy, destinationState)) return;
+    if (!validate_pawn_move(target_x, target_y, dx, dy, destinationState)) return;
 
     if (destinationState == CellState::Occupied) {
         game_board.RemovePieceAt(target_x, target_y);
