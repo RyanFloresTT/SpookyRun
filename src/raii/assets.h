@@ -50,6 +50,7 @@ public:
         }
 
         button_background.asset = LoadTexture(button_background.path.c_str());
+        repeat_icon.asset = LoadTexture(repeat_icon.path.c_str());
 
         // Font
         font.asset = LoadFont(font.path.c_str());
@@ -78,6 +79,7 @@ public:
         }
 
         UnloadTexture(button_background.asset);
+        UnloadTexture(repeat_icon.asset);
 
         UnloadTexture(star.asset);
         UnloadFont(font.asset);
@@ -91,6 +93,7 @@ public:
     static Font&      GetFont() { return font.asset; }
     static Texture2D& GetCursor() { return cursor.asset; }
     static Texture2D& GetButtonBackground() { return button_background.asset; }
+    static Texture2D& GetRepeatIcon() { return repeat_icon.asset; }
     // will want to return more than just the button click
     static Sound& GetSound() {
         return button_click_sound.asset;
@@ -134,4 +137,5 @@ private:
     };
 
     static inline asset_info<Texture2D> button_background = {{}, "assets/ui/button_bg.png"};
+    static inline asset_info<Texture2D> repeat_icon = {{}, "assets/ui/icon_repeat_outline.png"};
 };
