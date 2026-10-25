@@ -18,29 +18,49 @@ public:
         }
         pendingRemovals.clear();
         pieces.clear();
-        cells.assign(size, std::vector<CellState>(size, fill));
+        cells.assign(size, std::vector(size, fill));
         playerCaptured = false;
     }
 
     int GetSize() const { return static_cast<int>(cells.size()); }
     float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
+    bool        PlayerCaptured() const;
+    bool InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize(); }
 
-    CellState Get(const int x, const int y) const { return cells[y][x]; }
-
-    void Set(const int x, const int y, const CellState s) {
+    CellState get_cell_state(const int x, const int y) const { return cells[y][x]; }
+    void set_cell_state(const int x, const int y, const CellState s) {
         cells[y][x] = s;
     }
 
-    Piece* AddPiece(const PieceType type, const int x, const int y) {
-        if (!InBounds(x, y)) return nullptr;
+    void AddPiece(const PieceType type, const int x, const int y) {
+        if (!InBounds(x, y)) return;
         auto p = MakePiece(type, *this, x, y);
-        if (!p) return nullptr;
+        if (!p) return;
 
-        Piece* raw = p.get();
-        Set(x, y, CellState::Occupied);
+        set_cell_state(x, y, CellState::Occupied);
         pieces.push_back(std::move(p));
         RefreshAttacks();
-        return raw;
+    }
+
+    void RemovePieceAt(int x, int y) {
+        if (!InBounds(x, y)) return;
+
+        const auto it = std::ranges::find_if(pieces, [&](const auto& p) {
+            const auto info = p->GetCellInfo();
+            return info.x == x && info.y == y;
+        });
+        if (it == pieces.end()) return;
+
+        pendingRemovals.push_back(it->get());
+    }
+
+    bool PieceTypeAt(PieceType type, float x, float y) const {
+        for (auto& p : pieces) {
+            if (p.get()->type != type) continue;
+            const auto info = p->GetCellInfo();
+            if (info.x == x && info.y == y) return true;
+        }
+        return false;
     }
 
     void Draw() const {
@@ -56,43 +76,18 @@ public:
         for (Piece* target : pendingRemovals) RemovePiece(target);
         pendingRemovals.clear();
 
-        for (auto& p : pieces) {
-            if (p->HasHitPlayer()) {
-                playerCaptured = true;
-            }
-        }
+        if (dirty) { RefreshAttacks(); dirty = false; }
+
+        for (auto& p : pieces)
+            if (p->HasHitPlayer()) playerCaptured = true;
     }
-
-    void RemovePieceAt(int x, int y) {
-        if (!InBounds(x, y)) return;
-
-        const auto it = std::ranges::find_if(pieces, [&](const auto& p) {
-            const auto info = p->GetCellInfo();
-            return info.x == x && info.y == y;
-        });
-        if (it == pieces.end()) return;
-
-        pendingRemovals.push_back(it->get());   // just queue it; don't move or erase yet
-    }
-
-    bool PieceTypeAt(PieceType type, float x, float y) const {
-        for (auto& p : pieces) {
-            if (p.get()->type != type) continue;
-            const auto info = p->GetCellInfo();
-            if (info.x == x && info.y == y) return true;
-        }
-        return false;
-    }
-
-    bool        PlayerCaptured() const;
-    bool InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize(); }
 
 private:
     void RemovePiece(Piece* target) {
         const auto info = target->GetCellInfo();
-        Set(info.x, info.y, CellState::Empty);
+        set_cell_state(info.x, info.y, CellState::Empty);
         std::erase_if(pieces, [&](auto& p) { return p.get() == target; });
-        RefreshAttacks();
+        dirty = true;
     }
 
     void RefreshAttacks() {
@@ -110,6 +105,7 @@ private:
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*> pendingRemovals;
     bool playerCaptured = false;
+    bool dirty;
 };
 
 inline bool Board::PlayerCaptured() const { return playerCaptured; }
