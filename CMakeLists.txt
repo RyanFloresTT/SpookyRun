@@ -63,6 +63,7 @@ if (EMSCRIPTEN)
             -sUSE_GLFW=3
             -sASYNCIFY
             -sALLOW_MEMORY_GROWTH=1
+            -sEXPORTED_RUNTIME_METHODS=HEAPF32,HEAP32,HEAPU8
             "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/assets@/assets"
     )
 else()
