@@ -32,9 +32,17 @@ namespace UI {
     }
 
     inline void CenteredText(const float centerX, const float y, const char* text,
-                             const int size, const Color color) {
-        DrawText(text, static_cast<int>(centerX - MeasureText(text, size) / 2.0f),
-                 static_cast<int>(y), size, color);
+                                const int size, const Color color) {
+        const Font& font = AssetManager::GetFont();
+        constexpr float spacing = 0.0f;
+
+        const Vector2 measured = MeasureTextEx(font, text, static_cast<float>(size), spacing);
+        const Vector2 pos{
+            std::floor(centerX - measured.x / 2.0f),
+            std::floor(y)
+        };
+
+        DrawTextEx(font, text, pos, static_cast<float>(size), spacing, color);
     }
 
 }
