@@ -2,6 +2,7 @@
 #include <map>
 #include <ranges>
 #include <string>
+#include <vector>
 
 #include "raylib.h"
 #include "../pieces/piece_type.h"
@@ -39,6 +40,14 @@ public:
         }
         star.asset = LoadTexture("assets/images/star.png");
 
+        for (auto& texture : white_floor_textures) {
+            texture.asset = LoadTexture(texture.path.c_str());
+        }
+
+        for (auto& texture : black_floor_textures) {
+            texture.asset = LoadTexture(texture.path.c_str());
+        }
+
         // Font
         font.asset = LoadFont(font.path.c_str());
 
@@ -55,6 +64,14 @@ public:
     static void unload_assets() {
         for (auto& [texture, path] : textures | std::views::values) {
             UnloadTexture(texture);
+        }
+
+        for (auto& texture : white_floor_textures) {
+            UnloadTexture(texture.asset);
+        }
+
+        for (auto& texture : black_floor_textures) {
+            UnloadTexture(texture.asset);
         }
 
         UnloadTexture(star.asset);
@@ -80,6 +97,11 @@ public:
     static void UpdateMusic() { UpdateMusicStream(music.asset); }
     static Texture2D& GetStar() { return star.asset; }
 
+    static Texture GetFloor(const int x, const int y) {
+        const auto& set = ((x + y) % 2 == 0) ? white_floor_textures : black_floor_textures;
+        return set[0].asset;
+    }
+
 private:
     static inline std::map<PieceType, asset_info<Texture2D>> textures = {
         {PieceType::Rook,   {{}, "assets/images/rook.png"}},
@@ -95,4 +117,12 @@ private:
     static inline asset_info<Sound> button_click_sound = {{}, "assets/sfx/button_click.wav"};
     static inline asset_info<Music> music = {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"};
     static inline asset_info<Texture2D> star = {{}, "assets/images/star.png"};
+
+    static inline std::vector<asset_info<Texture2D>> white_floor_textures = {
+        {{}, "assets/images/white_floors/floor2.png"},
+    };
+
+    static inline std::vector<asset_info<Texture2D>> black_floor_textures = {
+        {{}, "assets/images/black_floors/floor1.png"},
+    };
 };

@@ -74,7 +74,19 @@ public:
                 TraceLog(LOG_WARNING, "Piece '%s' out of bounds (%d, %d)", type.c_str(), x, y);
                 continue;
             }
-            board.AddPiece(it->second, x, y);
+
+            std::vector<Vector2> patrol;
+            if (p.contains("patrol_sequence")) {
+                if (!p["patrol_sequence"].is_array()) {
+                    TraceLog(LOG_WARNING, "Level %d: patrol_sequence on '%s' must be an array", level, type.c_str());
+                } else {
+                    for (const auto& step : p["patrol_sequence"]) {
+                        patrol.push_back(Vector2(step.value("x", 0), step.value("y", 0) ));
+                    }
+                }
+            }
+
+            board.AddPiece(it->second, x, y, patrol);
         }
     }
 private:

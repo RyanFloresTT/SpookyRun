@@ -16,7 +16,7 @@ void Piece::Draw() const {
 }
 
 void Piece::DetectPlayer() {
-    if (type == PieceType::Pawn) return;
+    if (type == PieceType::Pawn || is_moving || has_hit_player) return;
 
     for (const auto [x, y] : hit_squares) {
         if (game_board.PieceTypeAt(PieceType::Pawn, x, y)) {
@@ -26,8 +26,47 @@ void Piece::DetectPlayer() {
     }
 }
 
+void Piece::OnPlayerMoved() {
+    if (patrol_sequence.empty()) return;
+
+    MoveTo(info.x + patrol_sequence[current_patrol_index].x, info.y + patrol_sequence[current_patrol_index].y);
+    current_patrol_index = (current_patrol_index + 1) % patrol_sequence.size();
+}
+
+void Piece::MoveTo(const int new_x, const int new_y) {
+    if (!game_board.InBounds(new_x, new_y)) return;
+    if (new_x == info.x && new_y == info.y) return;
+    if (type != PieceType::Pawn) {
+        if (game_board.get_cell_state(new_x, new_y) == CellState::Occupied &&
+            !game_board.PieceTypeAt(PieceType::Pawn, new_x, new_y)) return;
+        game_board.set_cell_state(info.x, info.y, CellState::Empty);
+        game_board.set_cell_state(new_x, new_y, CellState::Occupied);
+    }
+    hit_squares.clear();
+
+    from_x = info.x;
+    from_y = info.y;
+    info.x = new_x;
+    info.y = new_y;
+
+    const auto dx = static_cast<float>(new_x - from_x);
+    const auto dy = static_cast<float>(new_y - from_y);
+    const float distance = std::sqrt(dx * dx + dy * dy);   // in tiles
+
+    move_duration   = distance * seconds_per_tile;
+    animation_timer = 0.0f;
+    is_moving       = true;
+}
+
 void Piece::OnMovementFinished() {
     PlaySound(AssetManager::GetSound());
     if (type == PieceType::Pawn) return;
-    has_hit_player = true;
+
+    if (game_board.PieceTypeAt(PieceType::Pawn, info.x, info.y)) {
+        has_hit_player = true;
+        return;
+    }
+
+    game_board.RefreshAttacks();
+    DetectPlayer();
 }

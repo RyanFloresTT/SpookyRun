@@ -14,9 +14,9 @@ void King::SetHitSquares() {
             const int x = info.x + dx;
             const int y = info.y + dy;
             if (!game_board.InBounds(x, y)) continue;
+            hit_squares.push_back(Vector2(x, y));
             if (game_board.get_cell_state(x, y) == CellState::Occupied) continue;
             game_board.set_cell_state(x, y, CellState::Attack);
-            hit_squares.push_back(Vector2(x, y));
         }
     }
 }

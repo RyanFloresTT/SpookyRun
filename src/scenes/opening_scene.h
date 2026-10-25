@@ -21,13 +21,22 @@ public:
         constexpr float size = 48.0f;
         constexpr float spacing = 2.0f;
 
-        const auto text   = "Click to start!";
-        const auto  [x, y] = MeasureTextEx(font, text, size, spacing);
 
-        DrawTextEx(font, text,
-                   Vector2{ TotalBoardWidth / 2.0f - x / 2.0f,
-                            TotalBoardWidth / 2.0f - y / 2.0f },
-                   size, spacing, WHITE);
+        const auto title_text   = "Spooky Run";
+        const auto  [tx, ty] = MeasureTextEx(font, title_text, 72, spacing);
+
+        const auto click_text   = "Click to start!";
+        const auto  [cx, cy] = MeasureTextEx(font, click_text, size, spacing);
+
+        DrawTextEx(font, title_text,
+                   Vector2{ TotalBoardWidth / 2.0f - tx / 2.0f,
+                            TotalBoardWidth / 3.0f - ty / 2.0f },
+                   72, spacing, WHITE);
+
+        DrawTextEx(font, click_text,
+           Vector2{ TotalBoardWidth / 2.0f - cx / 2.0f,
+                    TotalBoardWidth / 2.0f - cy / 2.0f },
+           size, spacing, WHITE);
 
     }
 

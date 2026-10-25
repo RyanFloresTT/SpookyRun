@@ -32,9 +32,9 @@ public:
         cells[y][x] = s;
     }
 
-    void AddPiece(const PieceType type, const int x, const int y) {
+    void AddPiece(const PieceType type, const int x, const int y, const std::vector<Vector2>& patrol_sequence) {
         if (!InBounds(x, y)) return;
-        auto p = MakePiece(type, *this, x, y);
+        auto p = MakePiece(type, *this, x, y, patrol_sequence);
         if (!p) return;
 
         set_cell_state(x, y, CellState::Occupied);
@@ -61,6 +61,20 @@ public:
             if (info.x == x && info.y == y) return true;
         }
         return false;
+    }
+
+    void NotifyPlayerMoved(const Piece* mover) const {
+        for (auto& p : pieces) {
+            if (p.get() != mover) p->OnPlayerMoved();
+        }
+        for (auto& p : pieces) {
+            if (p.get() != mover) p->DetectPlayer();
+        }
+    }
+
+    void RefreshAttacks() {
+        ClearAttacks();
+        for (const auto& p : pieces) p->SetHitSquares();
     }
 
     void Draw() const {
@@ -90,11 +104,6 @@ private:
         dirty = true;
     }
 
-    void RefreshAttacks() {
-        ClearAttacks();
-        for (const auto& p : pieces) p->SetHitSquares();
-    }
-
     void ClearAttacks() {
         for (auto& row : cells)
             for (auto& cell : row)
@@ -105,7 +114,7 @@ private:
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*> pendingRemovals;
     bool playerCaptured = false;
-    bool dirty;
+    bool dirty = false;
 };
 
 inline bool Board::PlayerCaptured() const { return playerCaptured; }

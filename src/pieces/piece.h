@@ -11,28 +11,16 @@ class Board;
 
 class Piece {
 public:
-    Piece(Board& Grid, const int x, const int y, const PieceType type)
-        : type(type), game_board(Grid), info{CellState::Occupied, x, y}, from_x(x), from_y(y) {}
+    Piece(Board& Grid, const int x, const int y, const PieceType type, const std::vector<Vector2>& patrol_sequence = {})
+        : type(type), game_board(Grid), info{CellState::Occupied, x, y}, from_x(x), from_y(y), patrol_sequence(patrol_sequence) {}
 
     virtual ~Piece() = default;
     virtual void SetHitSquares() = 0;
 
     void DetectPlayer();
+    void OnPlayerMoved();
 
-    void MoveTo(const int new_x, const int new_y) {
-        from_x = info.x;
-        from_y = info.y;
-        info.x = new_x;
-        info.y = new_y;
-
-        const auto dx = static_cast<float>(new_x - from_x);
-        const auto dy = static_cast<float>(new_y - from_y);
-        const float distance = std::sqrt(dx * dx + dy * dy);   // in tiles
-
-        move_duration   = distance * seconds_per_tile;
-        animation_timer = 0.0f;
-        is_moving       = true;
-    }
+    void MoveTo(const int new_x, const int new_y);
 
     void OnMovementFinished();
 
@@ -81,6 +69,9 @@ protected:
     float animation_timer = 0.0f;
     float move_duration = 0.15f; // seconds
     float seconds_per_tile = 0.15f;
+
+    int current_patrol_index = 0;
+    std::vector<Vector2> patrol_sequence;
 
     std::vector<Vector2> hit_squares;
 

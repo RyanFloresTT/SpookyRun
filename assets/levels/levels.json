@@ -1,43 +1,57 @@
 ﻿{
   "levels": {
     "1": {
+      "name": "The King's Toll",
       "size": 8,
       "pieces": [
-        { "type": "Pawn",   "x": 0, "y": 7 },
-        { "type": "Rook",   "x": 1, "y": 5 },
-        { "type": "Rook",   "x": 2, "y": 3 },
-        { "type": "Knight", "x": 1, "y": 2 },
-        { "type": "Knight", "x": 3, "y": 2 },
-        { "type": "Rook",   "x": 7, "y": 2 },
-        { "type": "Knight", "x": 0, "y": 1 }
-      ]
-    },
-    "2": {
-      "size": 6,
-      "pieces": [
-        { "type": "Pawn", "x": 3, "y": 5 },
-        { "type": "King", "x": 3, "y": 1 }
-      ]
-    },
-    "3": {
-      "size": 12,
-      "pieces": [
-        { "type": "Pawn", "x": 3, "y": 5 },
-        { "type": "King", "x": 3, "y": 1 }
-      ]
-    },
-    "4": {
-      "size": 12,
-      "pieces": [
-        { "type": "Pawn", "x": 3, "y": 5 },
-        { "type": "King", "x": 3, "y": 1 }
-      ]
-    },
-    "5": {
-      "size": 12,
-      "pieces": [
-        { "type": "Pawn", "x": 3, "y": 5 },
-        { "type": "King", "x": 3, "y": 1 }
+        {
+          "type": "Pawn",
+          "x": 1,
+          "y": 7
+        },
+        {
+          "type": "Knight",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "type": "Rook",
+          "x": 3,
+          "y": 4
+        },
+        {
+          "type": "Rook",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "type": "Bishop",
+          "x": 0,
+          "y": 2
+        },
+        {
+          "type": "King",
+          "x": 5,
+          "y": 0,
+          "patrol_sequence": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": -1,
+              "y": 0
+            },
+            {
+              "x": -1,
+              "y": 0
+            }
+          ]
+        }
       ]
     }
   }
