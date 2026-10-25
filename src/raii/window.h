@@ -9,6 +9,9 @@ public:
         SetTargetFPS(fps);
         AssetManager::load_assets();
         AssetManager::PlayMusic();
+# ifndef  __EMSCRIPTEN__
+        HideCursor();
+#endif
     }
     ~Window() {
         AssetManager::unload_assets();

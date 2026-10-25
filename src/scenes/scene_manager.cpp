@@ -10,9 +10,8 @@
 #include "../levels/level_scene.h"
 
 void SceneManager::display_cursor() {
-    HideCursor();
     const auto [x, y] = GetMousePosition();
-    DrawTexture(AssetManager::GetCursor(), static_cast<int>(x), static_cast<int>(y), WHITE);
+    DrawTexture(AssetManager::GetCursor(), static_cast<int>(x - 15), static_cast<int>(y - 10), WHITE);
 }
 
 void SceneManager::Run() {
