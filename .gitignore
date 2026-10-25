@@ -3,6 +3,8 @@ build-*/
 out/
 cmake-build-*/
 _deps/
+upload/
+upload.zip
 
 *.o
 *.obj
