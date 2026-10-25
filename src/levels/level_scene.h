@@ -20,6 +20,10 @@ public:
         if (playable.PlayerCaptured()) {
             SceneManager::Get().GoTo<LostScene>(level);
         }
+
+        if (IsKeyPressed(KEY_R)) {
+            SceneManager::Get().GoTo<Level>(level);
+        }
     }
 
     void Draw() override {
