@@ -50,16 +50,18 @@ namespace UI {
         return clicked;
     }
 
-    inline bool Button(const Rectangle r, const Texture2D& icon, const Texture2D& background) {
+    inline bool Button(const Rectangle r, const Texture2D& icon, const Texture2D& background, const bool locked = false) {
         const bool hover   = CheckCollisionPointRec(GetMousePosition(), r);
         const bool pressed = hover && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
 
-        const auto tint = pressed ? DARKGRAY : hover ? GRAY : LIGHTGRAY;
+        const auto tint = locked ? DARKGRAY : pressed ? DARKGRAY : hover ? GRAY : LIGHTGRAY;
 
         const Rectangle source{0, 0, static_cast<float>(background.width), static_cast<float>(background.height)};
 
         DrawTexturePro(background, source, r, Vector2{0, 0}, 0.f, tint);
         DrawTexturePro(icon, source, r, Vector2{0, 0}, 0.f, tint);
+
+        if (locked) return false;
 
         const bool clicked = hover && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 
