@@ -54,6 +54,9 @@ add_executable(solojam
         src/scenes/lost_scene.cpp
         src/scenes/level_menu.cpp
         src/levels/level_manager.h
+        src/save/save_manager.h
+        src/save/desktop_save_manager.cpp
+        src/save/web_save_manager.cpp
 )
 target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json)
 
