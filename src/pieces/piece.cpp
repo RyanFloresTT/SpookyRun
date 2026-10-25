@@ -60,7 +60,7 @@ void Piece::MoveTo(const int new_x, const int new_y) {
 }
 
 void Piece::OnMovementFinished() {
-    PlaySound(AssetManager::Get(SFXAssets::ButtonClick));
+    PlaySound(AssetManager::Get(SFXAssets::PawnMove));
     if (type == PieceType::Pawn) return;
 
     if (game_board.PieceTypeAt(PieceType::Pawn, info.x, info.y)) {

@@ -23,7 +23,8 @@ enum class FontAssets {
 };
 
 enum class SFXAssets {
-    ButtonClick
+    ButtonClick,
+    PawnMove
 };
 
 enum class MusicAssets {
@@ -112,7 +113,8 @@ private:
         {FontAssets::SupplyCenter, {{}, "assets/font/supply-center.regular.ttf"}}
     };
     static inline std::map<SFXAssets, asset_info<Sound>> sounds = {
-        {SFXAssets::ButtonClick, {{}, "assets/sfx/button_click.wav"}}
+        {SFXAssets::ButtonClick, {{}, "assets/sfx/button_click.wav"}},
+        {SFXAssets::PawnMove, {{}, "assets/sfx/footstep_concrete_003.wav"}}
     };
     static inline std::map<MusicAssets, asset_info<Music>> music_tracks = {
         {MusicAssets::Seaside, {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"}}

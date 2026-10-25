@@ -8,6 +8,8 @@ public:
         InitWindow(height, height, title);
         SetTargetFPS(fps);
 
+        InitAudioDevice();
+
         AssetManager::load_assets();
         initialize_background_music();
 # ifndef  __EMSCRIPTEN__
@@ -26,7 +28,5 @@ private:
 
         PlayMusicStream(music);
         SetMusicVolume(music, 0.2f);
-
-        InitAudioDevice();
     }
 };
