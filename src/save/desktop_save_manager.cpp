@@ -9,6 +9,17 @@
 #include <nlohmann/json.hpp>
 
 void DesktopSaveManager::SaveProgress(int unlocked) {
+    if (unlocked <= LoadProgress()) return;
+
+    const nlohmann::json new_data = {{"unlocked", unlocked}};
+
+    std::ofstream file("assets/data/save.json");
+    if (!file) {
+        TraceLog(LOG_ERROR, "Could not open save.json to write to it");
+        return;
+    }
+
+    file << new_data;
 }
 
 int  DesktopSaveManager::LoadProgress() {

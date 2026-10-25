@@ -100,6 +100,9 @@ public:
             if (p->HasHitPlayer()) playerCaptured = true;
     }
 
+    bool check_player_win() const { return player_won; }
+    void set_player_won(const bool won) { player_won = won; }
+
 private:
     void RemovePiece(Piece* target) {
         const auto info = target->GetCellInfo();
@@ -119,6 +122,8 @@ private:
     std::vector<Piece*>                 pendingRemovals;
     bool                                playerCaptured = false;
     bool                                dirty          = false;
+    bool  player_won = false;
+
 };
 
 inline bool Board::PlayerCaptured() const { return playerCaptured; }

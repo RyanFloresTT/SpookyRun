@@ -1,19 +1,11 @@
 ﻿#include "level_menu.h"
 #include "scene_manager.h"
 #include "../levels/level_scene.h"
-#include "../save/desktop_save_manager.h"
-#include "../save/web_save_manager.h"
 #include "../ui/button.h"
 
 void LevelMenu::Enter() {
-# ifndef  __EMSCRIPTEN__
-    save_manager = std::make_unique<DesktopSaveManager>();
-#else
-    save_manager = std::make_unique<WebSaveManager>();
-#endif
-
     levelCount = LevelManager::GetLevelCount();
-    unlocked_count = save_manager->LoadProgress();
+    unlocked_count = LevelManager::LoadProgress();
     firstRow   = 0;
 }
 

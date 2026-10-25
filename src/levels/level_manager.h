@@ -10,6 +10,11 @@
 #include <nlohmann/json.hpp>
 #include "raylib.h"
 #include "../board.h"
+#ifdef __EMSCRIPTEN__
+#include "../save/web_save_manager.h"
+#else
+#include "../save/desktop_save_manager.h"
+#endif
 
 using json = nlohmann::json;
 
@@ -91,7 +96,25 @@ public:
         }
     }
 
+    static void SaveProgress(const int level) {
+        GetSaveManager().SaveProgress(level);
+    }
+
+    static int LoadProgress() {
+        return GetSaveManager().LoadProgress();
+    }
+
 private:
+    static SaveManager& GetSaveManager() {
+        static std::unique_ptr<SaveManager> instance =
+#ifndef __EMSCRIPTEN__
+                std::make_unique<DesktopSaveManager>();
+#else
+                std::make_unique<WebSaveManager>();
+#endif
+        return *instance;
+    }
+
     static inline std::unordered_map<std::string, PieceType> pieceNames = {
         {"Pawn", PieceType::Pawn}, {"Rook", PieceType::Rook},
         {"Bishop", PieceType::Bishop}, {"Knight", PieceType::Knight},

@@ -21,6 +21,4 @@ private:
     int levelCount = 0;
     int firstRow   = 0;
     int unlocked_count = 0;
-
-    std::unique_ptr<SaveManager> save_manager;
 };

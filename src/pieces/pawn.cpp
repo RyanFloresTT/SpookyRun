@@ -68,7 +68,7 @@ void Pawn::Update(const float dt) {
     }
 
     if (PlayerWon()) {
-        SceneManager::Get().GoTo<WinScene>();
+        game_board.set_player_won(true);
     }
 }
 

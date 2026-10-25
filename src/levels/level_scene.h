@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "../scenes/scene.h"
+#include "../scenes/win_scene.h"
 #include "../cell.h"
 
 #include "level_manager.h"
@@ -25,6 +26,11 @@ public:
 
         if (IsKeyPressed(KEY_R)) {
             SceneManager::Get().GoTo<Level>(level);
+        }
+
+        if (playable.check_player_win()) {
+            LevelManager::SaveProgress(level + 1);
+            SceneManager::Get().GoTo<WinScene>();
         }
     }
 
