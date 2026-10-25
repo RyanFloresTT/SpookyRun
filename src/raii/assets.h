@@ -54,7 +54,11 @@ public:
     static Sound& GetSound() {
         return button_click_sound.asset;
     }
-    static void PlayMusic()   { PlayMusicStream(music.asset); }
+    static void PlayMusic() {
+        if (IsMusicStreamPlaying(music.asset)) return;
+        PlayMusicStream(music.asset);
+    };
+
     static void UpdateMusic() { UpdateMusicStream(music.asset); }
 
 private:
