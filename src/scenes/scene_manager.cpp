@@ -18,7 +18,25 @@ void SceneManager::Run() {
     while (!WindowShouldClose() && running) {
         AssetManager::UpdateMusic();
 
-        if (pending) {
+        /*
+         * Things needed for transitions
+         *  1. Current scene loaded
+         *  2. Play "animation", doesn't have to be a scene, just drawing an object
+         *  3. Swap current to pending by the time animation ends
+         *
+         *  I'll start by loading something between, maybe giving a delay between loads too
+         *
+         *  Might need a flag that triggers when to load next scene, this is all in one if statement
+         */
+
+        if (transitioning && transition_progress < transition_duration) {
+            transition_progress += GetFrameTime();
+        } else {
+            transitioning = false;
+            transition_progress = 0;
+        }
+
+        if (pending && !transitioning) {
             current = pending();
             pending = nullptr;
             current->Enter();
@@ -28,8 +46,15 @@ void SceneManager::Run() {
         current->Update(GetFrameTime());
 
         BeginDrawing();
+
         ClearBackground(RAYWHITE);
         current->Draw();
+
+        if (transitioning) {
+            const float alpha = transition_progress / transition_duration;
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, alpha));
+        }
+
         display_cursor();
         EndDrawing();
     }

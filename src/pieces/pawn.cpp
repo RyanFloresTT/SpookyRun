@@ -58,10 +58,6 @@ void Pawn::Update(const float dt) {
     }
 
     if (PlayerWon()) {
-        // wait .5 sec just to give a mini pause before transition
-        // TODO: Actual scene transitions??
-        // very hacky, freezes ui thread, almost prefer no pause, will keep for now 
-        WaitTime(.5);
         SceneManager::Get().GoTo<WinScene>();
     }
 }

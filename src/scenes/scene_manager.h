@@ -16,6 +16,7 @@ public:
 
     template <typename T, typename... Args>
     void GoTo(Args... args) {
+        if (current != nullptr) transitioning = true;
         pending = [=] { return std::make_unique<T>(args...); };
     }
 
@@ -23,4 +24,7 @@ private:
     std::unique_ptr<Scene>                  current;
     std::function<std::unique_ptr<Scene>()> pending;
     bool running = true;
+    bool transitioning = false;
+    float transition_progress = 0.0f;
+    float transition_duration = 1.0f;
 };
