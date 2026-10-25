@@ -12,6 +12,22 @@ struct asset_info {
     std::string path;
 };
 
+enum class TextureAssets {
+    Rook, Pawn, Bishop, Queen, King, Knight
+};
+
+enum class FontAssets {
+    SupplyCenter
+};
+
+enum class SFXAssets {
+    ButtonClick
+};
+
+enum class MusicAssets {
+    Seaside
+};
+
 // could prob gather each by type somehow, load them, and unload them all at once
 // the more I add to this, the more I want to refactor this...
 class AssetManager {
