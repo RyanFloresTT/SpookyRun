@@ -6,6 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
+FetchContent_Declare(json
+        URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
 FetchContent_Declare(raylib
         GIT_REPOSITORY https://github.com/raysan5/raylib.git
         GIT_TAG 5.5
@@ -49,10 +53,9 @@ add_executable(solojam
         src/pieces/piece.cpp
         src/scenes/lost_scene.cpp
         src/scenes/level_menu.cpp
-        src/levels/level_manager.cpp
         src/levels/level_manager.h
 )
-target_link_libraries(solojam PRIVATE raylib)
+target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json)
 
 if (EMSCRIPTEN)
     set_target_properties(solojam PROPERTIES SUFFIX ".html")
