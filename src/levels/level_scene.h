@@ -1,13 +1,10 @@
 ﻿#pragma once
-#include <vector>
 
 #include "../scenes/scene.h"
 #include "../cell.h"
-#include <memory>
 
 #include "level_manager.h"
 #include "../board.h"
-#include "../pieces/piece.h"
 #include "../scenes/lost_scene.h"
 
 class Level : public Scene {
@@ -21,7 +18,7 @@ public:
         playable.Update(dt);
 
         if (playable.PlayerCaptured()) {
-            SceneManager::Get().GoTo<LostScene>();
+            SceneManager::Get().GoTo<LostScene>(level);
         }
     }
 
@@ -31,6 +28,5 @@ public:
 
 private:
     Board playable{CellState::Empty};
-    std::vector<std::unique_ptr<Piece>> pieces;
     int level;
 };
