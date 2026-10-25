@@ -36,7 +36,7 @@ void SceneManager::Run() {
             transition_progress = 0;
         }
 
-        if (pending && !transitioning) {
+        if (pending && (!transitioning || transition_progress >= swap_time)) {
             current = pending();
             pending = nullptr;
             current->Enter();
@@ -50,8 +50,9 @@ void SceneManager::Run() {
         ClearBackground(RAYWHITE);
         current->Draw();
 
-        if (transitioning) {
-            const float alpha = transition_progress / transition_duration;
+        if (transitioning)
+            {const float t     = transition_progress / transition_duration;   // 0 -> 1
+            const float alpha = 1.0f - std::abs(t * 2.0f - 1.0f);
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, alpha));
         }
 

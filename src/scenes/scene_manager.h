@@ -27,4 +27,5 @@ private:
     bool transitioning = false;
     float transition_progress = 0.0f;
     float transition_duration = 1.0f;
+    float swap_time = transition_duration / 2;
 };
