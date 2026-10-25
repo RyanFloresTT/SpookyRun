@@ -83,7 +83,7 @@ public:
 private:
     static inline std::map<PieceType, asset_info<Texture2D>> textures = {
         {PieceType::Rook,   {{}, "assets/images/rook.png"}},
-        {PieceType::Pawn,   {{}, "assets/images/pawn.png"}},
+        {PieceType::Pawn,   {{}, "assets/images/player1.png"}},
         {PieceType::Bishop, {{}, "assets/images/bishop.png"}},
         {PieceType::Queen,  {{}, "assets/images/queen.png"}},
         {PieceType::King,   {{}, "assets/images/king.png"}},
