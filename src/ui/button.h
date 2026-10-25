@@ -25,11 +25,11 @@ namespace UI {
         return clicked;
     }
 
-    inline bool Button(const Rectangle r, const char* label, const int fontSize, const Texture2D& background) {
+    inline bool Button(const Rectangle r, const char* label, const int fontSize, const Texture2D& background, const bool locked = false) {
         const bool hover   = CheckCollisionPointRec(GetMousePosition(), r);
         const bool pressed = hover && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
 
-        const auto tint = pressed ? DARKGRAY : hover ? GRAY : LIGHTGRAY;
+        const auto tint = locked ? DARKGRAY : pressed ? DARKGRAY : hover ? GRAY : LIGHTGRAY;
 
         const Rectangle source{0, 0, static_cast<float>(background.width), static_cast<float>(background.height)};
 
@@ -40,6 +40,8 @@ namespace UI {
                  static_cast<int>(r.x + (r.width - w) / 2),
                  static_cast<int>(r.y + (r.height - fontSize) / 2),
                  fontSize, BLACK);
+
+        if (locked) return false;
 
         const bool clicked = hover && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 

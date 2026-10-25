@@ -4,13 +4,6 @@
 
 #include "web_save_manager.h"
 
-#include "raylib.h"
-
-
-WebSaveManager::WebSaveManager() {
-    TraceLog(LOG_INFO, "USING WEB SAVE MANAGER");
-}
-
 void WebSaveManager::SaveProgress(int unlocked) {
 }
 

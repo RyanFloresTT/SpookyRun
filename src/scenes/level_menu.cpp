@@ -34,7 +34,7 @@ void LevelMenu::Draw() {
         const float       x     = Padding + (index % Columns) * (ButtonSize + Spacing);
         const float       y     = Padding + (index / Columns) * (ButtonSize + Spacing);
         const std::string label = std::to_string(level);
-        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32, AssetManager::GetButtonBackground()), level <= unlocked_count) {
+        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32, AssetManager::GetButtonBackground(), level > unlocked_count)) {
             SceneManager::Get().GoTo<Level>(level);
         }
     }

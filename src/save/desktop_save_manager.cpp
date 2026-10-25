@@ -8,10 +8,6 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-DesktopSaveManager::DesktopSaveManager() {
-    TraceLog(LOG_INFO, "USING DESKTOP SAVE MANAGER");
-}
-
 void DesktopSaveManager::SaveProgress(int unlocked) {
 }
 
