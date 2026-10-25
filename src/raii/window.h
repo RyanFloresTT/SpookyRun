@@ -19,6 +19,7 @@ public:
         AssetManager::unload_assets();
         CloseWindow();
     }
+
 private:
     static void initialize_background_music() {
         const Music& music = AssetManager::Get(MusicAssets::Seaside);

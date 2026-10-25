@@ -71,8 +71,8 @@ if (EMSCRIPTEN)
             -sEXPORTED_RUNTIME_METHODS=HEAPF32,HEAP32,HEAPU8
             "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/assets@/assets"
     )
-else()
+else ()
     add_custom_command(TARGET solojam POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:solojam>/assets)
-endif()
+endif ()

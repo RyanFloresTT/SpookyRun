@@ -25,7 +25,8 @@ namespace UI {
         return clicked;
     }
 
-    inline bool Button(const Rectangle r, const char* label, const int fontSize, const Texture2D& background, const bool locked = false) {
+    inline bool Button(const Rectangle r, const char* label, const int fontSize, const Texture2D& background,
+                       const bool      locked = false) {
         const bool hover   = CheckCollisionPointRec(GetMousePosition(), r);
         const bool pressed = hover && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
 
@@ -52,7 +53,8 @@ namespace UI {
         return clicked;
     }
 
-    inline bool Button(const Rectangle r, const Texture2D& icon, const Texture2D& background, const bool locked = false) {
+    inline bool Button(const Rectangle r, const Texture2D& icon, const Texture2D& background,
+                       const bool      locked = false) {
         const bool hover   = CheckCollisionPointRec(GetMousePosition(), r);
         const bool pressed = hover && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
 

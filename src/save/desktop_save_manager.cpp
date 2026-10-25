@@ -22,7 +22,7 @@ void DesktopSaveManager::SaveProgress(int unlocked) {
     file << new_data;
 }
 
-int  DesktopSaveManager::LoadProgress() {
+int DesktopSaveManager::LoadProgress() {
     // ideally I would wrap this so we could load data easily, this is replicated code from level manager
     std::ifstream file("assets/data/save.json");
     if (!file) {

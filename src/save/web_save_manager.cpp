@@ -4,8 +4,7 @@
 
 #include "web_save_manager.h"
 
-void WebSaveManager::SaveProgress(int unlocked) {
-}
+void WebSaveManager::SaveProgress(int unlocked) {}
 
 int WebSaveManager::LoadProgress() {
     return 1;

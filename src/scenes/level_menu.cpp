@@ -4,9 +4,9 @@
 #include "../ui/button.h"
 
 void LevelMenu::Enter() {
-    levelCount = LevelManager::GetLevelCount();
+    levelCount     = LevelManager::GetLevelCount();
     unlocked_count = LevelManager::LoadProgress();
-    firstRow   = 0;
+    firstRow       = 0;
 }
 
 void LevelMenu::Update(float) {
@@ -26,7 +26,8 @@ void LevelMenu::Draw() {
         const float       x     = Padding + (index % Columns) * (ButtonSize + Spacing);
         const float       y     = Padding + (index / Columns) * (ButtonSize + Spacing);
         const std::string label = std::to_string(level);
-        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32, AssetManager::Get(TextureAssets::ButtonBackground), level > unlocked_count)) {
+        if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize}, label.c_str(), 32,
+                       AssetManager::Get(TextureAssets::ButtonBackground), level > unlocked_count)) {
             SceneManager::Get().GoTo<Level>(level);
         }
     }

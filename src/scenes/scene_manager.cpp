@@ -18,7 +18,7 @@ void SceneManager::Run() {
     while (!WindowShouldClose() && running) {
         UpdateMusicStream(AssetManager::Get(MusicAssets::Seaside));
 
-        if (transitioning&& transition_progress<transition_duration) {
+        if (transitioning && transition_progress < transition_duration) {
             transition_progress += GetFrameTime();
         }
         else {

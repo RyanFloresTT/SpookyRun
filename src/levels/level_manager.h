@@ -108,9 +108,9 @@ private:
     static SaveManager& GetSaveManager() {
         static std::unique_ptr<SaveManager> instance =
 #ifndef __EMSCRIPTEN__
-                std::make_unique<DesktopSaveManager>();
+            std::make_unique<DesktopSaveManager>();
 #else
-                std::make_unique<WebSaveManager>();
+        std::make_unique<WebSaveManager>();
 #endif
         return *instance;
     }

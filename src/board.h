@@ -122,8 +122,7 @@ private:
     std::vector<Piece*>                 pendingRemovals;
     bool                                playerCaptured = false;
     bool                                dirty          = false;
-    bool  player_won = false;
-
+    bool                                player_won     = false;
 };
 
 inline bool Board::PlayerCaptured() const { return playerCaptured; }

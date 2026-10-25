@@ -18,7 +18,7 @@ private:
     static constexpr int Columns     = (TotalBoardWidth - 2 * Padding + Spacing) / (ButtonSize + Spacing);
     static constexpr int VisibleRows = Columns;
 
-    int levelCount = 0;
-    int firstRow   = 0;
+    int levelCount     = 0;
+    int firstRow       = 0;
     int unlocked_count = 0;
 };

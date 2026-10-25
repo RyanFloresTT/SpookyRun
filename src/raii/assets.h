@@ -81,9 +81,9 @@ public:
     }
 
     static Texture2D& Get(const TextureAssets key) { return textures.at(key).asset; }
-    static Font&      Get(const FontAssets key)    { return fonts.at(key).asset; }
-    static Sound&     Get(const SFXAssets key)     { return sounds.at(key).asset; }
-    static Music&     Get(const MusicAssets key)   { return music_tracks.at(key).asset; }
+    static Font&      Get(const FontAssets key) { return fonts.at(key).asset; }
+    static Sound&     Get(const SFXAssets key) { return sounds.at(key).asset; }
+    static Music&     Get(const MusicAssets key) { return music_tracks.at(key).asset; }
 
 private:
     static inline std::map<TextureAssets, asset_info<Texture2D>> textures = {
