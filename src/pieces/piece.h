@@ -48,6 +48,8 @@ public:
     }
 
     virtual void Update(const float dt) {
+        if (has_hit_player) return;
+
         if (is_moving) {
             handle_movement_animation(dt);
             return;
