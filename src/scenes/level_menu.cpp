@@ -19,7 +19,9 @@ void LevelMenu::Update(float) {
 }
 
 void LevelMenu::draw_character_skin_toggle() {
-    const Texture2D& icon = character_screen_open ? AssetManager::Get(TextureAssets::Sword) : AssetManager::Get(TextureAssets::Player);
+    const Texture2D& icon = character_screen_open
+                                ? AssetManager::Get(TextureAssets::Sword)
+                                : AssetManager::Get(TextureAssets::Player);
     constexpr Rectangle r{TotalBoardWidth - 180, 718, 64.f, 64.f};
     if (UI::Button(r, icon, AssetManager::Get(TextureAssets::WhiteButton))) {
         character_screen_open = !character_screen_open;
@@ -36,13 +38,14 @@ void LevelMenu::draw_level_buttons() const {
         const float       x     = Padding + (index % Columns) * (ButtonSize + Spacing);
         const float       y     = GridTop + (index / Columns) * (ButtonSize + Spacing);
         const std::string label = std::to_string(level);
-        const Rectangle bounds{x, y, ButtonSize, ButtonSize};
+        const Rectangle   bounds{x, y, ButtonSize, ButtonSize};
         if (level == unlocked_count) {
             DrawRectangleLinesEx(Rectangle{x - 4, y - 4, ButtonSize + 8, ButtonSize + 8}, 3,
                                  Color{226, 190, 92, 255});
         }
         if (!character_screen_open && UI::Button(bounds, label.c_str(), 32,
-                                                 AssetManager::Get(TextureAssets::ButtonBackground), level > unlocked_count)) {
+                                                 AssetManager::Get(TextureAssets::ButtonBackground),
+                                                 level > unlocked_count)) {
             SceneManager::Get().GoTo<Level>(level);
         }
         if (level < unlocked_count) {
@@ -70,9 +73,9 @@ void LevelMenu::render_player_skin_buttons() {
         if (UI::Button(Rectangle{x, y, ButtonSize, ButtonSize},
                        AssetManager::Get(skin),
                        AssetManager::Get(TextureAssets::ButtonBackground), skin == selected_skin)) {
-                            selected_skin = skin;
-                            AssetManager::SwapPlayerSkin(skin);
-                       }
+            selected_skin = skin;
+            AssetManager::SwapPlayerSkin(skin);
+        }
     }
 }
 
@@ -84,19 +87,20 @@ void LevelMenu::Draw() {
     SceneVisuals::Sprite(TextureAssets::Star, TotalBoardWidth - 120, 150, 64);
 
     if (!character_screen_open) {
-        const int completed = std::clamp(unlocked_count - 1, 0, levelCount);
-        const std::string progress = std::to_string(completed) + " / " + std::to_string(levelCount) + " CLEARED";
+        const int         completed = std::clamp(unlocked_count - 1, 0, levelCount);
+        const std::string progress  = std::to_string(completed) + " / " + std::to_string(levelCount) + " CLEARED";
         UI::CenteredText(TotalBoardWidth / 2.0f, 226, progress.c_str(), 20, accent);
     }
 
     if (character_screen_open) {
         render_player_skin_buttons();
-    } else {
+    }
+    else {
         draw_level_buttons();
     }
 
-    const int itemCount = character_screen_open ? AssetManager::GetAlternateSkinCount() : levelCount;
-    const int rowCount = (itemCount + Columns - 1) / Columns;
+    const int itemCount   = character_screen_open ? AssetManager::GetAlternateSkinCount() : levelCount;
+    const int rowCount    = (itemCount + Columns - 1) / Columns;
     const int maxFirstRow = std::max(0, rowCount - VisibleRows);
     if (maxFirstRow > 0) {
         const Texture2D& background = AssetManager::Get(TextureAssets::WhiteButton);
@@ -108,7 +112,7 @@ void LevelMenu::Draw() {
             firstRow = std::min(maxFirstRow, firstRow + VisibleRows);
         }
         const std::string range = std::to_string(firstRow * Columns + 1) + " - " +
-                                  std::to_string(std::min(itemCount, (firstRow + VisibleRows) * Columns));
+            std::to_string(std::min(itemCount, (firstRow + VisibleRows) * Columns));
         UI::CenteredText(TotalBoardWidth / 2.0f, 738, range.c_str(), 24, accent);
     }
 

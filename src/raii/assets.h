@@ -51,7 +51,7 @@ public:
         for (auto& [texture, path] : textures | std::views::values) {
             texture = LoadTexture(path.c_str());
         }
-        
+
         for (auto& [texture, path] : alternate_skins | std::views::values) {
             texture = LoadTexture(path.c_str());
         }
@@ -102,15 +102,16 @@ public:
         CloseAudioDevice();
     }
 
-    static Texture2D& Get(const TextureAssets key) { return textures.at(key).asset; }
+    static Texture2D&       Get(const TextureAssets key) { return textures.at(key).asset; }
     static const Texture2D& Get(const AlternateSkinAssets skin) { return alternate_skins.at(skin).asset; }
-    static std::string& GetPath(const TextureAssets key) { return textures.at(key).path; }
-    static Font&      Get(const FontAssets key) { return fonts.at(key).asset; }
-    static Sound&     Get(const SFXAssets key) { return sounds.at(key).asset; }
-    static Music&     Get(const MusicAssets key) { return music_tracks.at(key).asset; }
+    static std::string&     GetPath(const TextureAssets key) { return textures.at(key).path; }
+    static Font&            Get(const FontAssets key) { return fonts.at(key).asset; }
+    static Sound&           Get(const SFXAssets key) { return sounds.at(key).asset; }
+    static Music&           Get(const MusicAssets key) { return music_tracks.at(key).asset; }
 
-    static int GetAlternateSkinCount() { return static_cast<int>(alternate_skins.size()); }
+    static int          GetAlternateSkinCount() { return static_cast<int>(alternate_skins.size()); }
     static std::string& GetAlternateSkinPath(const AlternateSkinAssets key) { return alternate_skins.at(key).path; }
+
     static AlternateSkinAssets GetAlternateSkinKey(const int index) {
         return std::next(alternate_skins.begin(), index)->first;
     }
