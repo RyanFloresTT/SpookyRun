@@ -15,6 +15,8 @@ public:
 
     void Enter() override {
         LevelManager::LoadLevel(level, playable);
+        playable.Enter();
+
     }
 
     void Update(const float dt) override {

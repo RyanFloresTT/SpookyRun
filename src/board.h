@@ -26,7 +26,7 @@ public:
     int   GetSize() const { return static_cast<int>(cells.size()); }
     float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
     bool  PlayerCaptured() const;
-    bool  InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize(); }
+    bool  InBounds(const int x, const int y) const { return x >= 0 && x < GetSize() && y >= 0 && y < GetSize() && cells[y][x] != CellState::Border; }
 
     CellState get_cell_state(const int x, const int y) const { return cells[y][x]; }
 
@@ -100,6 +100,16 @@ public:
         for (auto& p : pieces) p->Draw();
     }
 
+    bool ResolvingMoves() const {
+        for (auto& piece : pieces) {
+            if (piece->IsAnimating()) {
+                return true;
+                break;
+            }
+        }
+        return false;
+    }
+
     void Update(const float dt) {
         for (auto& p : pieces) p->Update(dt);
         for (Piece* target : pendingRemovals) RemovePiece(target);
@@ -116,6 +126,18 @@ public:
 
     bool check_player_win() const { return player_won; }
     void set_player_won(const bool won) { player_won = won; }
+    void Enter() {
+        // set border states
+        for (int i = 0; i < GetSize(); ++i) {
+            // top and bottom
+            set_cell_state(i, 0, CellState::Border);
+            set_cell_state(i,  GetSize() - 1, CellState::Border);
+
+            // left and right
+            set_cell_state(0, i, CellState::Border);
+            set_cell_state( GetSize() - 1, i, CellState::Border);
+        }
+    }
 
 private:
     void RemovePiece(Piece* target) {

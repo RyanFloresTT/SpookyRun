@@ -30,4 +30,8 @@ inline void DrawCell(const CellState state, const int x, const int y, const floa
     if (state == CellState::Attack) {
         DrawRectangleRec(bounds, RedAttack);
     }
+
+    if (state == CellState::Border) {
+        DrawTexturePro(AssetManager::Get(TextureAssets::TopWall), {0, 0, tile_size, tile_size}, bounds, Vector2{0, 0}, 0.0f, WHITE);
+    }
 }
