@@ -23,10 +23,10 @@ private:
 
     int levelCount     = 0;
     int firstRow       = 0;
-    int unlocked_count = 1; 
+    int unlocked_count = 1;
 
     std::string title_text = "Levels";
 
-    bool                character_screen_open = true;
+    bool                character_screen_open = false;
     AlternateSkinAssets selected_skin = AlternateSkinAssets::Monk;
 };
