@@ -85,15 +85,21 @@ public:
         for (int i = 1; i < DefaultBoardSize + 1; ++i) {
             for (int j = 1; j < DefaultBoardSize + 1; ++j){
                 const Rectangle r = {i * tile_size, j * tile_size, tile_size, tile_size};
-                DrawRectangleLinesEx(r, 1, BLACK);
+                DrawRectangleLinesEx(r, 1, BEIGE);
             }
         }
     }
 
     void Draw() const {
         for (int y = 0; y < GetSize(); ++y)
-            for (int x = 0; x < GetSize(); ++x)
-                DrawCell(cells[y][x], x, y, GetTileSize());
+            for (int x = 0; x < GetSize(); ++x) {
+                const CellState state = cells[y][x];
+                if (state == CellState::Border) {
+                    DrawBorderCell(x, y, GetTileSize(), GetSize());
+                    continue;
+                }
+                DrawCell(state, x, y, GetTileSize());
+            }
 
         draw_board_grid();
 
@@ -104,7 +110,6 @@ public:
         for (auto& piece : pieces) {
             if (piece->IsAnimating()) {
                 return true;
-                break;
             }
         }
         return false;

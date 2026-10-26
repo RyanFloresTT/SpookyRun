@@ -30,8 +30,20 @@ inline void DrawCell(const CellState state, const int x, const int y, const floa
     if (state == CellState::Attack) {
         DrawRectangleRec(bounds, RedAttack);
     }
+}
 
-    if (state == CellState::Border) {
-        DrawTexturePro(AssetManager::Get(TextureAssets::TopWall), {0, 0, tile_size, tile_size}, bounds, Vector2{0, 0}, 0.0f, WHITE);
-    }
+inline void DrawBorderCell(const int x, const int y, const float tile_size, const int board_size) {
+    const bool top = y == 0;
+    const bool bottom = y == board_size - 1;
+    const bool left = x == 0;
+    const bool right = x == board_size - 1;
+    if (!top && !bottom && !left && !right) return;
+
+    const TextureAssets wall = bottom && left ? TextureAssets::BottomLeftCorner :
+                               bottom && right ? TextureAssets::BottomRightCorner :
+                               left ? TextureAssets::LeftWall :
+                               right ? TextureAssets::RightWall :
+                               top ? TextureAssets::TopWall : TextureAssets::BottomWall;
+
+    DrawBGCell(AssetManager::Get(wall), x * tile_size, y * tile_size, tile_size);
 }
