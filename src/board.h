@@ -82,9 +82,10 @@ public:
 
     void draw_board_grid() const {
         const float tile_size = GetTileSize();
+        const int   last_cell = GetSize() - 1;
 
-        for (int i = 1; i < DefaultBoardSize + 1; ++i) {
-            for (int j = 1; j < DefaultBoardSize + 1; ++j){
+        for (int i = 1; i < last_cell; ++i) {
+            for (int j = 1; j < last_cell; ++j) {
                 const Rectangle r = {i * tile_size, j * tile_size, tile_size, tile_size};
                 DrawRectangleLinesEx(r, 1, BEIGE);
             }
