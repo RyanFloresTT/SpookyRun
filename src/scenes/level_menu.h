@@ -15,11 +15,12 @@ public:
     void Draw() override;
 
 private:
-    static constexpr int Padding     = 160;
+    static constexpr int Padding     = 175;
+    static constexpr int GridTop     = 260;
     static constexpr int ButtonSize  = 120;
     static constexpr int Spacing     = 30;
     static constexpr int Columns     = (TotalBoardWidth - 2 * Padding + Spacing) / (ButtonSize + Spacing);
-    static constexpr int VisibleRows = Columns;
+    static constexpr int VisibleRows = 3;
 
     int levelCount     = 0;
     int firstRow       = 0;

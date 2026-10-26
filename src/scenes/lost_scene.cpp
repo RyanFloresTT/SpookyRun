@@ -5,21 +5,29 @@
 #include "../config.h"
 #include "../levels/level_scene.h"
 #include "../ui/button.h"
+#include "../ui/scene_visuals.h"
 
 void LostScene::Draw() {
-    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BEIGE);
-    constexpr float center_x = TotalBoardWidth / 2.0f;
-    UI::CenteredText(center_x, 240, "You Lost!", 96, BLACK);
+    constexpr Color accent{226, 133, 139, 255};
+    const float center_x = GetScreenWidth() / 2.0f;
+    const float height = static_cast<float>(GetScreenHeight());
+    SceneVisuals::Backdrop(accent);
+    SceneVisuals::Heading("You Lost!", accent);
 
-    Rectangle r{center_x - 120, 450, 240, 56};
+    SceneVisuals::Sprite(TextureAssets::Rook, center_x - 112, height * 0.32f, 96);
+    SceneVisuals::Sprite(TextureAssets::Bishop, center_x + 112, height * 0.32f, 96);
+    SceneVisuals::Sprite(TextureAssets::Player, center_x, height * 0.37f, 88, Color{161, 161, 161, 255});
+    DrawLineEx(Vector2{center_x - 36, height * 0.48f}, Vector2{center_x + 36, height * 0.48f}, 3, accent);
+
+    Rectangle r{center_x - 120, height * 0.55f, 240, 56};
     if (UI::Button(r,"Try Again", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<Level>(retry_level);
 
-    r.y += 200;
+    r.y += height * 0.08f;
     if (UI::Button(r,"Level Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<LevelMenu>();
 
-    r.y += 65;
+    r.y += height * 0.08f;
     if (UI::Button(r,"Main Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<OpeningScene>();
 
-    r.y += 65;
+    r.y += height * 0.08f;
     if (UI::Button(r,"Quit", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().Quit();
 }
