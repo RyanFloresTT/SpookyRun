@@ -16,7 +16,13 @@
         {
           "type": "Rook",
           "x": 4,
-          "y": 5
+          "y": 5,
+          "patrol_sequence" : [
+            {"x": -1, "y": 0},
+            {"x": 1, "y": 0},
+            {"x": 0, "y": 1},
+            {"x": 0, "y": -1}
+          ]
         },
         {
           "type": "Rook",
@@ -24,20 +30,9 @@
           "y": 3
         },
         {
-          "type": "Bishop",
-          "x": 1,
-          "y": 3,
-          "patrol_sequence": [
-            {
-              "x": 0,
-              "y": 1
-            }
-          ]
-        },
-        {
           "type": "King",
-          "x": 6,
-          "y": 1,
+          "x": 5,
+          "y": 2,
           "patrol_sequence": [
             {
               "x": 1,
@@ -48,28 +43,175 @@
               "y": 0
             },
             {
-              "x": 0,
+              "x": 1,
               "y": 1
             },
             {
-              "x": 0,
+              "x": -1,
               "y": -1
+            },
+            {
+              "x": -1,
+              "y": 0
+            },
+            {
+              "x": -1,
+              "y": 0
             }
           ]
         }
       ]
     },
-    "2": {},
-    "3": {},
-    "4": {},
-    "5": {},
-    "6": {},
-    "7": {},
-    "8": {},
-    "9": {},
-    "10": {},
-    "11": {},
-    "12": {},
-    "13": {}
+    "2": {
+      "size": 6,
+      "pieces": [
+        {"type": "Pawn", "x": 2, "y": 6},
+        {"type": "Knight", "x": 3, "y": 5},
+        {"type": "Rook", "x": 4, "y": 4},
+        {"type": "Knight", "x": 5, "y": 5},
+        {"type": "Rook", "x": 6, "y": 3}
+      ]
+    },
+    "3": {
+      "size": 10,
+      "pieces": [
+        {"type": "Pawn", "x": 2, "y": 10},
+        {"type": "Rook", "x": 3, "y": 9},
+        {"type": "Rook", "x": 4, "y": 8},
+        {"type": "Rook", "x": 5, "y": 7},
+        {"type": "Rook", "x": 6, "y": 6},
+        {"type": "Rook", "x": 7, "y": 5},
+        {"type": "Rook", "x": 8, "y": 4},
+        {"type": "Rook", "x": 9, "y": 3},
+        {
+          "type": "Rook",
+          "x": 1,
+          "y": 5,
+          "patrol_sequence": [
+            {"x": 0, "y": -1},
+            {"x": 0, "y": 1}
+          ]
+        }
+      ]
+    },
+    "4": {
+      "size": 6,
+      "pieces": [
+        {"type": "Pawn", "x": 2, "y": 6},
+        {
+          "type": "Rook",
+          "x": 1,
+          "y": 5,
+          "patrol_sequence": [{"x": 0, "y": 1}, {"x": 0, "y": -1}]
+        },
+        {"type": "Bishop", "x": 2, "y": 5},
+        {"type": "Knight", "x": 3, "y": 5},
+        {"type": "Knight", "x": 2, "y": 4},
+        {"type": "Bishop", "x": 3, "y": 4},
+        {"type": "Rook", "x": 4, "y": 4},
+        {"type": "Knight", "x": 3, "y": 3},
+        {"type": "Knight", "x": 4, "y": 2}
+      ]
+    },
+    "5": {
+      "size": 8,
+      "pieces": [
+        {"type": "Pawn", "x": 2, "y": 8},
+        {
+          "type": "Rook",
+          "x": 1,
+          "y": 7,
+          "patrol_sequence": [{"x": 0, "y": 1}, {"x": 0, "y": -1}]
+        },
+        {"type": "Bishop", "x": 2, "y": 7},
+        {"type": "Knight", "x": 3, "y": 7},
+        {"type": "Knight", "x": 2, "y": 6},
+        {"type": "Bishop", "x": 3, "y": 6},
+        {"type": "Rook", "x": 4, "y": 6},
+        {"type": "Knight", "x": 3, "y": 5},
+        {
+          "type": "King",
+          "x": 4,
+          "y": 2,
+          "patrol_sequence": [
+            {"x": 1, "y": 0}, {"x": 1, "y": 0},
+            {"x": 0, "y": 1}, {"x": -1, "y": 0},
+            {"x": 0, "y": 1}, {"x": 1, "y": 0},
+            {"x": 0, "y": -1}, {"x": 0, "y": -1},
+            {"x": -1, "y": 0}, {"x": -1, "y": 0}
+          ]
+        }
+      ]
+    },
+    "6": {
+      "size": 5,
+      "pieces": [
+        {"type": "Pawn", "x": 2, "y": 5},
+        {
+          "type": "Rook",
+          "x": 1,
+          "y": 4,
+          "patrol_sequence": [{"x": 0, "y": 1}, {"x": 0, "y": -1}]
+        },
+        {"type": "Bishop", "x": 2, "y": 4},
+        {"type": "Knight", "x": 3, "y": 4},
+        {"type": "Knight", "x": 2, "y": 3},
+        {"type": "Bishop", "x": 3, "y": 3},
+        {"type": "Rook", "x": 4, "y": 3},
+        {"type": "Knight", "x": 3, "y": 2}
+      ]
+    },
+    "7": {
+      "size": 8,
+      "pieces": [
+        {"type": "Pawn", "x": 7, "y": 8},
+        {
+          "type": "Rook",
+          "x": 8,
+          "y": 7,
+          "patrol_sequence": [{"x": 0, "y": 1}, {"x": 0, "y": -1}]
+        },
+        {"type": "Bishop", "x": 7, "y": 7},
+        {"type": "Knight", "x": 6, "y": 7},
+        {"type": "Knight", "x": 7, "y": 6},
+        {"type": "Bishop", "x": 6, "y": 6},
+        {"type": "Rook", "x": 5, "y": 6},
+        {"type": "Knight", "x": 6, "y": 5},
+        {
+          "type": "King",
+          "x": 4,
+          "y": 2,
+          "patrol_sequence": [
+            {"x": 0, "y": 1}, {"x": -1, "y": 0},
+            {"x": 0, "y": -1}, {"x": 1, "y": 0}
+          ]
+        }
+      ]
+    },
+    "8": {
+      "size": 10,
+      "pieces": [
+        {"type": "Pawn", "x": 2, "y": 10},
+        {
+          "type": "Rook",
+          "x": 1,
+          "y": 9,
+          "patrol_sequence": [{"x": 0, "y": 1}, {"x": 0, "y": -1}]
+        },
+        {"type": "Bishop", "x": 2, "y": 9},
+        {"type": "Knight", "x": 3, "y": 9},
+        {"type": "Knight", "x": 2, "y": 8},
+        {"type": "Bishop", "x": 3, "y": 8},
+        {"type": "Rook", "x": 4, "y": 8},
+        {"type": "Knight", "x": 3, "y": 7},
+        {"type": "Knight", "x": 8, "y": 5},
+        {
+          "type": "King",
+          "x": 8,
+          "y": 2,
+          "patrol_sequence": [{"x": 0, "y": 1}, {"x": 0, "y": -1}]
+        }
+      ]
+    }
   }
 }
