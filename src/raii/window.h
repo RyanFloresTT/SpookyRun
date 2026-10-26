@@ -24,7 +24,7 @@ public:
 
 private:
     static void initialize_background_music() {
-        const Music& music = AssetManager::Get(MusicAssets::Seaside);
+        const Music& music = AssetManager::Get(MusicAssets::Spoky);
 
         PlayMusicStream(music);
         SetMusicVolume(music, 0.2f);
