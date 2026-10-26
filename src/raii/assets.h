@@ -19,6 +19,7 @@ enum class TextureAssets {
     MenuBackground, RoundButton, CrossIcon, WhiteButton, Sword, MenuButton,
     TopWall, BottomWall, LeftWall, RightWall,
     BottomLeftCorner, BottomRightCorner,
+    FloorEdge, FloorCorner,
 };
 
 enum class AlternateSkinAssets {
@@ -173,6 +174,8 @@ private:
         {TextureAssets::RightWall, {{}, "assets/images/right_wall.png"}},
         {TextureAssets::BottomLeftCorner, {{}, "assets/images/corner_BL.png"}},
         {TextureAssets::BottomRightCorner, {{}, "assets/images/corner_BR.png"}},
+        {TextureAssets::FloorCorner, {{}, "assets/images/floor_corner.png"}},
+        {TextureAssets::FloorEdge, {{}, "assets/images/floor_edge.png"}},
     };
 
     static inline std::map<FontAssets, asset_info<Font>> fonts = {
