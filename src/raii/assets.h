@@ -54,7 +54,8 @@ public:
 
         // Font
         for (auto& [font, path] : fonts | std::views::values) {
-            font = LoadFont(path.c_str());
+            font = LoadFontEx(path.c_str(), 96, nullptr, 0);
+            SetTextureFilter(font.texture, TEXTURE_FILTER_BILINEAR);
         }
 
         // SFX
