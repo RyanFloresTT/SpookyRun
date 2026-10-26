@@ -68,10 +68,10 @@ public:
 
     void NotifyPlayerMoved(const Piece* mover) const {
         for (auto& p : pieces) {
-            if (p.get() != mover) p->OnPlayerMoved();
+            if (p.get() != mover) p->DetectPlayer();
         }
         for (auto& p : pieces) {
-            if (p.get() != mover) p->DetectPlayer();
+            if (p.get() != mover && !p->IsAnimating() && !p->HasHitPlayer()) p->OnPlayerMoved();
         }
     }
 
