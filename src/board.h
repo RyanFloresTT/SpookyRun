@@ -12,7 +12,8 @@ public:
         Reset(DefaultBoardSize, fill);
     }
 
-    void Reset(const int size, const CellState fill = CellState::Empty) {
+    void Reset(int size, const CellState fill = CellState::Empty) {
+        size += 2;
         if (size < 1 || size > TotalBoardWidth) {
             throw std::invalid_argument("Board size must fit the board viewport");
         }
@@ -81,8 +82,8 @@ public:
     void draw_board_grid() const {
         const float tile_size = GetTileSize();
 
-        for (int i = 0; i < DefaultBoardSize; ++i) {
-            for (int j = 0; j < DefaultBoardSize; ++j){
+        for (int i = 1; i < DefaultBoardSize + 1; ++i) {
+            for (int j = 1; j < DefaultBoardSize + 1; ++j){
                 const Rectangle r = {i * tile_size, j * tile_size, tile_size, tile_size};
                 DrawRectangleLinesEx(r, 1, BLACK);
             }
