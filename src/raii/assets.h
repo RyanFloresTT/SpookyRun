@@ -175,7 +175,7 @@ private:
         {SFXAssets::ArrowButtonClick, {{}, "assets/sfx/tap-a.ogg"}}
     };
     static inline std::map<MusicAssets, asset_info<Music>> music_tracks = {
-        {MusicAssets::Seaside, {{}, "assets/music/Week 26 - Seaside ENDLESS WAVES.ogg"}},
+        {MusicAssets::Seaside, {{}, "assets/music/nastelbom-spoky-halloween-617000.mp3"}},
         {MusicAssets::Spoky, {{}, "assets/music/nastelbom-spoky-halloween-617000.mp3"}}
     };
 };
