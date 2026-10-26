@@ -9,7 +9,8 @@ constexpr auto RedAttack = Color{255, 0, 0, 0};
 enum class CellState {
     Empty,
     Occupied,
-    Attack
+    Attack,
+    Border
 };
 
 struct CellInfo {
