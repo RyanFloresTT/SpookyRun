@@ -55,11 +55,19 @@ void Pawn::Move(const int target_x, const int target_y) {
 
     MoveTo(target_x, target_y);
     game_board.set_cell_state(target_x, target_y, CellState::Occupied);
-    game_board.NotifyPlayerMoved(this);
 }
 
 void Pawn::Update(const float dt) {
+    const bool was_moving = is_moving;
     Piece::Update(dt);
+
+    if (was_moving && !is_moving) {
+        if (PlayerWon()) {
+            game_board.set_player_won(true);
+        } else {
+            game_board.NotifyPlayerMoved(this);
+        }
+    }
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         const float tile_size = game_board.GetTileSize();
@@ -77,5 +85,9 @@ void Pawn::Init() const {
 }
 
 bool Pawn::PlayerWon() const {
-    return info.y == 1 && !is_moving;
+    if (info.y == 1 && !is_moving) {
+        game_board.PlayerReachedEnd();
+        return true;
+    }
+    return false;
 }

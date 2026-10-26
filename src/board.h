@@ -115,6 +115,13 @@ public:
         return false;
     }
 
+    bool PlayerIsMoving() const {
+        for (const auto& piece : pieces) {
+            if (piece->type == PieceType::Pawn) return piece->IsAnimating();
+        }
+        return false;
+    }
+
     void Update(const float dt) {
         for (auto& p : pieces) p->Update(dt);
         for (Piece* target : pendingRemovals) RemovePiece(target);
@@ -132,6 +139,7 @@ public:
     bool check_player_win() const { return player_won; }
     void set_player_won(const bool won) { player_won = won; }
     void Enter() {
+        player_won = false;
         // set border states
         for (int i = 0; i < GetSize(); ++i) {
             // top and bottom
@@ -143,6 +151,9 @@ public:
             set_cell_state( GetSize() - 1, i, CellState::Border);
         }
     }
+
+    bool PlayerWon() const {return player_reached_end; }
+    void PlayerReachedEnd() { player_reached_end = true; }
 
 private:
     void RemovePiece(Piece* target) {
@@ -164,6 +175,7 @@ private:
     bool                                playerCaptured = false;
     bool                                dirty          = false;
     bool                                player_won     = false;
+    bool                                player_reached_end = false;
 };
 
 inline bool Board::PlayerCaptured() const { return playerCaptured; }

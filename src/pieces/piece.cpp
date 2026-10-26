@@ -16,7 +16,8 @@ void Piece::Draw() const {
 }
 
 void Piece::DetectPlayer() {
-    if (type == PieceType::Pawn || is_moving || has_hit_player) return;
+    if (type == PieceType::Pawn || is_moving || has_hit_player || game_board.PlayerWon() ||
+        game_board.PlayerIsMoving()) return;
 
     for (const auto [x, y] : hit_squares) {
         if (game_board.PieceTypeAt(PieceType::Pawn, x, y)) {
@@ -34,6 +35,7 @@ void Piece::OnPlayerMoved() {
 }
 
 void Piece::MoveTo(const int new_x, const int new_y) {
+    if (game_board.PlayerWon()) return;
     if (!game_board.InBounds(new_x, new_y)) return;
     if (new_x == info.x && new_y == info.y) return;
     if (type != PieceType::Pawn) {
