@@ -1,7 +1,5 @@
 ﻿#pragma once
 #include "scene.h"
-#include "../board.h"
-#include "../cell.h"
 
 class LostScene : public Scene {
 public:
@@ -11,6 +9,5 @@ public:
     void Draw() override;
 
 private:
-    Board background{CellState::Empty};
     int   retry_level;
 };

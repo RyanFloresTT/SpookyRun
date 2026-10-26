@@ -16,7 +16,7 @@ enum class TextureAssets {
     ButtonBackground, RepeatIcon,
     Cursor, Star,
     WhiteFloor2, BlackFloor1,
-    MenuBackground, RoundButton, CrossIcon, WhiteButton, Sword
+    MenuBackground, RoundButton, CrossIcon, WhiteButton, Sword, MenuButton
 };
 
 enum class AlternateSkinAssets {
@@ -162,6 +162,7 @@ private:
         {TextureAssets::CrossIcon, {{}, "assets/ui/icon_cross.png"}},
         {TextureAssets::WhiteButton, {{}, "assets/ui/button_square_depth_line.png"}},
         {TextureAssets::Sword, {{}, "assets/ui/tile_0103.png"}},
+        {TextureAssets::MenuButton, {{}, "assets/ui/button_rectangle_depth_border.png"}},
     };
 
     static inline std::map<FontAssets, asset_info<Font>> fonts = {

@@ -3,6 +3,20 @@
 #include "../raii/assets.h"
 
 namespace UI {
+    inline void CenteredText(const float centerX, const float y, const char* text,
+                             const int   size, const Color    color) {
+        const Font&     font    = AssetManager::Get(FontAssets::SupplyCenter);
+        constexpr float spacing = 0.0f;
+
+        const Vector2 measured = MeasureTextEx(font, text, static_cast<float>(size), spacing);
+        const Vector2 pos{
+            std::floor(centerX - measured.x / 2.0f),
+            std::floor(y)
+        };
+
+        DrawTextEx(font, text, pos, static_cast<float>(size), spacing, color);
+    }
+
     inline bool Button(const Rectangle r, const char* label, const int fontSize) {
         const bool hover   = CheckCollisionPointRec(GetMousePosition(), r);
         const bool pressed = hover && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
@@ -10,11 +24,7 @@ namespace UI {
         DrawRectangleRec(r, pressed ? DARKGRAY : hover ? GRAY : LIGHTGRAY);
         DrawRectangleLinesEx(r, 3, BLACK);
 
-        const int w = MeasureText(label, fontSize);
-        DrawText(label,
-                 static_cast<int>(r.x + (r.width - w) / 2),
-                 static_cast<int>(r.y + (r.height - fontSize) / 2),
-                 fontSize, BLACK);
+        CenteredText(r.x + r.width / 2, r.y + (r.height - fontSize) / 2, label, fontSize, BLACK);
 
         const bool clicked = hover && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 
@@ -36,11 +46,7 @@ namespace UI {
 
         DrawTexturePro(background, source, r, Vector2{0, 0}, 0.f, tint);
 
-        const int w = MeasureText(label, fontSize);
-        DrawText(label,
-                 static_cast<int>(r.x + (r.width - w) / 2),
-                 static_cast<int>(r.y + (r.height - fontSize) / 2),
-                 fontSize, BLACK);
+        CenteredText(r.x + r.width / 2, r.y + (r.height - fontSize) / 2, label, fontSize, BLACK);
 
         if (locked) return false;
 
@@ -83,19 +89,5 @@ namespace UI {
     inline bool CenteredButton(const float centerX, const float y, const char* label,
                                const float w = 240, const float h = 56) {
         return Button(Rectangle{centerX - w / 2, y, w, h}, label, 32);
-    }
-
-    inline void CenteredText(const float centerX, const float y, const char* text,
-                             const int   size, const Color    color) {
-        const Font&     font    = AssetManager::Get(FontAssets::SupplyCenter);
-        constexpr float spacing = 0.0f;
-
-        const Vector2 measured = MeasureTextEx(font, text, static_cast<float>(size), spacing);
-        const Vector2 pos{
-            std::floor(centerX - measured.x / 2.0f),
-            std::floor(y)
-        };
-
-        DrawTextEx(font, text, pos, static_cast<float>(size), spacing, color);
     }
 }

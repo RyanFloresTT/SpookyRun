@@ -32,10 +32,6 @@ public:
             LevelManager::SaveProgress(level + 1);
             SceneManager::Get().GoTo<WinScene>();
         }
-
-        if (IsKeyPressed(KEY_G)) {
-            AssetManager::SwapTexturePath(TextureAssets::Player, "assets/images/viking.png");
-        }
     }
 
     static void DrawResetIcon() {

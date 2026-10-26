@@ -15,7 +15,7 @@ public:
     void Draw() override;
 
 private:
-    static constexpr int Padding     = 200;
+    static constexpr int Padding     = 160;
     static constexpr int ButtonSize  = 120;
     static constexpr int Spacing     = 30;
     static constexpr int Columns     = (TotalBoardWidth - 2 * Padding + Spacing) / (ButtonSize + Spacing);

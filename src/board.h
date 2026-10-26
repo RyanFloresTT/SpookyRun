@@ -78,10 +78,23 @@ public:
         for (const auto& p : pieces) p->SetHitSquares();
     }
 
+    void draw_board_grid() const {
+        const float tile_size = GetTileSize();
+
+        for (int i = 0; i < DefaultBoardSize; ++i) {
+            for (int j = 0; j < DefaultBoardSize; ++j){
+                const Rectangle r = {i * tile_size, j * tile_size, tile_size, tile_size};
+                DrawRectangleLinesEx(r, 1, BLACK);
+            }
+        }
+    }
+
     void Draw() const {
         for (int y = 0; y < GetSize(); ++y)
             for (int x = 0; x < GetSize(); ++x)
                 DrawCell(cells[y][x], x, y, GetTileSize());
+
+        draw_board_grid();
 
         for (auto& p : pieces) p->Draw();
     }
