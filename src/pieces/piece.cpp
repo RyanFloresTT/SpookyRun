@@ -12,7 +12,7 @@ void Piece::Update(const float dt) {
         handle_movement_animation(dt);
         return;
     }
-    
+
     if (!game_board.PlayerIsMoving()) DetectPlayer();
 }
 
