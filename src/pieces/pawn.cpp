@@ -36,7 +36,7 @@ bool Pawn::validate_pawn_move(const int       target_x, const int target_y, cons
 }
 
 void Pawn::Move(const int target_x, const int target_y) {
-    if (game_board.ResolvingMoves()) return;
+    if (game_board.PlayerWon() || game_board.ResolvingMoves()) return;
     if (is_moving) return;
     if (!game_board.InBounds(target_x, target_y)) return;
 

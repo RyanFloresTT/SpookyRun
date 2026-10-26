@@ -5,6 +5,17 @@
 #include "piece.h"
 #include "../board.h"
 
+void Piece::Update(const float dt) {
+    if (has_hit_player) return;
+
+    if (is_moving) {
+        handle_movement_animation(dt);
+        return;
+    }
+    
+    if (!game_board.PlayerIsMoving()) DetectPlayer();
+}
+
 void Piece::Draw() const {
     float progress = is_moving ? animation_timer / move_duration : 1.0f;
     progress       = 1.0f - (1.0f - progress) * (1.0f - progress) * (1.0f - progress);
@@ -16,8 +27,7 @@ void Piece::Draw() const {
 }
 
 void Piece::DetectPlayer() {
-    if (type == PieceType::Pawn || is_moving || has_hit_player || game_board.PlayerWon() ||
-        game_board.PlayerIsMoving()) return;
+    if (type == PieceType::Pawn || is_moving || has_hit_player || game_board.PlayerWon()) return;
 
     for (const auto [x, y] : hit_squares) {
         if (game_board.PieceTypeAt(PieceType::Pawn, x, y)) {

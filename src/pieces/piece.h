@@ -36,15 +36,7 @@ public:
         return false;
     }
 
-    virtual void Update(const float dt) {
-        if (has_hit_player) return;
-
-        if (is_moving) {
-            handle_movement_animation(dt);
-            return;
-        }
-        DetectPlayer();
-    }
+    virtual void Update(const float dt);
 
     void Draw() const;
 

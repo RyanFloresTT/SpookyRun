@@ -21,6 +21,7 @@ public:
         pieces.clear();
         cells.assign(size, std::vector(size, fill));
         playerCaptured = false;
+        player_reached_end = false;
     }
 
     int   GetSize() const { return static_cast<int>(cells.size()); }
