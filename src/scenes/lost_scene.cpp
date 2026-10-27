@@ -1,11 +1,10 @@
 ﻿#include "lost_scene.h"
-#include "scene_manager.h"
 #include "level_menu.h"
 #include "opening_scene.h"
-#include "../config.h"
 #include "../levels/level_scene.h"
 #include "../ui/button.h"
 #include "../ui/scene_visuals.h"
+#include "lantern/scene/scene_manager.h"
 
 void LostScene::Draw() {
     constexpr Color accent{226, 133, 139, 255};

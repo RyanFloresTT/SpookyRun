@@ -1,9 +1,9 @@
 ﻿// level_menu.h
 #pragma once
-#include "scene.h"
 #include "../board.h"
 #include "../cell.h"
-#include "../save/save_manager.h"
+#include "lantern/scene/scene.h"
+#include "lantern/scene/scene_manager.h"
 
 class LevelMenu : public Scene {
 public:

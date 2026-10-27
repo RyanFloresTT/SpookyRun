@@ -1,5 +1,5 @@
 ﻿#include "level_menu.h"
-#include "scene_manager.h"
+#include "lantern/scene/scene_manager.h"
 #include "../levels/level_scene.h"
 #include "../ui/button.h"
 #include "../ui/scene_visuals.h"

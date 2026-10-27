@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../scenes/scene.h"
+#include "lantern/scene/scene.h"
 #include "../scenes/win_scene.h"
 #include "../cell.h"
 
@@ -8,6 +8,7 @@
 #include "../board.h"
 #include "../scenes/lost_scene.h"
 #include "../ui/button.h"
+#include "../config.h"
 
 class Level : public Scene {
 public:

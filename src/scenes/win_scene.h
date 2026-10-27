@@ -1,12 +1,11 @@
 ﻿#pragma once
 #include "raylib.h"
-#include "scene.h"
-#include "scene_manager.h"
-#include "../config.h"
 #include "../ui/button.h"
 #include "level_menu.h"
 #include "opening_scene.h"
 #include "../ui/scene_visuals.h"
+#include "lantern/scene/scene.h"
+#include "lantern/scene/scene_manager.h"
 
 class WinScene : public Scene {
 public:

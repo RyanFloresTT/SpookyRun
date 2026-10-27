@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "scene.h"
+#include "lantern/scene/scene.h"
 
 class LostScene : public Scene {
 public:
