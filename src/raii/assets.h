@@ -118,12 +118,12 @@ public:
 
     static void SwapTexturePath(const TextureAssets key, const std::string& newPath) {
         UnloadTexture(textures.at(key).asset);
-        LoadTexture(newPath.c_str());
+        textures.at(key).asset = LoadTexture(newPath.c_str());
     }
 
     static void SwapPlayerSkin(const AlternateSkinAssets skin) {
         UnloadTexture(textures.at(TextureAssets::Player).asset);
-        LoadTexture(GetAlternateSkinPath(skin).c_str());
+        textures.at(TextureAssets::Player).asset = LoadTexture(GetAlternateSkinPath(skin).c_str());
     }
 
     static inline std::map<AlternateSkinAssets, asset_info<Texture2D>> alternate_skins = {

@@ -11,20 +11,12 @@
 
 EM_JS(int, LoadWebProgress, (),  {
     try {
-        const saved
-        =
-        localStorage.getItem("solojam.progress");
-        if (saved == = null) return 1;
+        const saved = localStorage.getItem("solojam.progress");
+        if (saved === null) return 1;
 
-        const data
-        =
-        JSON.parse(saved);
-        if (data&& Number
-        .
-        isInteger(data.unlocked) &&
-            data.unlocked >= 1 && data.unlocked <= 2147483647
-        )
-        {
+        const data = JSON.parse(saved);
+        if (data && Number.isInteger(data.unlocked) &&
+            data.unlocked >= 1 && data.unlocked <= 2147483647) {
             return data.unlocked;
         }
     }
