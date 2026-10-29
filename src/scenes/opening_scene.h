@@ -25,13 +25,13 @@ public:
 
         const float tile = GetScreenWidth() / 9.0f;
         for (int column = -2; column <= 2; ++column) {
-            SceneVisuals::Sprite(TextureAssets::WhiteFloor2, center_x + column * tile,
+            SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::WhiteFloors::FLOOR2), center_x + column * tile,
                                  height * 0.43f, tile, Color{132, 145, 132, 255});
         }
-        SceneVisuals::Sprite(TextureAssets::Rook, center_x - tile * 2, height * 0.43f - 28, tile);
-        SceneVisuals::Sprite(TextureAssets::Bishop, center_x + tile * 2, height * 0.43f - 28, tile);
-        SceneVisuals::Sprite(TextureAssets::Player, center_x, height * 0.39f + SceneVisuals::Bob(), tile * 1.3f);
-        SceneVisuals::Sprite(TextureAssets::Star, center_x, height * 0.31f, 40);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::ROOK), center_x - tile * 2, height * 0.43f - 28, tile);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::BISHOP), center_x + tile * 2, height * 0.43f - 28, tile);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::MONK), center_x, height * 0.39f + SceneVisuals::Bob(), tile * 1.3f);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::STAR), center_x, height * 0.31f, 40);
 
         const float pulse = 0.8f + static_cast<float>(std::sin(GetTime() * 3)) * 0.2f;
         UI::CenteredText(center_x, height * 0.7f, "Click to start!", 36, Fade(WHITE, pulse));

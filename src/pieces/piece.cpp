@@ -23,7 +23,7 @@ void Piece::Draw() const {
     const float tile_size = game_board.GetTileSize();
     const float px        = (from_x + (info.x - from_x) * progress) * tile_size;
     const float py        = (from_y + (info.y - from_y) * progress) * tile_size;
-    DrawAsset(ToTextureAsset(type), px, py, tile_size);
+    DrawAsset(GetTexturePath(type), px, py, tile_size);
 }
 
 void Piece::DetectPlayer() {

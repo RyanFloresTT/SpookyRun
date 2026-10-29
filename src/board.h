@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "cell.h"
+#include "config.h"
 #include "pieces/piece_factory.h"
 
 class Board {
@@ -97,10 +98,10 @@ public:
             for (int x = 0; x < GetSize(); ++x) {
                 const CellState state = cells[y][x];
                 if (state == CellState::Border) {
-                    DrawBorderCell(x, y, GetTileSize(), GetSize());
+                    Cell::DrawBorderCell(x, y, GetTileSize(), GetSize());
                     continue;
                 }
-                DrawCell(state, x, y, GetTileSize());
+                Cell::DrawCell(state, x, y, GetTileSize());
             }
 
         draw_board_grid();

@@ -34,8 +34,6 @@ add_executable(solojam
         src/pieces/pawn.h
         src/scenes/opening_scene.h
         src/levels/level_scene.h
-        src/raii/window.h
-        src/raii/assets.h
         src/scenes/win_scene.h
         src/scenes/lost_scene.h
         src/pieces/rook.cpp
@@ -63,6 +61,7 @@ add_executable(solojam
         src/save/web_save_manager.cpp
         src/save/web_save_manager.h
         src/save/desktop_save_manager.h
+        src/assets.h
 )
 target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json lantern)
 

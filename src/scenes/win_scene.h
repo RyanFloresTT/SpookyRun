@@ -3,6 +3,7 @@
 #include "../ui/button.h"
 #include "level_menu.h"
 #include "opening_scene.h"
+#include "../assets.h"
 #include "../ui/scene_visuals.h"
 #include "lantern/scene/scene.h"
 #include "lantern/scene/scene_manager.h"
@@ -18,19 +19,19 @@ public:
         SceneVisuals::Backdrop(accent);
         SceneVisuals::Heading("You Won!", accent);
 
-        SceneVisuals::Sprite(TextureAssets::Star, center_x, height * 0.30f + SceneVisuals::Bob(), 96);
-        SceneVisuals::Sprite(TextureAssets::Star, center_x - 112, height * 0.35f - SceneVisuals::Bob(), 48);
-        SceneVisuals::Sprite(TextureAssets::Star, center_x + 112, height * 0.35f - SceneVisuals::Bob(), 48);
-        SceneVisuals::Sprite(TextureAssets::Player, center_x, height * 0.42f, 88);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::STAR), center_x, height * 0.30f + SceneVisuals::Bob(), 96);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::STAR), center_x - 112, height * 0.35f - SceneVisuals::Bob(), 48);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::STAR), center_x + 112, height * 0.35f - SceneVisuals::Bob(), 48);
+        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::MONK), center_x, height * 0.42f, 88);
 
         Rectangle r{center_x - 120, height * 0.57f, 240, 56};
-        if (UI::Button(r,"Level Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) scene_manager->GoTo<LevelMenu>();
+        if (UI::Button(r,"Level Menu", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<LevelMenu>();
 
         r.y += height * 0.10f;
-        if (UI::Button(r,"Main Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) scene_manager->GoTo<OpeningScene>();
+        if (UI::Button(r,"Main Menu", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<OpeningScene>();
 
         r.y += height * 0.10f;
-        if (UI::Button(r,"Quit", 24, AssetManager::Get(TextureAssets::MenuButton))) scene_manager->Quit();
+        if (UI::Button(r,"Quit", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->Quit();
 
     }
 };

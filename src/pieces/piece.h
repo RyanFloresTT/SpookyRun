@@ -1,11 +1,12 @@
 ﻿#pragma once
 
 #include <cmath>
+#include <string_view>
 #include <vector>
 
 #include "piece_type.h"
 #include "../cell.h"
-#include "../raii/assets.h"
+#include "lantern/assets/asset_store.h"
 
 class Board;
 
@@ -40,8 +41,8 @@ public:
 
     void Draw() const;
 
-    static void DrawAsset(const TextureAssets asset, const float px, const float py, const float tile_size) {
-        const Texture2D& tex = AssetManager::Get(asset);
+    void DrawAsset(std::string_view asset_path, const float px, const float py, const float tile_size) {
+        const Texture2D& tex = assets.Get<Texture2D>(asset_path);
         const Rectangle  source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
         const Rectangle  dest{px, py, tile_size, tile_size};
         DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
@@ -56,16 +57,16 @@ public:
 protected:
     Board&   game_board;
     CellInfo info;
+    AssetStore assets;
 
     int   from_x           = 0, from_y = 0;
     bool  is_moving        = false;
     float animation_timer  = 0.0f;
     float move_duration    = 0.15f; // seconds
     float seconds_per_tile = 0.15f;
-
     int                  current_patrol_index = 0;
-    std::vector<Vector2> patrol_sequence;
 
+    std::vector<Vector2> patrol_sequence;
     std::vector<Vector2> hit_squares;
 
 private:

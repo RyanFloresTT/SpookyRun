@@ -5,6 +5,7 @@
 #include "../cell.h"
 
 #include "level_manager.h"
+#include "../assets.h"
 #include "../board.h"
 #include "../scenes/lost_scene.h"
 #include "../ui/button.h"
@@ -36,8 +37,8 @@ public:
         }
     }
 
-    static void DrawResetIcon() {
-        const Texture2D&    repeat_icon = AssetManager::Get(TextureAssets::RepeatIcon);
+    void DrawResetIcon() {
+        const Texture2D&    repeat_icon = assets.Get<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
         constexpr Rectangle r{TotalBoardWidth - 55, TotalBoardWidth - 80, 50.f, 50.f};
         const Rectangle     source{0, 0, static_cast<float>(repeat_icon.width), static_cast<float>(repeat_icon.height)};
         DrawTexturePro(repeat_icon, source, r, Vector2{0, 0}, 0.f, WHITE);
