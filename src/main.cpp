@@ -5,6 +5,12 @@ int main() {
     auto game = Game(920, 920, "Spooky Run", 60);
     AssetManager::load_assets();
 
+    game.GetSceneManager().SetFrameCallback([] {
+        UpdateMusicStream(AssetManager::Get(MusicAssets::Seaside));
+        const auto [x, y] = GetMousePosition();
+        DrawTexture(AssetManager::Get(TextureAssets::Cursor), static_cast<int>(x - 15), static_cast<int>(y - 10), WHITE);
+    });
+
     game.GetSceneManager().GoTo<OpeningScene>();
     game.Run();
 
