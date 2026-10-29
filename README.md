@@ -14,7 +14,7 @@ Enemy pieces sit on the board and move like the chess pieces they are based on (
 
 ## Systems worth looking at
 
-- **Board and threat model** (`src/board.h`): the board owns the pieces and the grid. There is no stored attack map. After every change, the threat display is rebuilt from scratch by asking each piece to mark the squares it attacks, so the display can never disagree with the actual piece positions. Piece removal is deferred, because captures happen while other code is still iterating the piece list. *The opacity for this has been turned to 0, will update in the future.*
+- **Board and threat model** (`src/board.h`): the board owns the pieces and the grid. There is no stored attack map. After every change, the threat display is rebuilt from scratch by asking each piece to mark the squares it attacks, so the display can never disagree with the actual piece positions. Piece removal is deferred, because captures happen while other code is still iterating the piece list.
 - **Validated level loading** (`src/levels/`): levels are JSON data (size, pieces, optional patrol routes). The loader checks every value before using it. An unknown piece type or an out of bounds position logs a warning and is skipped instead of crashing the game.
 - **Scenes** (`src/scenes/`): each screen is a class behind a small interface, owned by a scene manager. Scene changes are stored and constructed halfway through a fade transition, so callers never handle transition timing.
 - **One save interface, two backends** (`src/save/`): progress is the highest unlocked level. The desktop backend stores it in a JSON file. The web backend stores it in localStorage through the Emscripten HTML5 API.
