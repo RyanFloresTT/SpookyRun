@@ -24,13 +24,13 @@ public:
         SceneVisuals::Sprite(TextureAssets::Player, center_x, height * 0.42f, 88);
 
         Rectangle r{center_x - 120, height * 0.57f, 240, 56};
-        if (UI::Button(r,"Level Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<LevelMenu>();
+        if (UI::Button(r,"Level Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) scene_manager->GoTo<LevelMenu>();
 
         r.y += height * 0.10f;
-        if (UI::Button(r,"Main Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<OpeningScene>();
+        if (UI::Button(r,"Main Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) scene_manager->GoTo<OpeningScene>();
 
         r.y += height * 0.10f;
-        if (UI::Button(r,"Quit", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().Quit();
+        if (UI::Button(r,"Quit", 24, AssetManager::Get(TextureAssets::MenuButton))) scene_manager->Quit();
 
     }
 };

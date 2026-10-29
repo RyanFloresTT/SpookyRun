@@ -97,9 +97,6 @@ public:
         for (auto& [music, path] : music_tracks | std::views::values) {
             UnloadMusicStream(music);
         }
-
-        // Move out
-        CloseAudioDevice();
     }
 
     static Texture2D&       Get(const TextureAssets key) { return textures.at(key).asset; }

@@ -23,16 +23,16 @@ public:
         playable.Update(dt);
 
         if (playable.PlayerCaptured()) {
-            SceneManager::Get().GoTo<LostScene>(level);
+            scene_manager->GoTo<LostScene>(level);
         }
 
         if (IsKeyPressed(KEY_R)) {
-            SceneManager::Get().GoTo<Level>(level);
+            scene_manager->GoTo<Level>(level);
         }
 
         if (playable.check_player_win()) {
             LevelManager::SaveProgress(level + 1);
-            SceneManager::Get().GoTo<WinScene>();
+            scene_manager->GoTo<WinScene>();
         }
     }
 

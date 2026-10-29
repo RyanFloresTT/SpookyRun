@@ -46,7 +46,7 @@ void LevelMenu::draw_level_buttons() const {
         if (!character_screen_open && UI::Button(bounds, label.c_str(), 32,
                                                  AssetManager::Get(TextureAssets::ButtonBackground),
                                                  level > unlocked_count)) {
-            SceneManager::Get().GoTo<Level>(level);
+            scene_manager->GoTo<Level>(level);
         }
         if (level < unlocked_count) {
             SceneVisuals::Sprite(TextureAssets::Star, x + ButtonSize - 20, y + ButtonSize - 36, 28);

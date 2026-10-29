@@ -1,11 +1,12 @@
-#include "config.h"
-#include "raii/window.h"
+#include "lantern/game/game.h"
 #include "scenes/opening_scene.h"
-#include "lantern/scene/scene_manager.h"
 
 int main() {
-    Window window(TotalBoardWidth, "Pawn Run", 60);
+    auto game = Game(920, 920, "Spooky Run", 60);
+    AssetManager::load_assets();
 
-    SceneManager::Get().GoTo<OpeningScene>();
-    SceneManager::Get().Run();
+    game.GetSceneManager().GoTo<OpeningScene>();
+    game.Run();
+
+    AssetManager::unload_assets();
 }

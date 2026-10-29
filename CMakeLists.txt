@@ -21,7 +21,7 @@ FetchContent_MakeAvailable(raylib)
 FetchContent_Declare(
         lantern
         GIT_REPOSITORY https://github.com/RyanFloresTT/lantern.git
-        GIT_TAG main
+        GIT_TAG scenes
 )
 FetchContent_MakeAvailable(lantern)
 

@@ -12,7 +12,7 @@ class OpeningScene : public Scene {
 public:
     void Update(float) override {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            SceneManager::Get().GoTo<LevelMenu>();
+            scene_manager->GoTo<LevelMenu>();
         }
     }
 
