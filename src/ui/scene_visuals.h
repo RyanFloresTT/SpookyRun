@@ -16,7 +16,7 @@ namespace SceneVisuals {
         const float tile   = width / 12;
         ClearBackground(Color{24, 28, 27, 255});
 
-        const Texture2D& floor = assets.Get<Texture2D>(Assets::Images::WhiteFloors::FLOOR2);
+        const Texture2D& floor = *assets.Get<Texture2D>(Assets::Images::WhiteFloors::FLOOR2);
         for (int row = 0; row * tile < height; ++row) {
             for (int column = 0; column < 12; ++column) {
                 const bool alternate = (row + column) % 2 == 0;
@@ -25,10 +25,10 @@ namespace SceneVisuals {
             }
         }
 
-        const Texture2D& top_wall    = assets.Get<Texture2D>(Assets::Images::TOP_WALL);
-        const Texture2D& bottom_wall = assets.Get<Texture2D>(Assets::Images::BOTTOM_WALL);
-        const Texture2D& left_wall   = assets.Get<Texture2D>(Assets::Images::LEFT_WALL);
-        const Texture2D& right_wall  = assets.Get<Texture2D>(Assets::Images::RIGHT_WALL);
+        const Texture2D& top_wall    = *assets.Get<Texture2D>(Assets::Images::TOP_WALL);
+        const Texture2D& bottom_wall = *assets.Get<Texture2D>(Assets::Images::BOTTOM_WALL);
+        const Texture2D& left_wall   = *assets.Get<Texture2D>(Assets::Images::LEFT_WALL);
+        const Texture2D& right_wall  = *assets.Get<Texture2D>(Assets::Images::RIGHT_WALL);
 
         for (int column = 1; column < 11; ++column) {
             Sprite(top_wall, (column + 0.5f) * tile, 0, tile, GRAY);
@@ -38,8 +38,8 @@ namespace SceneVisuals {
             Sprite(left_wall, tile / 2, row * tile, tile, GRAY);
             Sprite(right_wall, width - tile / 2, row * tile, tile, GRAY);
         }
-        Sprite(assets.Get<Texture2D>(Assets::Images::CORNER_BL), tile / 2, height - tile, tile, GRAY);
-        Sprite(assets.Get<Texture2D>(Assets::Images::CORNER_BR), width - tile / 2, height - tile, tile, GRAY);
+        Sprite(*assets.Get<Texture2D>(Assets::Images::CORNER_BL), tile / 2, height - tile, tile, GRAY);
+        Sprite(*assets.Get<Texture2D>(Assets::Images::CORNER_BR), width - tile / 2, height - tile, tile, GRAY);
 
         DrawRectangle(static_cast<int>(width * 0.24f), static_cast<int>(height * 0.105f),
                       static_cast<int>(width * 0.52f), 3, accent);

@@ -11,6 +11,8 @@
 
 class OpeningScene : public Scene {
 public:
+    explicit OpeningScene(AssetStore& asset_store) : Scene(asset_store) {}
+
     void Update(float) override {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             scene_manager->GoTo<LevelMenu>();
@@ -26,13 +28,13 @@ public:
 
         const float tile = GetScreenWidth() / 9.0f;
         for (int column = -2; column <= 2; ++column) {
-            SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::WhiteFloors::FLOOR2), center_x + column * tile,
+            SceneVisuals::Sprite(*assets.Get<Texture2D>(Assets::Images::WhiteFloors::FLOOR2), center_x + column * tile,
                                  height * 0.43f, tile, Color{132, 145, 132, 255});
         }
-        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::ROOK), center_x - tile * 2, height * 0.43f - 28, tile);
-        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::BISHOP), center_x + tile * 2, height * 0.43f - 28, tile);
-        SceneVisuals::Sprite(assets.Get<Texture2D>(Skins::Selected), center_x, height * 0.39f + SceneVisuals::Bob(), tile * 1.3f);
-        SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::STAR), center_x, height * 0.31f, 40);
+        SceneVisuals::Sprite(*assets.Get<Texture2D>(Assets::Images::ROOK), center_x - tile * 2, height * 0.43f - 28, tile);
+        SceneVisuals::Sprite(*assets.Get<Texture2D>(Assets::Images::BISHOP), center_x + tile * 2, height * 0.43f - 28, tile);
+        SceneVisuals::Sprite(*assets.Get<Texture2D>(Skins::Selected), center_x, height * 0.39f + SceneVisuals::Bob(), tile * 1.3f);
+        SceneVisuals::Sprite(*assets.Get<Texture2D>(Assets::Images::STAR), center_x, height * 0.31f, 40);
 
         const float pulse = 0.8f + static_cast<float>(std::sin(GetTime() * 3)) * 0.2f;
         UI::CenteredText(assets, center_x, height * 0.7f, "Click to start!", 36, Fade(WHITE, pulse));

@@ -3,7 +3,7 @@
 
 class LostScene : public Scene {
 public:
-    explicit LostScene(const int retryLevel) : retry_level(retryLevel) {}
+    LostScene(AssetStore& asset_store, const int retryLevel) : Scene(asset_store), retry_level(retryLevel) {}
 
     void Update(float) override {}
     void Draw() override;

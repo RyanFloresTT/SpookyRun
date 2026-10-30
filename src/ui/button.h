@@ -8,7 +8,7 @@
 namespace UI {
     inline void CenteredText(AssetStore& assets, const float centerX, const float y, const char* text,
                              const int   size, const Color    color) {
-        const Font&     font    = assets.Get<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+        const Font&     font    = *assets.Get<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
         constexpr float spacing = 0.0f;
 
         const Vector2 measured = MeasureTextEx(font, text, static_cast<float>(size), spacing);
@@ -23,7 +23,7 @@ namespace UI {
     inline bool Clicked(AssetStore& assets, const bool hover) {
         const bool clicked = hover && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
         if (clicked) {
-            PlaySound(assets.Get<Sound>(Assets::SFX::BUTTON_CLICK));
+            PlaySound(*assets.Get<Sound>(Assets::SFX::BUTTON_CLICK));
         }
         return clicked;
     }

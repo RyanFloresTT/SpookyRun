@@ -40,8 +40,8 @@ public:
         if (rotation != 0.f) {
             bounds.y += tile_size;
         }
-
-        DrawBGCell(assets.Get<Texture2D>(floor_asset_path), bounds.x, bounds.y, tile_size, rotation);
+        const std::shared_ptr<Texture2D> floor_asset = assets.Get<Texture2D>(floor_asset_path);
+        DrawBGCell(*floor_asset, bounds.x, bounds.y, tile_size, rotation);
 
         if (state == CellState::Attack) {
             DrawRectangleRec(bounds, RedAttack);
@@ -61,6 +61,7 @@ public:
                                    right ? Assets::Images::RIGHT_WALL :
                                    top ? Assets::Images::TOP_WALL : Assets::Images::BOTTOM_WALL;
 
-        DrawBGCell(assets.Get<Texture2D>(wall_path), x * tile_size, y * tile_size, tile_size);
+        const std::shared_ptr<Texture2D> wall_asset = assets.Get<Texture2D>(wall_path);
+        DrawBGCell(*wall_asset, x * tile_size, y * tile_size, tile_size);
     }
 };

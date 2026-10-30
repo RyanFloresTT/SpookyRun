@@ -48,7 +48,7 @@ namespace MenuGrid {
         const int max_first_row = MaxFirstRow(item_count);
         if (max_first_row == 0) return;
 
-        const Texture2D& background = assets.Get<Texture2D>(Assets::UI::BUTTON_SQUARE_DEPTH_LINE);
+        const Texture2D& background = *assets.Get<Texture2D>(Assets::UI::BUTTON_SQUARE_DEPTH_LINE);
         if (UI::Button(assets, Rectangle{Padding, 718, 64, 64}, "<", 32, background, first_row == 0)) {
             first_row = std::max(0, first_row - VisibleRows);
         }
@@ -64,6 +64,6 @@ namespace MenuGrid {
     // Square button in the bottom-right corner used to switch between the level and skin menus.
     inline bool SwitchButton(AssetStore& assets, const Texture2D& icon) {
         constexpr Rectangle r{TotalBoardWidth - 180, 718, 64.f, 64.f};
-        return UI::Button(assets, r, icon, assets.Get<Texture2D>(Assets::UI::BUTTON_SQUARE_DEPTH_LINE));
+        return UI::Button(assets, r, icon, *assets.Get<Texture2D>(Assets::UI::BUTTON_SQUARE_DEPTH_LINE));
     }
 }

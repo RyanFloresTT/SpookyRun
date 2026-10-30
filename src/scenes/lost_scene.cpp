@@ -14,20 +14,20 @@ void LostScene::Draw() {
     SceneVisuals::Backdrop(assets, accent);
     SceneVisuals::Heading(assets, "You Lost!", accent);
 
-    SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::ROOK), center_x - 112, height * 0.32f, 96);
-    SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::BISHOP), center_x + 112, height * 0.32f, 96);
-    SceneVisuals::Sprite(assets.Get<Texture2D>(Skins::Selected), center_x, height * 0.37f, 88, Color{161, 161, 161, 255});
+    SceneVisuals::Sprite(*assets.Get<Texture2D>(Assets::Images::ROOK), center_x - 112, height * 0.32f, 96);
+    SceneVisuals::Sprite(*assets.Get<Texture2D>(Assets::Images::BISHOP), center_x + 112, height * 0.32f, 96);
+    SceneVisuals::Sprite(*assets.Get<Texture2D>(Skins::Selected), center_x, height * 0.37f, 88, Color{161, 161, 161, 255});
     DrawLineEx(Vector2{center_x - 36, height * 0.48f}, Vector2{center_x + 36, height * 0.48f}, 3, accent);
 
     Rectangle r{center_x - 120, height * 0.55f, 240, 56};
-    if (UI::Button(assets, r,"Try Again", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<Level>(retry_level);
+    if (UI::Button(assets, r,"Try Again", 24, *assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<Level>(retry_level);
 
     r.y += height * 0.08f;
-    if (UI::Button(assets, r,"Level Menu", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<LevelMenu>();
+    if (UI::Button(assets, r,"Level Menu", 24, *assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<LevelMenu>();
 
     r.y += height * 0.08f;
-    if (UI::Button(assets, r,"Main Menu", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<OpeningScene>();
+    if (UI::Button(assets, r,"Main Menu", 24, *assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->GoTo<OpeningScene>();
 
     r.y += height * 0.08f;
-    if (UI::Button(assets, r,"Quit", 24, assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->Quit();
+    if (UI::Button(assets, r,"Quit", 24, *assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE))) scene_manager->Quit();
 }

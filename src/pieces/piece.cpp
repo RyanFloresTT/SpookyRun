@@ -27,7 +27,7 @@ void Piece::Draw() const {
 }
 
 void Piece::DrawAsset(const std::string_view asset_path, const float px, const float py, const float tile_size) const {
-    const Texture2D& tex = game_board.GetAssets().Get<Texture2D>(asset_path);
+    const Texture2D& tex = *game_board.GetAssets().Get<Texture2D>(asset_path);
     const Rectangle  source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
     const Rectangle  dest{px, py, tile_size, tile_size};
     DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
@@ -79,7 +79,7 @@ void Piece::MoveTo(const int new_x, const int new_y) {
 }
 
 void Piece::OnMovementFinished() {
-    PlaySound(game_board.GetAssets().Get<Sound>(Assets::SFX::FOOTSTEP_CONCRETE_003));
+    PlaySound(*game_board.GetAssets().Get<Sound>(Assets::SFX::FOOTSTEP_CONCRETE_003));
     if (type == PieceType::Pawn) return;
 
     if (game_board.PieceTypeAt(PieceType::Pawn, info.x, info.y)) {
