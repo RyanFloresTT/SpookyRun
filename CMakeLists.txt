@@ -62,6 +62,10 @@ add_executable(solojam
         src/save/web_save_manager.h
         src/save/desktop_save_manager.h
         src/assets.h
+        src/skins.h
+        src/ui/menu_grid.h
+        src/scenes/skin_menu.h
+        src/scenes/skin_menu.cpp
 )
 target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json lantern)
 

@@ -3,38 +3,43 @@
 #include "button.h"
 
 namespace SceneVisuals {
-    inline void Sprite(const TextureAssets asset, const float center_x, const float y,
-                       const float         size, const Color  tint = WHITE) {
-        const Texture2D& texture = AssetManager::Get(asset);
-        const Rectangle  source{0, 0, static_cast<float>(texture.width), static_cast<float>(texture.height)};
-        const Rectangle  dest{center_x - size / 2, y, size, size};
+    inline void Sprite(const Texture2D& texture, const float center_x, const float y,
+                       const float      size, const Color tint = WHITE) {
+        const Rectangle source{0, 0, static_cast<float>(texture.width), static_cast<float>(texture.height)};
+        const Rectangle dest{center_x - size / 2, y, size, size};
         DrawTexturePro(texture, source, dest, Vector2{0, 0}, 0, tint);
     }
 
-    inline void Backdrop(const Color accent) {
+    inline void Backdrop(AssetStore& assets, const Color accent) {
         const float width  = static_cast<float>(GetScreenWidth());
         const float height = static_cast<float>(GetScreenHeight());
         const float tile   = width / 12;
         ClearBackground(Color{24, 28, 27, 255});
 
+        const Texture2D& floor = assets.Get<Texture2D>(Assets::Images::WhiteFloors::FLOOR2);
         for (int row = 0; row * tile < height; ++row) {
             for (int column = 0; column < 12; ++column) {
                 const bool alternate = (row + column) % 2 == 0;
-                Sprite(TextureAssets::WhiteFloor2, (column + 0.5f) * tile, row * tile, tile,
+                Sprite(floor, (column + 0.5f) * tile, row * tile, tile,
                        alternate ? Color{42, 49, 46, 255} : Color{36, 42, 40, 255});
             }
         }
 
+        const Texture2D& top_wall    = assets.Get<Texture2D>(Assets::Images::TOP_WALL);
+        const Texture2D& bottom_wall = assets.Get<Texture2D>(Assets::Images::BOTTOM_WALL);
+        const Texture2D& left_wall   = assets.Get<Texture2D>(Assets::Images::LEFT_WALL);
+        const Texture2D& right_wall  = assets.Get<Texture2D>(Assets::Images::RIGHT_WALL);
+
         for (int column = 1; column < 11; ++column) {
-            Sprite(TextureAssets::TopWall, (column + 0.5f) * tile, 0, tile, GRAY);
-            Sprite(TextureAssets::BottomWall, (column + 0.5f) * tile, height - tile, tile, GRAY);
+            Sprite(top_wall, (column + 0.5f) * tile, 0, tile, GRAY);
+            Sprite(bottom_wall, (column + 0.5f) * tile, height - tile, tile, GRAY);
         }
         for (int row = 0; row * tile < height; ++row) {
-            Sprite(TextureAssets::LeftWall, tile / 2, row * tile, tile, GRAY);
-            Sprite(TextureAssets::RightWall, width - tile / 2, row * tile, tile, GRAY);
+            Sprite(left_wall, tile / 2, row * tile, tile, GRAY);
+            Sprite(right_wall, width - tile / 2, row * tile, tile, GRAY);
         }
-        Sprite(TextureAssets::BottomLeftCorner, tile / 2, height - tile, tile, GRAY);
-        Sprite(TextureAssets::BottomRightCorner, width - tile / 2, height - tile, tile, GRAY);
+        Sprite(assets.Get<Texture2D>(Assets::Images::CORNER_BL), tile / 2, height - tile, tile, GRAY);
+        Sprite(assets.Get<Texture2D>(Assets::Images::CORNER_BR), width - tile / 2, height - tile, tile, GRAY);
 
         DrawRectangle(static_cast<int>(width * 0.24f), static_cast<int>(height * 0.105f),
                       static_cast<int>(width * 0.52f), 3, accent);
@@ -42,11 +47,11 @@ namespace SceneVisuals {
                       static_cast<int>(width * 0.52f), 3, accent);
     }
 
-    inline void Heading(const char* text, const Color color) {
+    inline void Heading(AssetStore& assets, const char* text, const Color color) {
         const float center_x = GetScreenWidth() / 2.0f;
         const float y        = GetScreenHeight() * 0.16f;
-        UI::CenteredText(center_x + 3, y + 5, text, 72, Color{12, 15, 14, 255});
-        UI::CenteredText(center_x, y, text, 72, color);
+        UI::CenteredText(assets, center_x + 3, y + 5, text, 72, Color{12, 15, 14, 255});
+        UI::CenteredText(assets, center_x, y, text, 72, color);
     }
 
     inline float Bob() {

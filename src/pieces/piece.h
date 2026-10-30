@@ -6,7 +6,6 @@
 
 #include "piece_type.h"
 #include "../cell.h"
-#include "lantern/assets/asset_store.h"
 
 class Board;
 
@@ -41,12 +40,7 @@ public:
 
     void Draw() const;
 
-    void DrawAsset(std::string_view asset_path, const float px, const float py, const float tile_size) {
-        const Texture2D& tex = assets.Get<Texture2D>(asset_path);
-        const Rectangle  source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
-        const Rectangle  dest{px, py, tile_size, tile_size};
-        DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
-    }
+    void DrawAsset(std::string_view asset_path, const float px, const float py, const float tile_size) const;
 
 
     bool      IsAnimating() const { return is_moving; }
@@ -57,7 +51,6 @@ public:
 protected:
     Board&   game_board;
     CellInfo info;
-    AssetStore assets;
 
     int   from_x           = 0, from_y = 0;
     bool  is_moving        = false;

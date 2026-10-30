@@ -1,5 +1,9 @@
 ﻿#pragma once
+#include <string_view>
+
 #include "raylib.h"
+#include "assets.h"
+#include "lantern/assets/asset_store.h"
 
 // Maybe player can configure this to help them out
 constexpr auto RedAttack = Color{255, 0, 0, 12};
@@ -24,7 +28,7 @@ public:
         DrawTexturePro(tex, source, dest, Vector2{0, 0}, rotation, WHITE);
     }
 
-    static void DrawCell(const CellState state, const int x, const int y, const float tile_size) {
+    static void DrawCell(AssetStore& assets, const CellState state, const int x, const int y, const float tile_size) {
         Rectangle bounds{x * tile_size, y * tile_size, tile_size, tile_size};
 
         const std::string_view floor_asset_path = x == 1 && y == 1 ? Assets::Images::FLOOR_CORNER :
@@ -44,7 +48,7 @@ public:
         }
     }
 
-    static void DrawBorderCell(const int x, const int y, const float tile_size, const int board_size) {
+    static void DrawBorderCell(AssetStore& assets, const int x, const int y, const float tile_size, const int board_size) {
         const bool top = y == 0;
         const bool bottom = y == board_size - 1;
         const bool left = x == 0;
@@ -59,6 +63,4 @@ public:
 
         DrawBGCell(assets.Get<Texture2D>(wall_path), x * tile_size, y * tile_size, tile_size);
     }
-private:
-    static AssetStore assets;
 };

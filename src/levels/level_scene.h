@@ -44,8 +44,8 @@ public:
         DrawTexturePro(repeat_icon, source, r, Vector2{0, 0}, 0.f, WHITE);
     }
 
-    static void DrawResetText() {
-        UI::CenteredText(TotalBoardWidth - 75, TotalBoardWidth - 75, "R", 48, WHITE);
+    void DrawResetText() {
+        UI::CenteredText(assets, TotalBoardWidth - 75, TotalBoardWidth - 75, "R", 48, WHITE);
     }
 
     void Draw() override {
@@ -55,6 +55,6 @@ public:
     }
 
 private:
-    Board playable{CellState::Empty};
+    Board playable{assets, CellState::Empty};
     int   level;
 };

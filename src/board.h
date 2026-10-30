@@ -9,7 +9,7 @@
 
 class Board {
 public:
-    explicit Board(const CellState fill = CellState::Empty) {
+    explicit Board(AssetStore& assets, const CellState fill = CellState::Empty) : assets(assets) {
         Reset(DefaultBoardSize, fill);
     }
 
@@ -24,6 +24,8 @@ public:
         playerCaptured = false;
         player_reached_end = false;
     }
+
+    AssetStore& GetAssets() const { return assets; }
 
     int   GetSize() const { return static_cast<int>(cells.size()); }
     float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
@@ -98,10 +100,10 @@ public:
             for (int x = 0; x < GetSize(); ++x) {
                 const CellState state = cells[y][x];
                 if (state == CellState::Border) {
-                    Cell::DrawBorderCell(x, y, GetTileSize(), GetSize());
+                    Cell::DrawBorderCell(assets, x, y, GetTileSize(), GetSize());
                     continue;
                 }
-                Cell::DrawCell(state, x, y, GetTileSize());
+                Cell::DrawCell(assets, state, x, y, GetTileSize());
             }
 
         draw_board_grid();
@@ -172,6 +174,7 @@ private:
                 if (cell == CellState::Attack) cell = CellState::Empty;
     }
 
+    AssetStore&                         assets;
     std::vector<std::vector<CellState>> cells;
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*>                 pendingRemovals;
