@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 4.2)
 project(solojam CXX)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -21,7 +21,7 @@ FetchContent_MakeAvailable(raylib)
 FetchContent_Declare(
         lantern
         GIT_REPOSITORY https://github.com/RyanFloresTT/lantern.git
-        GIT_TAG shared-ptr-assets
+        GIT_TAG lantern-v0.1.0
 )
 FetchContent_MakeAvailable(lantern)
 
