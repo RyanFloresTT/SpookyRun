@@ -13,7 +13,11 @@
 
 class Level : public Scene {
 public:
-    explicit Level(AssetStore& asset_store, const int level) : Scene(asset_store) { this->level = level; }
+    explicit Level(AssetStore& asset_store, const int level) : Scene(asset_store), level(level) {
+        Board::Preload(assets);
+        assets.Load<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
+        assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    }
 
     void Enter() override {
         LevelManager::LoadLevel(level, playable);
@@ -38,7 +42,7 @@ public:
     }
 
     void DrawResetIcon() {
-        auto repeat_icon = assets.Get<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
+        const Texture2D& repeat_icon = assets.Get<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
         constexpr Rectangle r{TotalBoardWidth - 55, TotalBoardWidth - 80, 50.f, 50.f};
         const Rectangle     source{0, 0, static_cast<float>(repeat_icon.width), static_cast<float>(repeat_icon.height)};
         DrawTexturePro(repeat_icon, source, r, Vector2{0, 0}, 0.f, WHITE);
@@ -55,6 +59,6 @@ public:
     }
 
 private:
-    Board playable{asset_store, CellState::Empty};
     int   level;
+    Board playable{assets, CellState::Empty};
 };

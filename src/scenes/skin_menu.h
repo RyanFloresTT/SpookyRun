@@ -1,11 +1,11 @@
 #pragma once
 #include "lantern/scene/scene.h"
 
-// Lets the player pick an alternate skin. The skin textures live in this scene's
-// AssetStore, so they're only loaded while the menu is open.
+// Lets the player pick an alternate skin. Every skin texture lives in this scene's
+// AssetScope, so they're only all loaded while the menu is open.
 class SkinMenu : public Scene {
 public:
-    explicit SkinMenu(AssetStore& asset_store) : Scene(asset_store) {}
+    explicit SkinMenu(AssetStore& asset_store);
 
     void Update(float) override;
     void Draw() override;

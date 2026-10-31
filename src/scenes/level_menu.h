@@ -4,7 +4,7 @@
 
 class LevelMenu : public Scene {
 public:
-    explicit LevelMenu(AssetStore& asset_store) : Scene(asset_store) {}
+    explicit LevelMenu(AssetStore& asset_store);
     void Enter() override;
     void Update(float) override;
     void Draw() override;

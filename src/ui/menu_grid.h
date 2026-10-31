@@ -17,6 +17,12 @@ namespace MenuGrid {
     inline constexpr int   VisibleRows = 3;
     inline constexpr Color Accent{226, 190, 92, 255};
 
+    inline void Preload(AssetScope& assets) {
+        assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+        assets.Load<Sound>(Assets::SFX::BUTTON_CLICK);
+        assets.Load<Texture2D>(Assets::UI::BUTTON_SQUARE_DEPTH_LINE);
+    }
+
     inline int FirstIndex(const int first_row) { return first_row * Columns; }
     inline int EndIndex(const int first_row, const int item_count) {
         return std::min(item_count, (first_row + VisibleRows) * Columns);

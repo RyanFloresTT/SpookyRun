@@ -9,8 +9,17 @@
 
 class Board {
 public:
-    explicit Board(AssetStore& assets, const CellState fill = CellState::Empty) : assets(assets) {
+    explicit Board(AssetScope& assets, const CellState fill = CellState::Empty) : assets(assets) {
         Reset(DefaultBoardSize, fill);
+    }
+
+    static void Preload(AssetScope& assets) {
+        Cell::Preload(assets);
+        for (const PieceType type : {PieceType::Rook, PieceType::Pawn, PieceType::Bishop, PieceType::Knight,
+                                     PieceType::Queen, PieceType::King}) {
+            assets.Load<Texture2D>(GetTexturePath(type));
+        }
+        assets.Load<Sound>(Assets::SFX::FOOTSTEP_CONCRETE_003);
     }
 
     void Reset(int size, const CellState fill = CellState::Empty) {
@@ -25,7 +34,7 @@ public:
         player_reached_end = false;
     }
 
-    AssetStore& GetAssets() const { return assets; }
+    const AssetScope& GetAssets() const { return assets; }
 
     int   GetSize() const { return static_cast<int>(cells.size()); }
     float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
@@ -174,7 +183,7 @@ private:
                 if (cell == CellState::Attack) cell = CellState::Empty;
     }
 
-    AssetStore&                         assets;
+    AssetScope&                         assets;
     std::vector<std::vector<CellState>> cells;
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*>                 pendingRemovals;

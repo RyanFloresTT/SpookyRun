@@ -10,6 +10,14 @@ namespace {
     constexpr int SkinCount = Skins::All.size();
 }
 
+SkinMenu::SkinMenu(AssetStore& asset_store) : Scene(asset_store) {
+    SceneVisuals::Preload(assets);
+    MenuGrid::Preload(assets);
+    for (const std::string_view skin : Skins::All) assets.Load<Texture2D>(skin);
+    assets.LoadAll<Texture2D>({Assets::UI::BUTTON_BG, Assets::Images::STAR, Assets::UI::TILE_0103});
+    assets.Load<Sound>(Assets::SFX::BUTTON_CLICK);
+}
+
 void SkinMenu::Update(float) {
     MenuGrid::Scroll(first_row, SkinCount);
 }

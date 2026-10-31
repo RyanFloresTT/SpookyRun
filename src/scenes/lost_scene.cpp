@@ -7,6 +7,15 @@
 #include "../ui/scene_visuals.h"
 #include "lantern/scene/scene_manager.h"
 
+LostScene::LostScene(AssetStore& asset_store, const int retryLevel) : Scene(asset_store), retry_level(retryLevel) {
+    SceneVisuals::Preload(assets);
+    assets.LoadAll<Texture2D>({
+        Assets::Images::ROOK, Assets::Images::BISHOP, Skins::Selected, Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE,
+    });
+    assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    assets.Load<Sound>(Assets::SFX::BUTTON_CLICK);
+}
+
 void LostScene::Draw() {
     constexpr Color accent{226, 133, 139, 255};
     const float center_x = GetScreenWidth() / 2.0f;

@@ -11,7 +11,12 @@
 
 class WinScene : public Scene {
 public:
-    explicit WinScene(AssetStore& asset_store) : Scene(asset_store) {}
+    explicit WinScene(AssetStore& asset_store) : Scene(asset_store) {
+        SceneVisuals::Preload(assets);
+        assets.LoadAll<Texture2D>({Assets::Images::STAR, Skins::Selected, Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE});
+        assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+        assets.Load<Sound>(Assets::SFX::BUTTON_CLICK);
+    }
 
     void Update(float) override {}
 

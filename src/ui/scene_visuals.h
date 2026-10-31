@@ -5,6 +5,15 @@
 #include "lantern/raii/asset_scope.h"
 
 namespace SceneVisuals {
+    inline void Preload(AssetScope& assets) {
+        assets.LoadAll<Texture2D>({
+            Assets::Images::WhiteFloors::FLOOR2, Assets::Images::TOP_WALL, Assets::Images::BOTTOM_WALL,
+            Assets::Images::LEFT_WALL, Assets::Images::RIGHT_WALL, Assets::Images::CORNER_BL,
+            Assets::Images::CORNER_BR,
+        });
+        assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    }
+
     inline void Sprite(const Texture2D& texture, const float center_x, const float y,
                        const float      size, const Color tint = WHITE) {
         const Rectangle source{0, 0, static_cast<float>(texture.width), static_cast<float>(texture.height)};

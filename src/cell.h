@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 #include "assets.h"
-#include "lantern/assets/asset_store.h"
+#include "lantern/raii/asset_scope.h"
 
 // Maybe player can configure this to help them out
 constexpr auto RedAttack = Color{255, 0, 0, 12};
@@ -22,13 +22,21 @@ struct CellInfo {
 
 class Cell {
 public:
+    static void Preload(AssetScope& assets) {
+        assets.LoadAll<Texture2D>({
+            Assets::Images::FLOOR_CORNER, Assets::Images::FLOOR_EDGE, Assets::Images::WhiteFloors::FLOOR2,
+            Assets::Images::CORNER_BL, Assets::Images::CORNER_BR, Assets::Images::LEFT_WALL,
+            Assets::Images::RIGHT_WALL, Assets::Images::TOP_WALL, Assets::Images::BOTTOM_WALL,
+        });
+    }
+
     static void DrawBGCell(const Texture2D& tex, const float px, const float py, const float tile_size, const float rotation = 0.f) {
         const Rectangle source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
         const Rectangle dest{px, py, tile_size, tile_size};
         DrawTexturePro(tex, source, dest, Vector2{0, 0}, rotation, WHITE);
     }
 
-    static void DrawCell(AssetStore& assets, const CellState state, const int x, const int y, const float tile_size) {
+    static void DrawCell(const AssetScope& assets, const CellState state, const int x, const int y, const float tile_size) {
         Rectangle bounds{x * tile_size, y * tile_size, tile_size, tile_size};
 
         const std::string_view floor_asset_path = x == 1 && y == 1 ? Assets::Images::FLOOR_CORNER :
@@ -40,15 +48,14 @@ public:
         if (rotation != 0.f) {
             bounds.y += tile_size;
         }
-        const std::shared_ptr<Texture2D> floor_asset = assets.Get<Texture2D>(floor_asset_path);
-        DrawBGCell(*floor_asset, bounds.x, bounds.y, tile_size, rotation);
+        DrawBGCell(assets.Get<Texture2D>(floor_asset_path), bounds.x, bounds.y, tile_size, rotation);
 
         if (state == CellState::Attack) {
             DrawRectangleRec(bounds, RedAttack);
         }
     }
 
-    static void DrawBorderCell(AssetStore& assets, const int x, const int y, const float tile_size, const int board_size) {
+    static void DrawBorderCell(const AssetScope& assets, const int x, const int y, const float tile_size, const int board_size) {
         const bool top = y == 0;
         const bool bottom = y == board_size - 1;
         const bool left = x == 0;
@@ -61,7 +68,6 @@ public:
                                    right ? Assets::Images::RIGHT_WALL :
                                    top ? Assets::Images::TOP_WALL : Assets::Images::BOTTOM_WALL;
 
-        const std::shared_ptr<Texture2D> wall_asset = assets.Get<Texture2D>(wall_path);
-        DrawBGCell(*wall_asset, x * tile_size, y * tile_size, tile_size);
+        DrawBGCell(assets.Get<Texture2D>(wall_path), x * tile_size, y * tile_size, tile_size);
     }
 };

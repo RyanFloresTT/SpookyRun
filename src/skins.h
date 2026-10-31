@@ -13,6 +13,6 @@ namespace Skins {
         Assets::Images::LADY,  Assets::Images::OLD_LADY,     Assets::Images::VIKING,
     };
 
-    // The player's chosen skin. Scenes load it into their own AssetStore when they draw the player.
+    // The player's chosen skin. Scenes load it into their own AssetScope when they draw the player.
     inline std::string_view Selected = Assets::Images::MONK;
 }

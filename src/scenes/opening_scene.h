@@ -12,14 +12,12 @@
 class OpeningScene : public Scene {
 public:
     explicit OpeningScene(AssetStore& asset_store) : Scene(asset_store) {
-        const std::vector textures_to_load = {
-            Assets::Images::WhiteFloors::FLOOR2, Assets::Images::ROOK, Assets::Images::BISHOP, Assets::Images::STAR, Skins::Selected,
-        };
-
-        const std::vector fonts_to_load = {Assets::Font::SUPPLY_CENTER_REGULAR};
-
-        assets.LoadAll<Texture2D>(textures_to_load);
-        assets.LoadAll<Font>(fonts_to_load);
+        SceneVisuals::Preload(assets);
+        assets.LoadAll<Texture2D>({
+            Assets::Images::WhiteFloors::FLOOR2, Assets::Images::ROOK, Assets::Images::BISHOP, Assets::Images::STAR,
+            Skins::Selected,
+        });
+        assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
     }
 
     void Update(float) override {

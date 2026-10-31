@@ -7,6 +7,14 @@
 #include "../ui/menu_grid.h"
 #include "../ui/scene_visuals.h"
 
+LevelMenu::LevelMenu(AssetStore& asset_store) : Scene(asset_store) {
+    SceneVisuals::Preload(assets);
+    MenuGrid::Preload(assets);
+    assets.LoadAll<Texture2D>({Assets::UI::BUTTON_BG, Assets::Images::STAR, Skins::Selected});
+    assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    assets.Load<Sound>(Assets::SFX::BUTTON_CLICK);
+}
+
 void LevelMenu::Enter() {
     level_count    = LevelManager::GetLevelCount();
     unlocked_count = LevelManager::LoadProgress();
