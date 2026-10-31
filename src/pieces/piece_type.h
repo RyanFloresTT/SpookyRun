@@ -1,16 +1,20 @@
 ﻿#pragma once
-#include "../raii/assets.h"
+
+#include <string_view>
+
+#include "../assets.h"
+#include "../skins.h"
 
 enum class PieceType { Rook, Pawn, Bishop, Knight, Queen, King };
 
-inline TextureAssets ToTextureAsset(const PieceType piece) {
+inline std::string_view GetTexturePath(const PieceType piece) {
     switch (piece) {
-    case PieceType::Rook: return TextureAssets::Rook;
-    case PieceType::Pawn: return TextureAssets::Player;
-    case PieceType::Bishop: return TextureAssets::Bishop;
-    case PieceType::Knight: return TextureAssets::Knight;
-    case PieceType::Queen: return TextureAssets::Queen;
-    case PieceType::King: return TextureAssets::King;
-    default: return TextureAssets::Rook;
+    case PieceType::Rook: return Assets::Images::ROOK;
+    case PieceType::Pawn: return Skins::Selected;
+    case PieceType::Bishop: return Assets::Images::BISHOP;
+    case PieceType::Knight: return Assets::Images::KNIGHT;
+    case PieceType::Queen: return Assets::Images::QUEEN;
+    case PieceType::King: return Assets::Images::KING;
+    default: return Assets::Images::ROOK;
     }
 }

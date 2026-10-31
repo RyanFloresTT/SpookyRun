@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "scene.h"
+#include "lantern/scene/scene.h"
 
 class LostScene : public Scene {
 public:
-    explicit LostScene(const int retryLevel) : retry_level(retryLevel) {}
+    LostScene(AssetStore& asset_store, int retryLevel);
 
     void Update(float) override {}
     void Draw() override;

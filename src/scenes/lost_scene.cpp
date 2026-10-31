@@ -1,33 +1,46 @@
 ﻿#include "lost_scene.h"
-#include "scene_manager.h"
 #include "level_menu.h"
 #include "opening_scene.h"
-#include "../config.h"
 #include "../levels/level_scene.h"
 #include "../ui/button.h"
+#include "../skins.h"
 #include "../ui/scene_visuals.h"
+#include "lantern/scene/scene_manager.h"
+
+LostScene::LostScene(AssetStore& asset_store, const int retryLevel) : Scene(asset_store), retry_level(retryLevel) {
+    SceneVisuals::Preload(assets);
+    assets.LoadAll<Texture2D>({
+        Assets::Images::ROOK, Assets::Images::BISHOP, Skins::Selected, Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE,
+    });
+    assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    assets.Load<Sound>(Assets::SFX::BUTTON_CLICK);
+}
 
 void LostScene::Draw() {
     constexpr Color accent{226, 133, 139, 255};
     const float center_x = GetScreenWidth() / 2.0f;
     const float height = static_cast<float>(GetScreenHeight());
-    SceneVisuals::Backdrop(accent);
-    SceneVisuals::Heading("You Lost!", accent);
+    SceneVisuals::Backdrop(assets, accent);
+    SceneVisuals::Heading(assets, "You Lost!", accent);
 
-    SceneVisuals::Sprite(TextureAssets::Rook, center_x - 112, height * 0.32f, 96);
-    SceneVisuals::Sprite(TextureAssets::Bishop, center_x + 112, height * 0.32f, 96);
-    SceneVisuals::Sprite(TextureAssets::Player, center_x, height * 0.37f, 88, Color{161, 161, 161, 255});
+    SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::ROOK), center_x - 112, height * 0.32f, 96);
+    SceneVisuals::Sprite(assets.Get<Texture2D>(Assets::Images::BISHOP), center_x + 112, height * 0.32f, 96);
+    SceneVisuals::Sprite(assets.Get<Texture2D>(Skins::Selected), center_x, height * 0.37f, 88, Color{161, 161, 161, 255});
     DrawLineEx(Vector2{center_x - 36, height * 0.48f}, Vector2{center_x + 36, height * 0.48f}, 3, accent);
 
+    const Font&      font       = assets.Get<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    const Sound&     click      = assets.Get<Sound>(Assets::SFX::BUTTON_CLICK);
+    const Texture2D& background = assets.Get<Texture2D>(Assets::UI::BUTTON_RECTANGLE_DEPTH_LINE);
+
     Rectangle r{center_x - 120, height * 0.55f, 240, 56};
-    if (UI::Button(r,"Try Again", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<Level>(retry_level);
+    if (UI::Button(font, click, r,"Try Again", 24, background)) scene_manager->GoTo<Level>(retry_level);
 
     r.y += height * 0.08f;
-    if (UI::Button(r,"Level Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<LevelMenu>();
+    if (UI::Button(font, click, r,"Level Menu", 24, background)) scene_manager->GoTo<LevelMenu>();
 
     r.y += height * 0.08f;
-    if (UI::Button(r,"Main Menu", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().GoTo<OpeningScene>();
+    if (UI::Button(font, click, r,"Main Menu", 24, background)) scene_manager->GoTo<OpeningScene>();
 
     r.y += height * 0.08f;
-    if (UI::Button(r,"Quit", 24, AssetManager::Get(TextureAssets::MenuButton))) SceneManager::Get().Quit();
+    if (UI::Button(font, click, r,"Quit", 24, background)) scene_manager->Quit();
 }

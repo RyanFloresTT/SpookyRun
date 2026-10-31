@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include <cmath>
+#include <string_view>
 #include <vector>
 
 #include "piece_type.h"
 #include "../cell.h"
-#include "../raii/assets.h"
 
 class Board;
 
@@ -40,12 +40,7 @@ public:
 
     void Draw() const;
 
-    static void DrawAsset(const TextureAssets asset, const float px, const float py, const float tile_size) {
-        const Texture2D& tex = AssetManager::Get(asset);
-        const Rectangle  source{0, 0, static_cast<float>(tex.width), static_cast<float>(tex.height)};
-        const Rectangle  dest{px, py, tile_size, tile_size};
-        DrawTexturePro(tex, source, dest, Vector2{0, 0}, 0.0f, WHITE);
-    }
+    void DrawAsset(std::string_view asset_path, const float px, const float py, const float tile_size) const;
 
 
     bool      IsAnimating() const { return is_moving; }
@@ -62,10 +57,9 @@ protected:
     float animation_timer  = 0.0f;
     float move_duration    = 0.15f; // seconds
     float seconds_per_tile = 0.15f;
-
     int                  current_patrol_index = 0;
-    std::vector<Vector2> patrol_sequence;
 
+    std::vector<Vector2> patrol_sequence;
     std::vector<Vector2> hit_squares;
 
 private:

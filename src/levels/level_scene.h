@@ -1,17 +1,23 @@
 ﻿#pragma once
 
-#include "../scenes/scene.h"
+#include "lantern/scene/scene.h"
 #include "../scenes/win_scene.h"
 #include "../cell.h"
 
 #include "level_manager.h"
+#include "../assets.h"
 #include "../board.h"
 #include "../scenes/lost_scene.h"
 #include "../ui/button.h"
+#include "../config.h"
 
 class Level : public Scene {
 public:
-    explicit Level(const int level) { this->level = level; }
+    explicit Level(AssetStore& asset_store, const int level) : Scene(asset_store), level(level) {
+        Board::Preload(assets);
+        assets.Load<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
+        assets.Load<Font>(Assets::Font::SUPPLY_CENTER_REGULAR);
+    }
 
     void Enter() override {
         LevelManager::LoadLevel(level, playable);
@@ -22,28 +28,28 @@ public:
         playable.Update(dt);
 
         if (playable.PlayerCaptured()) {
-            SceneManager::Get().GoTo<LostScene>(level);
+            scene_manager->GoTo<LostScene>(level);
         }
 
         if (IsKeyPressed(KEY_R)) {
-            SceneManager::Get().GoTo<Level>(level);
+            scene_manager->GoTo<Level>(level);
         }
 
         if (playable.check_player_win()) {
             LevelManager::SaveProgress(level + 1);
-            SceneManager::Get().GoTo<WinScene>();
+            scene_manager->GoTo<WinScene>();
         }
     }
 
-    static void DrawResetIcon() {
-        const Texture2D&    repeat_icon = AssetManager::Get(TextureAssets::RepeatIcon);
+    void DrawResetIcon() {
+        const Texture2D& repeat_icon = assets.Get<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
         constexpr Rectangle r{TotalBoardWidth - 55, TotalBoardWidth - 80, 50.f, 50.f};
         const Rectangle     source{0, 0, static_cast<float>(repeat_icon.width), static_cast<float>(repeat_icon.height)};
         DrawTexturePro(repeat_icon, source, r, Vector2{0, 0}, 0.f, WHITE);
     }
 
-    static void DrawResetText() {
-        UI::CenteredText(TotalBoardWidth - 75, TotalBoardWidth - 75, "R", 48, WHITE);
+    void DrawResetText() {
+        UI::CenteredText(assets.Get<Font>(Assets::Font::SUPPLY_CENTER_REGULAR), TotalBoardWidth - 75, TotalBoardWidth - 75, "R", 48, WHITE);
     }
 
     void Draw() override {
@@ -53,6 +59,6 @@ public:
     }
 
 private:
-    Board playable{CellState::Empty};
     int   level;
+    Board playable{assets, CellState::Empty};
 };

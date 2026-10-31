@@ -4,12 +4,22 @@
 #include <vector>
 
 #include "cell.h"
+#include "config.h"
 #include "pieces/piece_factory.h"
 
 class Board {
 public:
-    explicit Board(const CellState fill = CellState::Empty) {
+    explicit Board(AssetScope& assets, const CellState fill = CellState::Empty) : assets(assets) {
         Reset(DefaultBoardSize, fill);
+    }
+
+    static void Preload(AssetScope& assets) {
+        Cell::Preload(assets);
+        for (const PieceType type : {PieceType::Rook, PieceType::Pawn, PieceType::Bishop, PieceType::Knight,
+                                     PieceType::Queen, PieceType::King}) {
+            assets.Load<Texture2D>(GetTexturePath(type));
+        }
+        assets.Load<Sound>(Assets::SFX::FOOTSTEP_CONCRETE_003);
     }
 
     void Reset(int size, const CellState fill = CellState::Empty) {
@@ -23,6 +33,8 @@ public:
         playerCaptured = false;
         player_reached_end = false;
     }
+
+    const AssetScope& GetAssets() const { return assets; }
 
     int   GetSize() const { return static_cast<int>(cells.size()); }
     float GetTileSize() const { return static_cast<float>(TotalBoardWidth) / GetSize(); }
@@ -97,10 +109,10 @@ public:
             for (int x = 0; x < GetSize(); ++x) {
                 const CellState state = cells[y][x];
                 if (state == CellState::Border) {
-                    DrawBorderCell(x, y, GetTileSize(), GetSize());
+                    Cell::DrawBorderCell(assets, x, y, GetTileSize(), GetSize());
                     continue;
                 }
-                DrawCell(state, x, y, GetTileSize());
+                Cell::DrawCell(assets, state, x, y, GetTileSize());
             }
 
         draw_board_grid();
@@ -171,6 +183,7 @@ private:
                 if (cell == CellState::Attack) cell = CellState::Empty;
     }
 
+    AssetScope&                         assets;
     std::vector<std::vector<CellState>> cells;
     std::vector<std::unique_ptr<Piece>> pieces;
     std::vector<Piece*>                 pendingRemovals;

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 4.2)
 project(solojam CXX)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -13,10 +13,17 @@ FetchContent_MakeAvailable(json)
 FetchContent_Declare(raylib
         GIT_REPOSITORY https://github.com/raysan5/raylib.git
         GIT_TAG 5.5
-        GIT_SHALLOW TRUE
+        GIT_SHALLOW TRUEz
 )
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(raylib)
+
+FetchContent_Declare(
+        lantern
+        GIT_REPOSITORY https://github.com/RyanFloresTT/lantern.git
+        GIT_TAG lantern-v0.1.0
+)
+FetchContent_MakeAvailable(lantern)
 
 add_executable(solojam
         src/main.cpp
@@ -25,14 +32,9 @@ add_executable(solojam
         src/cell.h
         src/pieces/pawn.cpp
         src/pieces/pawn.h
-        src/scenes/scene.h
         src/scenes/opening_scene.h
         src/levels/level_scene.h
-        src/scenes/scene_manager.h
-        src/raii/window.h
-        src/raii/assets.h
         src/scenes/win_scene.h
-        src/scenes/scene_manager.cpp
         src/scenes/lost_scene.h
         src/pieces/rook.cpp
         src/pieces/piece.h
@@ -59,8 +61,13 @@ add_executable(solojam
         src/save/web_save_manager.cpp
         src/save/web_save_manager.h
         src/save/desktop_save_manager.h
+        src/assets.h
+        src/skins.h
+        src/ui/menu_grid.h
+        src/scenes/skin_menu.h
+        src/scenes/skin_menu.cpp
 )
-target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json)
+target_link_libraries(solojam PRIVATE raylib nlohmann_json::nlohmann_json lantern)
 
 if (EMSCRIPTEN)
     set_target_properties(solojam PROPERTIES SUFFIX ".html")
