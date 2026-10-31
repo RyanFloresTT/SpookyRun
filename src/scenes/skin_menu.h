@@ -11,7 +11,7 @@ public:
     void Draw() override;
 
 private:
-    void draw_skin_buttons() const;
+    void draw_skin_buttons();
 
     int first_row = 0;
 };

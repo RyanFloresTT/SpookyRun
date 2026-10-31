@@ -37,15 +37,15 @@ public:
         }
     }
 
-    void DrawResetIcon() const {
-        const Texture2D&    repeat_icon = *assets.Get<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
+    void DrawResetIcon() {
+        auto repeat_icon = assets.Get<Texture2D>(Assets::UI::ICON_REPEAT_OUTLINE);
         constexpr Rectangle r{TotalBoardWidth - 55, TotalBoardWidth - 80, 50.f, 50.f};
         const Rectangle     source{0, 0, static_cast<float>(repeat_icon.width), static_cast<float>(repeat_icon.height)};
         DrawTexturePro(repeat_icon, source, r, Vector2{0, 0}, 0.f, WHITE);
     }
 
-    void DrawResetText() const {
-        UI::CenteredText(assets, TotalBoardWidth - 75, TotalBoardWidth - 75, "R", 48, WHITE);
+    void DrawResetText() {
+        UI::CenteredText(assets.Get<Font>(Assets::Font::SUPPLY_CENTER_REGULAR), TotalBoardWidth - 75, TotalBoardWidth - 75, "R", 48, WHITE);
     }
 
     void Draw() override {
@@ -55,6 +55,6 @@ public:
     }
 
 private:
-    Board playable{assets, CellState::Empty};
+    Board playable{asset_store, CellState::Empty};
     int   level;
 };

@@ -6,7 +6,12 @@
 int main() {
     auto game = Game(920, 920, "Spooky Run", 60);
     AssetStore assets;
-    const Music& music = *assets.Get<Music>(Assets::Music::NASTELBOM_SPOKY_HALLOWEEN_617000);
+    auto scope = AssetScope(assets);
+
+    scope.Load<Music>(Assets::Music::NASTELBOM_SPOKY_HALLOWEEN_617000);
+    scope.Load<Texture2D>(Assets::Cursor::HAND_SMALL_POINT);
+
+    const Music& music = scope.Get<Music>(Assets::Music::NASTELBOM_SPOKY_HALLOWEEN_617000);
 
     PlayMusicStream(music);
     SetMusicVolume(music, 0.1f);
